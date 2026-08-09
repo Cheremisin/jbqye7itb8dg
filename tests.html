@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex,nofollow">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Профориентация — Образование</title>
+<link rel="stylesheet" href="assets/css/style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎓</text></svg>">
+<style>
+.res{display:flex;align-items:center;gap:10px;margin:7px 0}
+.res .lb{min-width:190px;font-size:14px}
+.res .rb{flex:1;height:22px;background:var(--bg3);border-radius:6px;overflow:hidden}
+.res .rb i{display:block;height:100%;border-radius:6px;transition:width .5s}
+.res .vl{min-width:44px;text-align:right;font-variant-numeric:tabular-nums;font-weight:600;font-size:14px}
+.scale{display:flex;justify-content:space-between;font-size:11.5px;color:var(--tx3);margin-top:6px}
+</style>
+</head>
+<body>
+<main class="wrap">
+  <h1>Профориентация</h1>
+  <p class="lead">Два интерактивных опросника для {{Ug}}, наблюдательный чек-лист для {{Yg}} и честный разбор того, что тесты умеют, а что нет. Ответы сохраняются в браузере.</p>
+
+  <div class="note warn">
+    <p><b>Главная оговорка, без которой всё остальное вредно.</b> Ни один профориентационный тест не предсказывает профессиональный <i>успех</i>. RIASEC и подобные методики предсказывают <i>удовлетворённость</i> и устойчивость выбора; тесты способностей (Амтхауэр, Равен, Беннет) — способности; Big Five — стиль работы. Правильное применение: <b>тест = материал для сорокаминутного разговора, а не вердикт</b>. Прогоняйте две-три методики разных типов и ищите пересечения.</p>
+    <p class="mb0"><b>И отдельно про {{Yg}}.</b> Профориентационное тестирование в 10 лет научно бессмысленно: устойчивость профессиональных интересов до 12–13 лет крайне низкая, а профессиональные представления в этом возрасте фантазийны. Любой «профтест для 10 лет» на коммерческом сайте — маркетинг. Работающий инструмент — широкие пробы плюс структурированное наблюдение родителя.</p>
+  </div>
+
+  <div class="toc"><a href="#riasec">Тест RIASEC ({{U}})</a><a href="#profile">Тест «Профиль» ({{U}})</a><a href="#observe">Чек-лист наблюдения ({{Y}})</a><a href="#probes">Пробы важнее тестов</a><a href="#valid">Валидные методики</a><a href="#myths">Что не работает</a></div>
+
+  <h2 id="riasec">Тест RIASEC — типология Голланда</h2>
+  <p class="sm">36 утверждений, около 7 минут. Это скрининговая адаптация, а не лицензионная методика: она нужна, чтобы начать разговор, а не чтобы поставить диагноз. Отвечайте <b>про то, что вам нравится делать</b>, а не про то, что у вас хорошо получается или что считается престижным.</p>
+  <div id="t-riasec"></div>
+
+  <h2 id="profile">Тест «Профиль» — какие предметы тянуть углублённо</h2>
+  <p class="sm">24 утверждения, около 5 минут. В отличие от RIASEC этот опросник отвечает на прикладной вопрос: <b>какие предметы имеет смысл углублять в 10–11 классе и какие олимпиады выбирать</b>. Результат — три ведущих направления с конкретными вузами и олимпиадами.</p>
+  <div id="t-profile"></div>
+
+  <h2 id="observe">Чек-лист наблюдения за {{Yi}}</h2>
+  <p class="sm">Заполняет <b>родитель</b>, а не ребёнок, по наблюдениям за последние 2–3 месяца. Это ранняя, ещё не профессиональная форма типологии: четыре оси предпочтений. Результат не говорит «кем быть» — он говорит, <b>какие пробы подобрать следующими</b> и в какой форме подавать занятия.</p>
+  <div id="t-observe"></div>
+
+  <h2 id="probes">Почему пробы информативнее тестов</h2>
+  <div class="grid g2">
+    <div class="card">
+      <h3 class="mt0">Механика</h3>
+      <p class="sm mt0">Тест спрашивает «что тебе кажется интересным» — ответ строится на <i>воображаемом образе</i> профессии. Проба показывает поведение в реальных условиях: выдерживает ли ребёнок рутину, переносит ли неудачу, возвращается ли добровольно. Это поведенческие данные, а не самоотчёт: они не подвержены социальной желательности и не зависят от осведомлённости.</p>
+      <p class="sm mb0">Отечественная традиция (С. Н. Чистякова) называет это <b>профессиональной пробой</b>: завершённый цикл деятельности с осязаемым продуктом и рефлексией. Проба всегда трёхкомпонентна — умеешь ли (технологический), справляешься ли с условиями (ситуативный), нравится ли процесс (функциональный).</p>
+    </div>
+    <div class="card">
+      <h3 class="mt0">Правило четырёх сигналов</h3>
+      <p class="sm mt0">После каждой пробы фиксируйте:</p>
+      <ol class="sm">
+        <li><b>Добровольный возврат.</b> Просит повторить без напоминания? — сильнейший сигнал</li>
+        <li><b>Поведение при трудности.</b> Бросает при первом сбое или начинает копать?</li>
+        <li><b>Разговор вне занятия.</b> Пересказывает за ужином, ищет дополнительное?</li>
+        <li><b>Продукт.</b> Довёл ли до конца хоть что-то, что можно показать?</li>
+      </ol>
+      <p class="sm mb0">Три «да» из четырёх на протяжении трёх и более месяцев = направление рабочее.</p>
+    </div>
+    <div class="card y">
+      <h3 class="mt0">Форматы проб для {{Yg}} (10 лет)</h3>
+      <p class="sm mt0">Задача — <b>широта</b>, не глубина. Норма: 3–4 разнородные пробы в год, каждая 6–10 недель.</p>
+      <ul class="sm clean">
+        <li>Кружок в Кванториуме или IT-кубе — робототехника, VR, промдизайн, аэро. Бесплатно</li>
+        <li>Микро-проект «сделай и покажи» — 2 недели, конечный продукт: схема, программа на Scratch, гербарий с определителем, снятое видео</li>
+        <li>«День с профессионалом» — полдня в лаборатории, мастерской, редакции. Требование: ребёнок должен что-то <b>делать</b>, а не смотреть</li>
+        <li>Соревнования начального уровня — «Кенгуру», олимпиада «Плюс», школьный этап ВсОШ по математике</li>
+        <li>Домашние наборы: электронный конструктор, микроскоп, набор для химии. Ценность в том, что <b>бросить их не стыдно</b> — это чистый сигнал интереса</li>
+        <li><b>Обязательно</b> один спорт и одно художественное направление — контрольный блок широты</li>
+      </ul>
+    </div>
+    <div class="card u">
+      <h3 class="mt0">Форматы проб для {{Ug}} (15 лет)</h3>
+      <p class="sm mt0">Задача — <b>глубина и проверка гипотезы</b> перед выбором профиля. Норма: 1–2 глубокие пробы в год по 3–6 месяцев.</p>
+      <ul class="sm clean">
+        <li><b>«Сириус.Лето: начни свой проект»</b> — реальная задача от компании или вуза с наставником-студентом. Бесплатно. Лучший в РФ формат пробы исследовательской работы</li>
+        <li><b>НТО</b> — командная инженерная задача с реальным железом и кодом. Одновременно проба и льгота (БВИ или 100 баллов)</li>
+        <li><b>«Билет в будущее»</b> — очные профпробы в колледжах и на предприятиях, через школу</li>
+        <li>Проектная смена «Большие вызовы» в Сириусе — научная работа с индустриальным партнёром, июль</li>
+        <li>Учебно-исследовательская работа при вузе — через Дома научной коллаборации</li>
+        <li>Волонтёрство в лаборатории, больнице, IT-компании, музее</li>
+        <li><b>Участие в перечневой олимпиаде по предполагаемому профилю.</b> Даже неудачное участие даёт калибровку: понятен реальный уровень и цена входа</li>
+      </ul>
+    </div>
+  </div>
+  <div class="note">
+    <p class="mb0"><b>Стоп-правило.</b> Проба не должна превращаться в обязанность. Договорённость заранее: «доводим до конца один цикл — до продукта, — потом свободно решаем, продолжаем или нет». Без этого правила вы получите не данные об интересах, а данные о послушании.</p>
+  </div>
+
+  <h2 id="valid">Валидные методики: что стоит пройти дополнительно</h2>
+  <div class="tw"><table>
+  <thead><tr><th>Методика</th><th>Возраст</th><th>Что измеряет</th><th>Обоснованность</th><th>Где бесплатно</th></tr></thead>
+  <tbody>
+  <tr><td><b>Голланд / RIASEC</b></td><td>14+</td><td>6 типов профессиональной среды и личности</td><td style="color:var(--ok)">Высокая структурная; хорошо предсказывает удовлетворённость, слабо — успех</td><td><a href="https://psytests.org/typo/riasecO.html" target="_blank" rel="noopener">psytests.org</a></td></tr>
+  <tr><td><b>Тест Беннета</b></td><td>14+</td><td>Механическая понятливость, техническое мышление</td><td style="color:var(--ok)">Высокая для инженерных направлений</td><td><a href="https://psytests.org/iq/bennett.html" target="_blank" rel="noopener">psytests.org</a></td></tr>
+  <tr><td><b>Амтхауэр (TSI)</b></td><td>12+</td><td>Структура интеллекта: вербальный, счётно-математический, пространственный, память</td><td style="color:var(--ok)">Высокая. Лучший доступный инструмент для развилки «физмат или гуманитарное». Требует психолога</td><td><a href="https://psylist.net/praktikum/22.htm" target="_blank" rel="noopener">psylist.net</a></td></tr>
+  <tr><td><b>Матрицы Равена (CPM)</b></td><td>5–11 лет</td><td>Невербальный флюидный интеллект</td><td style="color:var(--ok)">Высокая. <b>Подходит {{Yd}}</b> — помогает калибровать нагрузку</td><td><a href="https://psytests.org/iq/ravens.html" target="_blank" rel="noopener">psytests.org</a></td></tr>
+  <tr><td><b>Big Five (BFI-2)</b></td><td>14+ · детский вариант BFQ-C 10–15</td><td>5 факторов личности; добросовестность и открытость опыту — предикторы учебной успешности</td><td style="color:var(--ok)">Самая высокая из личностных</td><td><a href="https://cyberleninka.ru/article/n/adaptatsiya-russkoyazychnoy-versii-oprosnika-bolshaya-pyaterka-detskiy-variant" target="_blank" rel="noopener">КиберЛенинка</a></td></tr>
+  <tr><td>Карта интересов Голомштока</td><td>14+</td><td>29 сфер интересов</td><td style="color:var(--warn)">Средняя. Устаревший список профессий, но широкий охват</td><td><a href="https://psytests.org/work/mapG.html" target="_blank" rel="noopener">psytests.org</a></td></tr>
+  <tr><td>ДДО Климова</td><td>14+</td><td>5 типов: человек–техника / природа / знак / образ / человек</td><td style="color:var(--warn)">Низкая–средняя. Советская методика без современных норм. Годится как повод для разговора</td><td>PDF в открытом доступе</td></tr>
+  </tbody></table></div>
+
+  <h3>Государственные и профессиональные площадки</h3>
+  <div class="grid g3">
+    <div class="card"><h3 class="mt0" style="font-size:16px"><a href="https://bvbinfo.ru/" target="_blank" rel="noopener">«Билет в будущее»</a></h3><p class="sm mb0">Бесплатно, 6–11 класс, через школу. Диагностика + <b>очные профессиональные пробы</b> на базе колледжей, вузов и предприятий. Требуйте именно очные пробы, а не только онлайн-тесты — в них вся ценность.</p></div>
+    <div class="card"><h3 class="mt0" style="font-size:16px"><a href="https://proforientator.ru/" target="_blank" rel="noopener">ЦТР «Гуманитарные технологии» (МГУ)</a></h3><p class="sm mb0">Методологически самый сильный центр в РФ: способности + интересы + личность, с нормами. Есть бесплатные мини-тесты; полная батарея с двухчасовой консультацией — платно. Если платить за одну диагностику — за эту.</p></div>
+    <div class="card"><h3 class="mt0" style="font-size:16px"><a href="https://fdp.hse.ru/" target="_blank" rel="noopener">Профтест ВШЭ</a></h3><p class="sm mb0">Бесплатно, ~15 минут. Подбирает конкретные бакалаврские программы ВШЭ и даёт доступ к предметным тестам для подготовки. Полезен с 8–9 класса.</p></div>
+  </div>
+
+  <h2 id="myths">Что использовать не стоит</h2>
+  <div class="grid g2">
+    <div class="card">
+      <h3 class="mt0">Теория множественного интеллекта Гарднера</h3>
+      <p class="sm mt0">Восемь «интеллектов» популярны в школах, но теория <b>не имеет эмпирического подтверждения</b>: нет валидных инструментов измерения, факторный анализ не воспроизводит независимость «интеллектов», а корреляции между ними объясняются общим фактором g. В обзоре 2023 года во <i>Frontiers in Psychology</i> она прямо классифицирована как нейромиф.</p>
+      <p class="sm mb0">Практически: не стройте на этом образовательную программу ребёнка.</p>
+    </div>
+    <div class="card">
+      <h3 class="mt0">«Стили обучения» — визуал, аудиал, кинестетик</h3>
+      <p class="sm mt0">Тоже развенчано. Подбор «канала восприятия» под ребёнка не даёт прироста результатов. Что действительно работает — соответствие формата <i>содержанию</i>, а не «типу ученика»: карту лучше показать, определение — проговорить, механизм — собрать руками, независимо от того, кто перед вами.</p>
+      <p class="sm mb0">Аналогично осторожно с «правилом 10 000 часов»: это популяризация Гладуэлла, а не тезис Эрикссона. Осознанная практика объясняет 21% разброса результатов в музыке, 18% в спорте и <b>лишь 4% в образовании</b> (мета-анализ Macnamara et al., 2014). Качество часа важнее количества часов — и это эмпирически, а не морализаторски.</p>
+    </div>
+  </div>
+</main>
+
+<script src="data/tests.js"></script>
+<script src="data/config.js"></script>
+<script src="assets/js/app.js"></script>
+<script>
+const SCALE = ['Совсем нет','Скорее нет','Средне','Скорее да','Точно да'];
+
+function buildTest({key, items, types, mount, colorOf, resultRender}){
+  const box = $(mount);
+  const saved = Store.get('tests.'+key, {});
+  const answers = {...saved};
+
+  const startBtn = el('button',{class:'btn'},'Пройти тест');
+  const resetBtn = el('button',{class:'btn sec'},'Сбросить ответы');
+  const qbox = el('div',{class:'hide'});
+  const rbox = el('div',{});
+  const bar  = el('div',{class:'bar'}, el('i',{style:'width:0%'}));
+  const cnt  = el('div',{class:'xs muted'});
+
+  items.forEach(([t,text],i)=>{
+    const q = el('div',{class:'q'},
+      el('div',{}, el('b',{},(i+1)+'. '), text),
+      el('div',{class:'opts'}, SCALE.map((s,v)=>{
+        const o = el('div',{class:'opt'+(answers[i]===v?' on':'')}, s);
+        o.addEventListener('click',()=>{
+          answers[i]=v;
+          [...o.parentNode.children].forEach(x=>x.classList.remove('on'));
+          o.classList.add('on');
+          Store.set('tests.'+key, answers);
+          upd();
+        });
+        return o;
+      })));
+    qbox.append(q);
+  });
+
+  function upd(){
+    const n = Object.keys(answers).length;
+    bar.querySelector('i').style.width = (n/items.length*100)+'%';
+    cnt.textContent = `Отвечено ${n} из ${items.length}`;
+    rbox.innerHTML='';
+    if(n < items.length){
+      if(n>0) rbox.append(el('p',{class:'sm muted'},'Результат появится, когда ответите на все утверждения.'));
+      return;
+    }
+    // scoring
+    const raw={}, max={};
+    Object.keys(types).forEach(t=>{raw[t]=0;max[t]=0;});
+    items.forEach(([t],i)=>{ raw[t]+=(answers[i]||0); max[t]+=4; });
+    const pct = Object.fromEntries(Object.keys(types).map(t=>[t, Math.round(raw[t]/max[t]*100)]));
+    const order = Object.keys(types).sort((a,b)=>pct[b]-pct[a]);
+    rbox.append(el('h3',{},'Результат'));
+    order.forEach(t=>{
+      rbox.append(el('div',{class:'res'},
+        el('div',{class:'lb'}, types[t].n),
+        el('div',{class:'rb'}, el('i',{style:`width:${pct[t]}%;background:${colorOf(t)}`})),
+        el('div',{class:'vl'}, pct[t]+'%')));
+    });
+    rbox.append(resultRender(order, pct));
+    rbox.append(el('p',{class:'xs muted',style:'margin-top:14px'},'Ответы сохранены в этом браузере. Пройдите тест повторно через 6–12 месяцев и сравните — устойчивость профиля важнее его конкретного вида.'));
+  }
+
+  startBtn.addEventListener('click',()=>{ qbox.classList.toggle('hide'); startBtn.textContent = qbox.classList.contains('hide')?'Показать вопросы':'Скрыть вопросы'; });
+  resetBtn.addEventListener('click',()=>{ if(!confirm('Сбросить ответы этого теста?')) return; Object.keys(answers).forEach(k=>delete answers[k]); Store.set('tests.'+key,{}); $$('.opt',qbox).forEach(o=>o.classList.remove('on')); upd(); });
+
+  box.append(el('div',{class:'card'},
+    el('div',{style:'display:flex;gap:8px;flex-wrap:wrap;align-items:center'}, startBtn, resetBtn),
+    bar, cnt), qbox, rbox);
+  if(Object.keys(answers).length) { qbox.classList.remove('hide'); startBtn.textContent='Скрыть вопросы'; }
+  upd();
+}
+
+document.addEventListener('DOMContentLoaded',()=>{
+  const RC = {R:'#f7a072',I:'#7aa2f7',A:'#a78bfa',S:'#5ec27a',E:'#e3b341',C:'#f07178'};
+
+  buildTest({
+    key:'riasec', items:RIASEC_ITEMS, types:RIASEC_TYPES, mount:'#t-riasec',
+    colorOf:t=>RC[t],
+    resultRender:(order)=>{
+      const box=el('div',{});
+      const code = order.slice(0,3).join('');
+      box.append(el('div',{class:'note ok'},
+        el('p',{},el('b',{},'Ваш трёхбуквенный код: '+code+'. '),
+          'В типологии Голланда значение имеет именно комбинация первых трёх типов, а не один ведущий. Сочетание задаёт, в какой среде человеку комфортно работать.')));
+      order.slice(0,3).forEach((t,i)=>{
+        const T=RIASEC_TYPES[t];
+        box.append(el('div',{class:'card',style:'margin-bottom:10px;border-left:3px solid '+RC[t]},
+          el('h3',{class:'mt0'}, (i+1)+'. '+T.n+' — '+T.t),
+          el('p',{class:'sm'}, T.d),
+          el('p',{class:'sm mb0'}, el('b',{},'Типичные роли: '), T.prof)));
+      });
+      box.append(el('div',{class:'note'},
+        el('p',{},el('b',{},'Как использовать результат. '),'Не как ответ на вопрос «кем быть». Сядьте вдвоём на 40 минут и обсудите три вещи: (1) Узнаёт ли себя {{U}} в описании первых трёх типов — и в чём именно не узнаёт? (2) Какие конкретные занятия за последний год давали ощущение «время пролетело»? (3) Совпадает ли код с результатом теста «Профиль» ниже — и если нет, где именно расхождение?'),
+        el('p',{class:'mb0'},'Расхождение между «нравится» (RIASEC) и «могу и хочу учить» (тест «Профиль») — самая полезная информация из обоих тестов. Именно её и надо обсуждать.')));
+      return box;
+    }
+  });
+
+  buildTest({
+    key:'profile', items:PROFILE_ITEMS, types:PROFILE_DIRS, mount:'#t-profile',
+    colorOf:t=>PROFILE_DIRS[t].c,
+    resultRender:(order,pct)=>{
+      const box=el('div',{});
+      box.append(el('p',{class:'sm muted'},'Ниже — три ведущих направления с конкретными предметами ЕГЭ, вузами и олимпиадами. Это не рекомендация «идти туда», а рабочая гипотеза, которую надо проверить пробами.'));
+      order.slice(0,3).forEach((t,i)=>{
+        const D=PROFILE_DIRS[t];
+        box.append(el('div',{class:'card',style:'margin-bottom:12px;border-left:3px solid '+D.c},
+          el('h3',{class:'mt0'}, (i+1)+'. '+D.n+' — '+pct[t]+'%'),
+          el('p',{class:'sm'}, D.d),
+          el('p',{class:'sm',style:'margin:6px 0'}, el('b',{},'Предметы: '), D.subj),
+          el('p',{class:'sm',style:'margin:6px 0'}, el('b',{},'Вузы: '), D.vuz),
+          el('p',{class:'sm mb0'}, el('b',{},'Олимпиады: '), D.ol)));
+      });
+      const low = order[order.length-1];
+      box.append(el('div',{class:'note warn'},
+        el('p',{class:'mb0'}, el('b',{},'Что делать дальше. '),
+          'Выберите из первого направления ОДНУ олимпиаду и ОДИН курс на Сириус.Курсы и пройдите их до конца сезона. Проба важнее теста: реальное участие покажет то, чего опросник показать не может — выдерживает ли {{U}} рутину подготовки, возвращается ли к предмету добровольно и как переносит неудачу. Направление «'+PROFILE_DIRS[low].n+'» набрало меньше всего — это не значит «не способна», это значит «не тянет», и его можно спокойно не грузить.')));
+      return box;
+    }
+  });
+
+  /* ---- observation checklist ---- */
+  (function(){
+    const key='observe';
+    const saved = Store.get('tests.'+key,{});
+    const box=$('#t-observe');
+    const list=el('div',{class:'card'});
+    const res=el('div',{});
+    OBSERVE_ITEMS.forEach(([ax,sign,text],i)=>{
+      const row=el('div',{class:'q',style:'padding:12px'},
+        el('div',{}, el('b',{},(i+1)+'. '), text),
+        el('div',{class:'opts'}, ['Нет','Иногда','Да'].map((s,v)=>{
+          const o=el('div',{class:'opt'+(saved[i]===v?' on':'')},s);
+          o.addEventListener('click',()=>{
+            saved[i]=v; [...o.parentNode.children].forEach(x=>x.classList.remove('on')); o.classList.add('on');
+            Store.set('tests.'+key,saved); draw();
+          });
+          return o;
+        })));
+      list.append(row);
+    });
+    function draw(){
+      res.innerHTML='';
+      const n=Object.keys(saved).length;
+      if(n<OBSERVE_ITEMS.length){ res.append(el('p',{class:'sm muted'},`Отмечено ${n} из ${OBSERVE_ITEMS.length}. Результат появится после заполнения всех пунктов.`)); return; }
+      const sc={}; Object.keys(OBSERVE_AXES).forEach(a=>sc[a]=0);
+      OBSERVE_ITEMS.forEach(([ax,sign],i)=>{ sc[ax]+= sign*(saved[i]||0); });
+      res.append(el('h3',{},'Профиль предпочтений'));
+      Object.entries(OBSERVE_AXES).forEach(([k,A])=>{
+        const v=sc[k]; const p=Math.round((v+8)/16*100);
+        res.append(el('div',{class:'res'},
+          el('div',{class:'lb',style:'text-align:right'}, A.a),
+          el('div',{class:'rb',style:'position:relative'},
+            el('i',{style:`width:${p}%;background:var(--y)`}),
+            el('span',{style:'position:absolute;left:50%;top:0;bottom:0;width:1px;background:var(--tx3)'})),
+          el('div',{class:'lb',style:'min-width:110px'}, A.b)));
+        res.append(el('div',{class:'xs muted',style:'margin:-4px 0 10px 200px'}, A.d));
+      });
+      const tips=[];
+      if(sc.hands<0) tips.push('Предпочитает работу руками — подбирайте пробы с осязаемым продуктом: робототехника, конструирование, лаборатория, мастерская. Абстрактные объяснения давайте после того, как что-то собрано и работает.');
+      if(sc.hands>0) tips.push('Предпочитает работу в голове — подойдут математические кружки, головоломки, программирование. Но обязательно добавьте один «руками» блок для контроля широты: иначе вы не отличите склонность от привычки.');
+      if(sc.solo<0) tips.push('Восстанавливается в одиночестве — не перегружайте групповыми форматами, но одно командное занятие (спорт, НТО Юниоры) нужно как тренировка навыка, а не как отдых.');
+      if(sc.solo>0) tips.push('Заряжается от группы — командные кружки, олимпиады с командным этапом, совместные проекты будут работать лучше индивидуальных занятий.');
+      if(sc.rules<0) tips.push('Нужна структура — чёткие правила, предсказуемое расписание, понятные критерии «сделано». Внезапные изменения плана обходятся дороже, чем кажется.');
+      if(sc.rules>0) tips.push('Нужен простор — быстро скучает от повторяющихся упражнений. Открытые задачи и проекты без единственного правильного ответа удержат внимание лучше тренажёров.');
+      if(sc.obj<0) tips.push('Тяга к знаковым системам — числа, схемы, карты, коды. Это ранний сигнал в пользу математики и программирования.');
+      if(sc.obj>0) tips.push('Тяга к живому и людям — биология, наблюдение за природой, работа в паре. Это ранний сигнал в пользу естественно-научного или помогающего направления.');
+      res.append(el('h3',{},'Что из этого следует'));
+      const ul=el('ul',{class:'clean sm'});
+      tips.forEach(t=>ul.append(el('li',{},t)));
+      res.append(el('div',{class:'card'},ul));
+      res.append(el('div',{class:'note warn'},el('p',{class:'mb0'},
+        el('b',{},'Ограничение. '),'Это описание предпочтений на сегодня, а не прогноз. В 10 лет профиль может заметно измениться за год. Перезаполняйте чек-лист раз в полгода и сравнивайте — интереснее не результат, а его сдвиг. И помните: наблюдение всегда должно проверяться пробой, а не заменять её.')));
+    }
+    box.append(el('div',{class:'note'},el('p',{class:'mb0'},'Отвечайте по фактам поведения за последние 2–3 месяца, а не по тому, каким вы хотели бы видеть {{Yg}}. Если по пункту нет наблюдений — ставьте «Иногда».')), list, res);
+    draw();
+  })();
+});
+</script>
+</body>
+</html>

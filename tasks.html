@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Задания — Образование</title>
+<link rel="stylesheet" href="assets/css/style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎓</text></svg>">
+<style>
+.wk{background:var(--bg2);border:1px solid var(--line);border-radius:var(--r);margin-bottom:14px;overflow:hidden}
+.wk>summary{padding:14px 18px;cursor:pointer;list-style:none;display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.wk>summary::-webkit-details-marker{display:none}
+.wk>summary::before{content:'▸';color:var(--tx3);font-size:15px;transition:transform .2s}
+.wk[open]>summary::before{transform:rotate(90deg)}
+.wk .num{width:30px;height:30px;flex-shrink:0;border-radius:50%;background:var(--bg3);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px}
+.wk .ttl{font-weight:600;flex:1;min-width:180px}
+.wk .body{padding:0 18px 18px;border-top:1px solid var(--line);margin-top:2px;padding-top:14px}
+.pr{background:var(--bg3);border-radius:10px;padding:14px 16px;margin:12px 0}
+.pr .qq{font-size:15px}
+.pr details{background:transparent;border:0;border-top:1px dashed var(--line);border-radius:0;margin:10px 0 0;padding:10px 0 0}
+.pr details summary{font-size:13.5px;color:var(--tx2)}
+.pr details[open] summary{color:var(--tx)}
+.pr pre{background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:10px;overflow-x:auto;font-size:12.5px;line-height:1.5}
+.tabs{display:flex;gap:6px;flex-wrap:wrap;margin:18px 0 14px}
+.tab{padding:9px 16px;border-radius:10px;border:1px solid var(--line);background:var(--bg2);cursor:pointer;font-size:14px;font-weight:600}
+.tab:hover{border-color:var(--u)}
+.tab.on{background:var(--u);color:#fff;border-color:var(--u)}
+.tab.on.yy{background:var(--y);border-color:var(--y)}
+</style>
+</head>
+<body>
+<main class="wrap">
+  <h1>Недельные наборы заданий</h1>
+  <p class="lead">Восемь недель на сентябрь и октябрь 2026. Задачи авторские, с подсказками и полными разборами. Отметки о выполнении сохраняются в браузере.</p>
+
+  <div class="note">
+    <p><b>Как устроены наборы.</b> Они собраны по трём приёмам с доказанной эффективностью. <b>Чередование:</b> темы не идут блоками — каждая неделя возвращает к теме трёх-четырёхнедельной давности, потому что при одинаковом объёме работы чередующаяся практика даёт 61% усвоения против 37% у блочной. <b>Активное припоминание:</b> в конце недели контрольный вопрос без подглядывания. <b>Распределённая практика:</b> интервал возврата к теме — около месяца, а не неделя; при подготовке с горизонтом в годы частые повторы избыточны.</p>
+    <p class="mb0"><b>Правило подсказок.</b> Сначала 20 минут своей борьбы и записанная попытка. Потом можно открыть подсказку. Разбор открывается только после того, как решение записано на бумаге — даже неправильное. Порядок «прочитал разбор → понял → пошёл дальше» создаёт иллюзию знания и почти не оставляет следа.</p>
+  </div>
+
+  <div class="tabs" id="tabs"></div>
+  <div id="out"></div>
+
+  <h2>Что делать, если не получается</h2>
+  <div class="grid g3">
+    <div class="card"><h3 class="mt0">Не решается 20 минут</h3><p class="sm mb0">Это нормальный режим работы, а не сбой. Открой подсказку, но не разбор. Если и после подсказки нет движения — отложи до завтра: значительная часть решений приходит после перерыва, и это не метафора, а свойство памяти.</p></div>
+    <div class="card"><h3 class="mt0">Решил, но не уверен</h3><p class="sm mb0">Проверь ответ на малых значениях или здравым смыслом (в задаче про смешивание растворов ответ обязан лежать между 10% и 20%). Такая проверка занимает секунды и ловит большинство арифметических ошибок.</p></div>
+    <div class="card"><h3 class="mt0">Прочитал разбор и всё понятно</h3><p class="sm mb0">Самая опасная ситуация. Закрой экран и запиши решение своими словами с нуля. Не получилось — значит, ты его прочитал, а не понял. Через неделю вернись к этой задаче ещё раз.</p></div>
+  </div>
+
+  <div class="note warn">
+    <p class="mb0"><b>Про ИИ в этих наборах.</b> Разбор задачи с ИИ разрешён и полезен — но только в режиме «подскажи следующий один шаг», а не «покажи решение». Готовый промпт для этого — <a href="ai.html#prompts">№1 на странице «ИИ в учёбе»</a>. Категорически не работает: сфотографировать условие и получить ответ. В этом режиме решается задача, но не тренируется человек.</p>
+  </div>
+</main>
+
+<script src="data/tasks.js"></script>
+<script src="data/config.js"></script>
+<script src="assets/js/app.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded',()=>{
+  const SETS = ['younger','elder_core','elder_a','elder_b'];
+  const tabs=$('#tabs'), out=$('#out');
+  let cur = location.hash.replace('#','') || 'elder_core';
+  if(!SETS.includes(cur)) cur='elder_core';
+
+  SETS.forEach(k=>{
+    const T=TASKS[k];
+    const t=el('div',{class:'tab'+(k===cur?' on':'')+(T.who==='y'?' yy':'')}, T.title);
+    t.addEventListener('click',()=>{ cur=k; history.replaceState(null,'','#'+k); render(); });
+    tabs.append(t);
+  });
+
+  function render(){
+    $$('.tab',tabs).forEach((t,i)=>t.classList.toggle('on',SETS[i]===cur));
+    const T=TASKS[cur];
+    out.innerHTML='';
+    out.append(el('h2',{style:'margin-top:6px'}, T.title, ' ', el('span',{class:'b '+T.who}, T.sub)));
+    out.append(el('p',{class:'sm'}, T.intro));
+
+    const ids=[];
+    T.weeks.forEach(w=>{ w.items.forEach((_,i)=>ids.push(`tk.${cur}.${w.n}.${i}`)); });
+    out.append(progressBar(ids));
+
+    T.weeks.forEach(w=>{
+      const body=el('div',{class:'body'});
+      body.append(el('p',{class:'sm muted',style:'margin-top:0'}, w.goal?el('span',{},el('b',{},'Цель недели: '), w.goal):null));
+      w.items.forEach((it,i)=>{
+        const id=`tk.${cur}.${w.n}.${i}`;
+        const done=Store.get('tasks.'+id,false);
+        const cb=el('input',{type:'checkbox',id:'c_'+id,...(done?{checked:'checked'}:{})});
+        const box=el('div',{class:'pr'},
+          el('div',{style:'display:flex;gap:10px;align-items:flex-start'}, cb,
+            el('label',{for:'c_'+id,class:'qq',style:'cursor:pointer;flex:1'+(done?';opacity:.55':'')}, el('span',{html:it.q}))),
+          it.h?el('details',{}, el('summary',{},'Подсказка — открывать после 20 минут своей работы'), el('div',{class:'sm',html:it.h})):null,
+          el('details',{}, el('summary',{},'Разбор — открывать только после того, как решение записано'), el('div',{class:'sm',html:it.a})));
+        cb.addEventListener('change',()=>{ Store.set('tasks.'+id,cb.checked); box.querySelector('label').style.opacity=cb.checked?'.55':''; });
+        body.append(box);
+      });
+      if(w.res)   body.append(el('p',{class:'sm',style:'margin-top:12px'}, el('b',{},'Параллельно на этой неделе: '), el('span',{html:w.res})));
+      if(w.probe) body.append(el('p',{class:'sm'}, el('b',{},'Проба недели: '), el('span',{html:w.probe})));
+      if(w.check) body.append(el('div',{class:'note ok',style:'margin:12px 0 0'}, el('p',{class:'sm mb0'}, el('b',{},'Контрольная точка: '), el('span',{html:w.check}))));
+
+      const wkDone = w.items.every((_,i)=>Store.get(`tasks.tk.${cur}.${w.n}.${i}`,false));
+      out.append(el('details',{class:'wk'},
+        el('summary',{},
+          el('div',{class:'num',style:wkDone?'background:var(--ok);color:#fff':''}, wkDone?'✓':String(w.n)),
+          el('div',{class:'ttl'}, 'Неделя '+w.n+' · '+w.topic),
+          el('span',{class:'b'}, plural(w.items.length,'задача','задачи','задач'))),
+        body));
+    });
+  }
+  render();
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex,nofollow">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Дашборд — Образование: {{U}} и {{Y}}</title>
+<meta name="description" content="Семейный портал подготовки к поступлению в ведущие вузы России">
+<link rel="stylesheet" href="assets/css/style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎓</text></svg>">
+</head>
+<body>
+<main class="wrap">
+  <h1>Дашборд</h1>
+  <p class="lead">Один экран: что горит, что сделано, что дальше. Прогресс хранится в этом браузере — не забывайте делать резервную копию (ссылка внизу страницы).</p>
+
+  <div class="grid g4" id="kpis" style="margin-top:22px"></div>
+
+  <div class="grid g2" style="margin-top:16px">
+    <div class="card u">
+      <h3 style="color:var(--u)">{{U}} · 15 лет · 9 класс</h3>
+      <p class="sm muted mt0">ОГЭ 2027 → ЕГЭ и поступление 2029. Осталось <b id="u-days"></b> до подачи документов.</p>
+      <div id="u-prog"></div>
+      <p class="sm" style="margin-top:12px"><b>Главное сейчас:</b> определить направление до конца 9 класса и выстроить двухдорожечную стратегию — олимпиады <i>и</i> сильный ЕГЭ. Полагаться только на олимпиады стало опаснее: МФТИ в 2026 сократил список олимпиад для БВИ с 50 до 35 и оставил БВИ только победителям.</p>
+      <a class="btn sm" href="plan.html#elder">План {{Ug}}</a>
+    </div>
+    <div class="card y">
+      <h3 style="color:var(--y)">{{Y}} · 10 лет · 5 класс</h3>
+      <p class="sm muted mt0">До поступления 8 лет. Задача — фундамент и широкие пробы, не подготовка.</p>
+      <div id="y-prog"></div>
+      <p class="sm" style="margin-top:12px"><b>Главное сейчас:</b> математика в олимпиадном формате (думать, а не считать), 3–4 разнородные пробы в год с правом отказаться, дневник интересов. Профтестирование в 10 лет научно бессмысленно — работает наблюдение.</p>
+      <a class="btn sm" href="plan.html#younger">План {{Yg}}</a>
+    </div>
+  </div>
+
+  <h2>Ближайшие даты</h2>
+  <div class="filters" style="margin-bottom:0">
+    <span class="xs muted">Показать:</span>
+    <span class="chip on" data-w="all">Оба</span>
+    <span class="chip" data-w="u">{{U}}</span>
+    <span class="chip" data-w="y">{{Y}}</span>
+    <span class="xs muted" style="margin-left:auto">Даты со звёздочкой* — по прошлому сезону, официальные объявляются позже</span>
+  </div>
+  <div class="card" style="border-radius:0 0 var(--r) var(--r);border-top:0" id="dl"></div>
+  <p class="sm"><a href="olympiads.html#calendar">Весь календарь сезона →</a></p>
+
+  <h2>С чего начать, если открыли впервые</h2>
+  <div class="grid g3">
+    <div class="card"><h3 class="mt0">1. Пройти профориентацию</h3><p class="sm mt0">{{U}} — RIASEC и тест «Профиль» за один вечер, затем 40 минут разговора. {{Y}} — наблюдательный чек-лист, который заполняете вы, а не он.</p><a class="btn sm sec" href="tests.html">Открыть тесты</a></div>
+    <div class="card"><h3 class="mt0">2. Закрыть горящие дедлайны</h3><p class="sm mt0">ЗФТШ МФТИ (до 10 сентября), «Высшая проба» (до 21 сентября), Заочная школа СУНЦ МГУ (15–21 сентября), школьный этап ВсОШ. Всё бесплатно.</p><a class="btn sm sec" href="plan.html">План на 6 недель</a></div>
+    <div class="card"><h3 class="mt0">3. Договориться о правилах ИИ</h3><p class="sm mt0">Один разговор, семь правил. Главные: 20 минут самостоятельной борьбы перед обращением к ИИ и одна работа в неделю полностью без него.</p><a class="btn sm sec" href="ai.html#rules">Правила и промпты</a></div>
+    <div class="card" style="border-left:3px solid var(--acc)"><h3 class="mt0">4. Начать заниматься</h3><p class="sm mt0">Восемь недель заданий с подсказками и разборами: математика для обоих, плюс две ветки для {{Ug}} — физмат-IT и био-химия. Первые восемь недель — это и есть проба направления.</p><a class="btn sm" href="tasks.html">Открыть задания</a></div>
+  </div>
+
+  <h2>Задания на эту неделю</h2>
+  <div class="grid g2" id="wk"></div>
+
+  <h2>Резервная копия</h2>
+  <div class="card">
+    <p class="mt0 sm">Отметки о выполнении, заметки, дневник интересов и результаты тестов хранятся только в этом браузере. Если почистить историю или сменить устройство — данные пропадут. Раз в месяц скачивайте файл и кладите в папку проекта на Яндекс.Диске.</p>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
+      <button class="btn" onclick="Store.export()">Скачать копию (JSON)</button>
+      <label class="btn sec" style="cursor:pointer">Загрузить копию<input type="file" accept="application/json" id="imp" hidden></label>
+      <button class="btn sec" onclick="Store.reset()">Сбросить всё</button>
+      <span id="impmsg" class="sm"></span>
+    </div>
+  </div>
+</main>
+
+<script src="data/deadlines.js"></script>
+<script src="data/plans.js"></script>
+<script src="data/tasks.js"></script>
+<script src="data/config.js"></script>
+<script src="assets/js/app.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded',()=>{
+  const uIds = PLANS.elder.now.map(x=>x[0]);
+  const yIds = PLANS.younger.now.map(x=>x[0]);
+  const all  = [...uIds,...yIds];
+
+  // KPI
+  const upcoming = DEADLINES.filter(d=>daysTo(d.d)>=0).sort((a,b)=>a.d<b.d?-1:1);
+  const soon = upcoming.filter(d=>daysTo(d.d)<=30).length;
+  const doneN = all.filter(i=>Store.get('tasks.'+i,false)).length;
+  const kpi = [
+    [soon,'дедлайнов в ближайшие 30 дней','var(--warn)'],
+    [doneN+' / '+all.length,'задач стартового плана выполнено','var(--ok)'],
+    [daysTo('2029-06-20')+'','дней до подачи документов {{Ug}}','var(--u)'],
+    ['30+','бесплатных олимпиад и школ в каталоге','var(--acc)'],
+  ];
+  const kbox=$('#kpis');
+  kpi.forEach(([n,l,c])=>kbox.append(el('div',{class:'kpi'},el('div',{class:'n',style:'color:'+c},String(n)),el('div',{class:'l'},l))));
+
+  $('#u-days').textContent = plural(daysTo('2029-06-20'),'день','дня','дней');
+  $('#u-prog').append(progressBar(uIds));
+  $('#y-prog').append(progressBar(yIds));
+
+  // deadlines
+  let who='all';
+  function drawDl(){
+    const box=$('#dl'); box.innerHTML='';
+    const list = upcoming.filter(d=>who==='all'||d.who.includes(who)).slice(0,8);
+    if(!list.length){ box.append(el('p',{class:'muted mb0'},'Нет предстоящих дат для этого фильтра.')); return; }
+    list.forEach(d=>{
+      const n=daysTo(d.d);
+      const b = n<=14?'bad':n<=45?'warn':'';
+      box.append(el('div',{class:'dl'},
+        el('div',{class:'d'}, dfmt(d.d)+(d.approx?'*':'')),
+        el('div',{class:'c'},
+          el('div',{class:'t'}, d.url?el('a',{href:d.url,target:'_blank',rel:'noopener'},d.t):d.t),
+          el('div',{class:'bl'},
+            el('span',{class:'b '+b}, n===0?'сегодня':'через '+plural(n,'день','дня','дней')),
+            d.tag?el('span',{class:'b'},d.tag):null,
+            ...d.who.map(w=>el('span',{class:'b '+w}, KIDS[w==='u'?'elder':'younger'].name))),
+          el('div',{class:'s'}, d.s))));
+    });
+  }
+  $$('.chip[data-w]').forEach(c=>c.addEventListener('click',()=>{
+    $$('.chip[data-w]').forEach(x=>x.classList.remove('on')); c.classList.add('on');
+    who=c.dataset.w; drawDl();
+  }));
+  drawDl();
+
+  // текущая учебная неделя (отсчёт от 1 сентября 2026)
+  const START='2026-09-01';
+  const wkNo = Math.min(8, Math.max(1, Math.floor(-daysTo(START)/7)+1));
+  const notYet = daysTo(START)>0;
+  const wkBox=$('#wk');
+  if(notYet) wkBox.before(el('p',{class:'sm muted',style:'margin-top:-6px'},
+    `Наборы рассчитаны на 8 недель начиная с 1 сентября 2026 — это через ${plural(daysTo(START),'день','дня','дней')}. Ниже показана первая неделя: её можно начать раньше, ничего не сломается.`));
+  ['younger','elder_core','elder_a','elder_b'].forEach(k=>{
+    const T=TASKS[k], w=T.weeks[wkNo-1];
+    if(!w) return;
+    const ids=w.items.map((_,i)=>`tk.${k}.${w.n}.${i}`);
+    const done=ids.filter(i=>Store.get('tasks.'+i,false)).length;
+    wkBox.append(el('div',{class:'card '+T.who},
+      el('div',{style:'display:flex;justify-content:space-between;gap:8px;align-items:baseline;flex-wrap:wrap'},
+        el('h3',{class:'mt0',style:'margin-bottom:2px;font-size:16px'}, T.title),
+        el('span',{class:'b '+(done===ids.length?'ok':'')}, `${done}/${ids.length}`)),
+      el('div',{class:'sm muted'}, `Неделя ${w.n} · ${w.topic}`),
+      el('p',{class:'sm',style:'margin:8px 0'}, w.goal || w.items[0].q.slice(0,120)+'…'),
+      el('a',{class:'btn sm sec',href:'tasks.html#'+k},'Перейти')));
+  });
+
+  $('#imp').addEventListener('change',e=>{
+    const f=e.target.files[0]; if(!f) return;
+    Store.import(f,(ok,err)=>{ $('#impmsg').innerHTML = ok?'<span style="color:var(--ok)">Загружено ✓</span>':'<span style="color:var(--bad)">Ошибка: '+esc(err)+'</span>'; if(ok) setTimeout(()=>location.reload(),700); });
+  });
+});
+</script>
+</body>
+</html>

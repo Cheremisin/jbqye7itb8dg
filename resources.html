@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex,nofollow">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Библиотека ресурсов — Образование</title>
+<link rel="stylesheet" href="assets/css/style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎓</text></svg>">
+</head>
+<body>
+<main class="wrap">
+  <h1>Библиотека ресурсов</h1>
+  <p class="lead">Проверенные образовательные ресурсы с прямыми ссылками. Отмеченные ★ — то, с чего стоит начать. Подавляющее большинство бесплатно.</p>
+
+  <div class="note ok">
+    <p class="mb0"><b>Главное, что стоит знать.</b> Бесплатный вход в систему подготовки из любого региона существует и работает: ЗФТШ МФТИ (бесплатно при прохождении вступительного задания), Заочная школа СУНЦ МГУ (полностью бесплатно, набор в сентябре), Сириус.Курсы (55+ курсов), Яндекс Лицей, полностью бюджетное содержание в СУНЦ НГУ. И отдельно — <b>онлайн-курсы ЦПМ открыты для школьников всех регионов, не только Москвы</b>: это самый недооценённый бесплатный ресурс в стране.</p>
+  </div>
+
+  <div id="cat"></div>
+
+  <h2>Как отслеживать прогресс</h2>
+  <div class="grid g2">
+    <div class="card">
+      <h3 class="mt0">Что мерить у {{Ug}}</h3>
+      <ol class="sm mb0">
+        <li><b>Часы вдумчивой практики в неделю</b> по профильному предмету — не уроков, а самостоятельного решения задач. Цель 5–8 ч</li>
+        <li><b>Решённых олимпиадных задач в неделю</b> — informatics.msk.ru и problems.ru дают автоматический счёт</li>
+        <li>Процент решённого на тренировочных турах — важна динамика, не абсолют</li>
+        <li><b>Число поданных заявок на олимпиады за сезон</b> — цель 6–10. Конверсия в призёрство низкая по определению и компенсируется объёмом</li>
+        <li>Доведённых до конца проектов — 1–2 в год, с артефактом: код, отчёт, презентация</li>
+        <li>Retention в Anki — цель 85–90%</li>
+        <li>Самооценка интереса к направлению, 1–10, раз в месяц — отслеживать <b>тренд</b>, не значение</li>
+      </ol>
+    </div>
+    <div class="card">
+      <h3 class="mt0">Что мерить у {{Yg}}</h3>
+      <ol class="sm mb0">
+        <li>Число <b>завершённых</b> проб за полугодие — цель 3–4 разнородных</li>
+        <li><b>Число добровольных возвратов</b> к деятельности без напоминания — главный сигнал</li>
+        <li>Записей в дневнике интересов — минимум одна в неделю</li>
+        <li>Доля экранного времени: потребление против созидания (смотрит видео или делает)</li>
+        <li>Один спортивный и один художественный блок — присутствуют или нет. Это контроль широты</li>
+      </ol>
+      <p class="sm mb0" style="margin-top:10px"><b>Не мерить:</b> школьные оценки (шумный показатель), «часы за столом», количество купленных курсов.</p>
+    </div>
+  </div>
+  <div class="note warn">
+    <p class="mb0"><b>Три правила, важнее любого трекера.</b> (1) Метрики ведёт ребёнок, родитель только смотрит — внешний контроль конвертирует внутреннюю мотивацию во внешнюю, и она рушится, как только контроль снимается. (2) Наказаний за метрики не бывает: метрика — термометр, а не оценка. (3) Право на выход: заранее оговорённая возможность прекратить направление после завершённого цикла — то, что позволяет ребёнку честно пробовать, а не имитировать интерес.</p>
+  </div>
+</main>
+
+<script src="data/resources.js"></script>
+<script src="data/config.js"></script>
+<script src="assets/js/app.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded',()=>{
+  const SUBJ = {math:'Математика',physics:'Физика',cs:'Информатика',bio:'Биология и химия',lang:'Языки',general:'Общее',offline:'Кружки и очное',prof:'Профориентация'};
+  const PRICE = {free:['бесплатно','ok'],freemium:['частично бесплатно','warn'],paid:['платно','']};
+  filterList({
+    items: RESOURCES.slice().sort((a,b)=>(b.star?1:0)-(a.star?1:0)),
+    container: $('#cat'),
+    searchFields:['n','d'],
+    searchPlaceholder:'Поиск по названию и описанию…',
+    facets:[
+      {key:'who',label:'Кому',type:'chips',options:[['u','{{U}}'],['y','{{Y}}']],test:(it,v)=>it.who.includes(v)},
+      {key:'s',label:'Раздел',type:'select',options:Object.entries(SUBJ),test:(it,v)=>it.s===v},
+      {key:'p',label:'Цена',type:'select',options:[['free','Бесплатно'],['freemium','Частично бесплатно'],['paid','Платно']],test:(it,v)=>it.p===v},
+    ],
+    render:(res,list)=>{
+      let cur=null;
+      res.forEach(r=>{
+        if(r.s!==cur){ cur=r.s; list.append(el('h3',{},SUBJ[cur])); }
+        const [pl,pc]=PRICE[r.p];
+        list.append(el('div',{class:'card',style:'margin-bottom:10px'+(r.star?';border-left:3px solid var(--acc)':'')},
+          el('div',{style:'display:flex;justify-content:space-between;gap:10px;align-items:flex-start;flex-wrap:wrap'},
+            el('h3',{class:'mt0',style:'margin-bottom:4px;font-size:17px'}, (r.star?'★ ':''), el('a',{href:r.u,target:'_blank',rel:'noopener'},r.n)),
+            el('span',{class:'b '+pc}, pl)),
+          el('div',{class:'bl'}, ...r.who.map(w=>el('span',{class:'b '+w}, KIDS[w==='u'?'elder':'younger'].name))),
+          el('p',{class:'sm mb0'}, r.d)));
+      });
+    }
+  });
+});
+</script>
+</body>
+</html>

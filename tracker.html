@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex,nofollow">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Трекер — Образование</title>
+<link rel="stylesheet" href="assets/css/style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎓</text></svg>">
+<style>
+.form{display:grid;gap:10px;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));align-items:end}
+.fl{display:block;font-size:12.5px;color:var(--tx2);margin-bottom:3px}
+.spark{display:flex;gap:3px;align-items:flex-end;height:44px;margin-top:6px}
+.spark i{flex:1;background:var(--u);border-radius:2px 2px 0 0;min-height:2px}
+.entry{border-bottom:1px solid var(--line);padding:12px 0}
+.entry:last-child{border-bottom:0}
+.entry .dt{font-size:12.5px;color:var(--tx2);font-weight:600}
+.del{background:none;border:0;color:var(--tx3);cursor:pointer;font-size:13px;padding:2px 6px}
+.del:hover{color:var(--bad)}
+</style>
+</head>
+<body>
+<main class="wrap">
+  <h1>Трекер прогресса</h1>
+  <p class="lead">Метрики {{Ug}}, дневник интересов {{Yg}}, журнал проб и свои задачи. Всё хранится в этом браузере — раз в месяц скачивайте резервную копию.</p>
+
+  <div class="note">
+    <p class="mb0"><b>Три правила, без которых трекер вредит.</b> (1) Метрики видит и ведёт ребёнок, родитель только смотрит: внешний контроль конвертирует внутреннюю мотивацию во внешнюю, и она рушится, как только контроль снимается. (2) Наказаний за метрики не бывает — метрика это термометр, а не оценка. (3) Право на выход: заранее оговорённая возможность прекратить направление после завершённого цикла — то, что позволяет ребёнку честно пробовать, а не имитировать интерес.</p>
+  </div>
+
+  <div class="toc"><a href="#metrics">Метрики недели ({{U}})</a><a href="#diary">Дневник интересов ({{Y}})</a><a href="#probes">Журнал проб</a><a href="#todo">Свои задачи</a><a href="#checklists">Чек-листы родителя</a></div>
+
+  <h2 id="metrics">Метрики недели — {{U}}</h2>
+  <p class="sm">Заполняется раз в неделю, вечером воскресенья, за 3 минуты. <b>Не мерим:</b> школьные оценки (шумный показатель), «часы за столом», количество купленных курсов.</p>
+  <div class="card">
+    <div class="form">
+      <div><label class="fl">Неделя (дата воскресенья)</label><input type="date" id="m-date"></div>
+      <div><label class="fl">Часы вдумчивой практики <span title="Не уроков, а самостоятельного решения задач по профилю. Цель 5–8 ч">ⓘ</span></label><input type="number" id="m-hours" min="0" max="60" step="0.5" placeholder="5"></div>
+      <div><label class="fl">Решено задач олимп. уровня</label><input type="number" id="m-tasks" min="0" placeholder="20"></div>
+      <div><label class="fl">Заявок на олимпиады подано</label><input type="number" id="m-apps" min="0" placeholder="0"></div>
+      <div><label class="fl">Anki retention, % <span title="Цель 85–90%">ⓘ</span></label><input type="number" id="m-anki" min="0" max="100" placeholder="87"></div>
+      <div><label class="fl">Интерес к направлению, 1–10</label><input type="number" id="m-int" min="1" max="10" placeholder="8"></div>
+      <div><label class="fl">Часов сна в среднем</label><input type="number" id="m-sleep" min="0" max="14" step="0.5" placeholder="8.5"></div>
+      <div><button class="btn" id="m-add">Записать неделю</button></div>
+    </div>
+    <div id="m-warn"></div>
+  </div>
+  <div id="m-out"></div>
+
+  <h2 id="diary">Дневник интересов — {{Y}}</h2>
+  <p class="sm">Раз в неделю, 5 минут. <b>Три месяца таких записей информативнее любого профориентационного теста.</b> Заполняет родитель по наблюдениям, не ребёнок.</p>
+  <div class="card">
+    <div style="display:grid;gap:10px">
+      <div><label class="fl">Дата</label><input type="date" id="d-date" style="max-width:200px"></div>
+      <div><label class="fl">1. Чем занимался ДОБРОВОЛЬНО дольше 30 минут подряд?</label><textarea id="d-q1" rows="2"></textarea></div>
+      <div><label class="fl">2. Какие вопросы задавал?</label><textarea id="d-q2" rows="2"></textarea></div>
+      <div><label class="fl">3. Что бросил — и почему (скучно / трудно / не понял / поссорился)?</label><textarea id="d-q3" rows="2"></textarea></div>
+      <div><label class="fl">4. Что просил повторить?</label><textarea id="d-q4" rows="2"></textarea></div>
+      <div><label class="fl">5. Где были признаки потока — потеря счёта времени, раздражение при прерывании?</label><textarea id="d-q5" rows="2"></textarea></div>
+      <button class="btn" id="d-add" style="justify-self:start">Сохранить запись</button>
+    </div>
+  </div>
+  <div id="d-out"></div>
+
+  <h2 id="probes">Журнал проб</h2>
+  <p class="sm">Для обоих детей. После каждой пробы (кружок, проект, соревнование, «день с профессионалом») отмечайте четыре сигнала. <b>Три «да» из четырёх на протяжении трёх и более месяцев = направление рабочее.</b></p>
+  <div class="card">
+    <div class="form">
+      <div><label class="fl">Ребёнок</label><select id="p-kid"><option value="y">{{Y}}</option><option value="u">{{U}}</option></select></div>
+      <div style="grid-column:span 2"><label class="fl">Что за проба</label><input type="text" id="p-name" placeholder="Кружок робототехники в Кванториуме"></div>
+      <div><label class="fl">Дата начала</label><input type="date" id="p-date"></div>
+    </div>
+    <div style="margin-top:12px" id="p-sig">
+      <label class="fl">Сигналы</label>
+      <label class="sm" style="display:block;padding:3px 0"><input type="checkbox" value="0"> 1. Добровольный возврат — просит повторить без напоминания <i class="muted">(сильнейший сигнал)</i></label>
+      <label class="sm" style="display:block;padding:3px 0"><input type="checkbox" value="1"> 2. При трудности начинает копать, а не бросает</label>
+      <label class="sm" style="display:block;padding:3px 0"><input type="checkbox" value="2"> 3. Пересказывает содержание вне занятия, ищет дополнительное</label>
+      <label class="sm" style="display:block;padding:3px 0"><input type="checkbox" value="3"> 4. Довёл до конца что-то, что можно показать</label>
+    </div>
+    <div style="margin-top:10px"><label class="fl">Заметка</label><textarea id="p-note" rows="2"></textarea></div>
+    <button class="btn" id="p-add" style="margin-top:10px">Добавить пробу</button>
+  </div>
+  <div id="p-out"></div>
+
+  <h2 id="todo">Свои задачи</h2>
+  <p class="sm">Всё, что не попало в стартовый план: договориться со знакомым про «день с профессионалом», записаться на ГТО, найти репетитора, оформить документы.</p>
+  <div class="card">
+    <div style="display:flex;gap:8px;flex-wrap:wrap">
+      <input type="text" id="td-text" placeholder="Что нужно сделать" style="flex:1;min-width:240px">
+      <select id="td-kid"><option value="">Общее</option><option value="u">{{U}}</option><option value="y">{{Y}}</option></select>
+      <input type="date" id="td-date" title="Срок">
+      <button class="btn" id="td-add">Добавить</button>
+    </div>
+  </div>
+  <div id="td-out"></div>
+
+  <h2 id="checklists">Чек-листы родителя</h2>
+  <div class="grid g3">
+    <div class="card"><h3 class="mt0">Еженедельно — 5 минут</h3><ul class="sm clean mb0">
+      <li>Что ребёнок делал добровольно дольше 30 минут?</li>
+      <li>Что бросил — и по какой причине?</li>
+      <li>Какие дедлайны на ближайшие 30 дней?</li>
+      <li>Есть ли невыполненное обязательство, о котором мы забыли?</li>
+    </ul></div>
+    <div class="card"><h3 class="mt0">Ежемесячно — 20 минут, с ребёнком</h3><ul class="sm clean mb0">
+      <li>Пересматриваем метрики за месяц — вместе, без оценок</li>
+      <li>Одно, что получилось; одно, что не получилось; одно, что меняем</li>
+      <li>Календарь на следующий месяц: что регистрируем, что стартует</li>
+      <li>Проверить olimpiada.ru на новые открывшиеся регистрации</li>
+    </ul></div>
+    <div class="card"><h3 class="mt0">Ежеквартально — для {{Ug}}</h3><ul class="sm clean mb0">
+      <li>Гипотеза о профиле подтверждается или меняется? Какие данные за и против?</li>
+      <li>Портфолио пополнено? Дипломы, сертификаты, проекты — в одну папку</li>
+      <li>Английский — прогресс есть?</li>
+      <li><b>Сон меньше 8 часов регулярно = система сломана, снижать нагрузку</b></li>
+    </ul></div>
+  </div>
+</main>
+
+<script src="data/config.js"></script>
+<script src="assets/js/app.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded',()=>{
+  const today = new Date().toISOString().slice(0,10);
+  ['m-date','d-date','p-date'].forEach(id=>$('#'+id).value=today);
+
+  /* ---------- метрики ---------- */
+  function metrics(){ return Store.get('metrics',[]); }
+  function drawM(){
+    const out=$('#m-out'); out.innerHTML='';
+    const m = metrics().slice().sort((a,b)=>a.d<b.d?1:-1);
+    if(!m.length){ out.append(el('p',{class:'muted sm'},'Пока нет записей. Первая запись — сегодня: это займёт три минуты и даст точку отсчёта.')); return; }
+    // sparkline по часам
+    const last = m.slice(0,12).reverse();
+    const mx = Math.max(4,...last.map(x=>+x.hours||0));
+    out.append(el('div',{class:'card'},
+      el('h3',{class:'mt0',style:'font-size:15px'},'Часы вдумчивой практики, последние '+last.length+' нед. (цель 5–8)'),
+      el('div',{class:'spark'}, last.map(x=>el('i',{style:`height:${Math.max(2,(+x.hours||0)/mx*44)}px;background:${(+x.hours||0)>=5?'var(--ok)':'var(--warn)'}`,title:x.d+': '+(x.hours||0)+' ч'})))));
+    const tb=el('tbody');
+    m.forEach((x,i)=>{
+      tb.append(el('tr',{},
+        el('td',{style:'white-space:nowrap'},dfmt(x.d)),
+        el('td',{class:'num',style:(+x.hours<5?'color:var(--warn)':'')},x.hours??'—'),
+        el('td',{class:'num'},x.tasks??'—'),
+        el('td',{class:'num'},x.apps??'—'),
+        el('td',{class:'num',style:(x.anki&&+x.anki<80?'color:var(--warn)':'')},x.anki?x.anki+'%':'—'),
+        el('td',{class:'num'},x.int??'—'),
+        el('td',{class:'num',style:(x.sleep&&+x.sleep<8?'color:var(--bad)':'')},x.sleep??'—'),
+        el('td',{},el('button',{class:'del',onclick:()=>{const a=metrics();a.splice(a.findIndex(y=>y.id===x.id),1);Store.set('metrics',a);drawM();}},'удалить'))));
+    });
+    out.append(el('div',{class:'tw'},el('table',{},
+      el('thead',{},el('tr',{},el('th',{},'Неделя'),el('th',{},'Часы'),el('th',{},'Задачи'),el('th',{},'Заявки'),el('th',{},'Anki'),el('th',{},'Интерес'),el('th',{},'Сон'),el('th',{}))),tb)));
+    // авто-предупреждения
+    const w=[];
+    const l3=m.slice(0,3);
+    if(l3.length===3 && l3.every(x=>+x.sleep && +x.sleep<8)) w.push('Три недели подряд сон меньше 8 часов. По консенсусу AASM подросткам нужно 8–10 часов. Сон — не конкурент учёбе, а её инфраструктура: переход к 8 часам сна и меньшему числу часов занятий с высокой вероятностью даст лучший результат.');
+    if(l3.length===3 && l3.every(x=>+x.int) && l3[0].int<l3[2].int-2) w.push('Интерес к направлению снижается третью неделю подряд. Это не лень — это ранний признак либо выгорания, либо неверно выбранного направления. Стоит поговорить, а не добавлять нагрузку.');
+    if(l3.length===3 && l3.every(x=>+x.hours>15)) w.push('Больше 15 часов дополнительных занятий в неделю три недели подряд — это красная зона. Пороги из исследований описывают точку убывающей отдачи: свыше ~2 часов в день у старшеклассников растут стресс, соматика и недосып.');
+    const wb=$('#m-warn'); wb.innerHTML='';
+    w.forEach(t=>wb.append(el('div',{class:'note bad',style:'margin:12px 0 0'},el('p',{class:'mb0'},t))));
+  }
+  $('#m-add').addEventListener('click',()=>{
+    const g=id=>{const v=$('#'+id).value; return v===''?null:v;};
+    const rec={id:Math.random().toString(36).slice(2),d:$('#m-date').value||today,
+      hours:g('m-hours'),tasks:g('m-tasks'),apps:g('m-apps'),anki:g('m-anki'),int:g('m-int'),sleep:g('m-sleep')};
+    const a=metrics(); const i=a.findIndex(x=>x.d===rec.d);
+    if(i>=0) a[i]=rec; else a.push(rec);
+    Store.set('metrics',a);
+    ['m-hours','m-tasks','m-apps','m-anki','m-int','m-sleep'].forEach(id=>$('#'+id).value='');
+    drawM();
+  });
+  drawM();
+
+  /* ---------- дневник ---------- */
+  function diary(){ return Store.get('diary',[]); }
+  function drawD(){
+    const out=$('#d-out'); out.innerHTML='';
+    const d=diary().slice().sort((a,b)=>a.d<b.d?1:-1);
+    if(!d.length){ out.append(el('p',{class:'muted sm'},'Записей пока нет.')); return; }
+    const box=el('div',{class:'card'});
+    const Q=['Занимался добровольно','Вопросы','Что бросил и почему','Просил повторить','Признаки потока'];
+    d.forEach(x=>{
+      const e=el('div',{class:'entry'},
+        el('div',{style:'display:flex;justify-content:space-between'},
+          el('span',{class:'dt'},dfmtFull(x.d)),
+          el('button',{class:'del',onclick:()=>{const a=diary();a.splice(a.findIndex(y=>y.id===x.id),1);Store.set('diary',a);drawD();}},'удалить')));
+      x.q.forEach((v,i)=>{ if(v&&v.trim()) e.append(el('p',{class:'sm',style:'margin:4px 0'}, el('b',{},Q[i]+': '), v)); });
+      box.append(e);
+    });
+    out.append(box);
+    out.append(el('p',{class:'sm muted'},'Записей: '+d.length+'. Когда наберётся 10–12, перечитайте подряд — паттерн обычно виден сразу и без анализа.'));
+  }
+  $('#d-add').addEventListener('click',()=>{
+    const q=[1,2,3,4,5].map(i=>$('#d-q'+i).value);
+    if(!q.some(x=>x.trim())) return alert('Заполните хотя бы один пункт.');
+    const a=diary(); a.push({id:Math.random().toString(36).slice(2),d:$('#d-date').value||today,q});
+    Store.set('diary',a);
+    [1,2,3,4,5].forEach(i=>$('#d-q'+i).value='');
+    drawD();
+  });
+  drawD();
+
+  /* ---------- пробы ---------- */
+  function probes(){ return Store.get('probes',[]); }
+  function drawP(){
+    const out=$('#p-out'); out.innerHTML='';
+    const p=probes().slice().sort((a,b)=>a.d<b.d?1:-1);
+    if(!p.length){ out.append(el('p',{class:'muted sm'},'Проб пока не записано.')); return; }
+    const box=el('div',{class:'card'});
+    p.forEach(x=>{
+      const n=x.sig.filter(Boolean).length;
+      const verdict = n>=3?['направление рабочее','ok']:n===2?['под наблюдением','warn']:['сигнал слабый',''];
+      box.append(el('div',{class:'entry'},
+        el('div',{style:'display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;align-items:center'},
+          el('div',{}, el('b',{},x.name), ' ',
+            el('span',{class:'b '+(x.kid==='u'?'u':'y')}, x.kid==='u'?'{{U}}':'{{Y}}'), ' ',
+            el('span',{class:'b '+verdict[1]}, n+'/4 · '+verdict[0])),
+          el('button',{class:'del',onclick:()=>{const a=probes();a.splice(a.findIndex(y=>y.id===x.id),1);Store.set('probes',a);drawP();}},'удалить')),
+        el('div',{class:'sm muted'}, 'с '+dfmtFull(x.d)),
+        x.note?el('p',{class:'sm',style:'margin:6px 0 0'},x.note):null));
+    });
+    out.append(box);
+  }
+  $('#p-add').addEventListener('click',()=>{
+    const name=$('#p-name').value.trim();
+    if(!name) return alert('Впишите, что за проба.');
+    const sig=$$('#p-sig input').map(c=>c.checked);
+    const a=probes(); a.push({id:Math.random().toString(36).slice(2),kid:$('#p-kid').value,name,d:$('#p-date').value||today,sig,note:$('#p-note').value.trim()});
+    Store.set('probes',a);
+    $('#p-name').value=''; $('#p-note').value=''; $$('#p-sig input').forEach(c=>c.checked=false);
+    drawP();
+  });
+  drawP();
+
+  /* ---------- свои задачи ---------- */
+  function todos(){ return Store.get('todos',[]); }
+  function drawT(){
+    const out=$('#td-out'); out.innerHTML='';
+    const t=todos().slice().sort((a,b)=>(a.done?1:0)-(b.done?1:0) || (a.due||'9999')<(b.due||'9999')?-1:1);
+    if(!t.length){ out.append(el('p',{class:'muted sm'},'Список пуст.')); return; }
+    const box=el('div',{class:'card'});
+    t.forEach(x=>{
+      const cb=el('input',{type:'checkbox',...(x.done?{checked:'checked'}:{})});
+      cb.addEventListener('change',()=>{const a=todos();a.find(y=>y.id===x.id).done=cb.checked;Store.set('todos',a);drawT();});
+      const overdue = x.due && !x.done && daysTo(x.due)<0;
+      box.append(el('div',{class:'task'+(x.done?' done':'')}, cb,
+        el('label',{}, x.text,
+          el('span',{class:'m'},
+            x.kid?(x.kid==='u'?'{{U}}':'{{Y}}')+' · ':'',
+            x.due?(overdue?'просрочено ':'до ')+dfmtFull(x.due):'без срока')),
+        el('button',{class:'del',onclick:()=>{const a=todos();a.splice(a.findIndex(y=>y.id===x.id),1);Store.set('todos',a);drawT();}},'×')));
+    });
+    out.append(box);
+  }
+  $('#td-add').addEventListener('click',()=>{
+    const text=$('#td-text').value.trim(); if(!text) return;
+    const a=todos(); a.push({id:Math.random().toString(36).slice(2),text,kid:$('#td-kid').value,due:$('#td-date').value,done:false});
+    Store.set('todos',a); $('#td-text').value=''; $('#td-date').value=''; drawT();
+  });
+  $('#td-text').addEventListener('keydown',e=>{ if(e.key==='Enter') $('#td-add').click(); });
+  drawT();
+});
+</script>
+</body>
+</html>
