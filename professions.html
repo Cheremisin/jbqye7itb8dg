@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex,nofollow">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Профессии будущего — Образование</title>
+<link rel="stylesheet" href="assets/css/style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎓</text></svg>">
+<style>
+.tl{position:relative;padding-left:26px;margin:18px 0}
+.tl::before{content:'';position:absolute;left:7px;top:6px;bottom:6px;width:2px;background:var(--line)}
+.tl .ev{position:relative;padding:10px 0}
+.tl .ev::before{content:'';position:absolute;left:-24px;top:16px;width:11px;height:11px;border-radius:50%;background:var(--bg);border:2px solid var(--tx3)}
+.tl .ev.u::before{border-color:var(--u);background:var(--u)}
+.tl .ev.y::before{border-color:var(--y);background:var(--y)}
+.tl .yr{font-variant-numeric:tabular-nums;font-weight:700;font-size:15px}
+.pc{background:var(--bg2);border:1px solid var(--line);border-radius:var(--r);margin-bottom:12px;overflow:hidden}
+.pc>summary{padding:15px 18px;cursor:pointer;list-style:none;display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.pc>summary::-webkit-details-marker{display:none}
+.pc>summary::before{content:'▸';color:var(--tx3);transition:transform .2s;flex-shrink:0}
+.pc[open]>summary::before{transform:rotate(90deg)}
+.pc .pn{font-weight:600;font-size:16.5px;flex:1;min-width:200px}
+.pc .body{padding:0 18px 18px}
+.meter{display:inline-flex;gap:2px;vertical-align:middle;margin-left:5px}
+.meter i{width:14px;height:6px;border-radius:2px;background:var(--bg3)}
+.meter i.on{background:currentColor}
+.sk{border-left:3px solid var(--acc)}
+.dl2{display:grid;grid-template-columns:1fr auto;gap:4px 14px;padding:12px 0;border-bottom:1px solid var(--line)}
+.dl2:last-child{border-bottom:0}
+</style>
+</head>
+<body>
+<main class="wrap">
+  <h1>Профессии будущего и навыки</h1>
+  <p class="lead">Что известно о рынке труда к моменту, когда дети закончат учиться, каким навыкам стоит учиться целенаправленно — и где прогнозы честно не работают.</p>
+
+  <div class="toc">
+    <a href="#horizon">Горизонт</a><a href="#limits">Пределы прогнозов</a><a href="#anchors">Три опоры</a>
+    <a href="#catalog">Каталог профессий</a><a href="#entry">Сжимается вход</a><a href="#decline">Что сокращается</a>
+    <a href="#skills">Навыки</a><a href="#combo">Стратегия двух опор</a><a href="#panel">Приборная панель</a>
+  </div>
+
+  <h2 id="horizon">Когда именно дети выходят на рынок</h2>
+  <p class="sm">Это первое, что нужно зафиксировать: горизонты у детей разные настолько, что решения для них принципиально разные.</p>
+  <div class="grid g2">
+    <div class="card u">
+      <h3 class="mt0" style="color:var(--u)">{{U}} — рынок труда около 2033–2035</h3>
+      <div class="tl">
+        <div class="ev u"><span class="yr">2027</span> — ОГЭ, выбор профиля</div>
+        <div class="ev u"><span class="yr">2029</span> — ЕГЭ и поступление</div>
+        <div class="ev u"><span class="yr">2029–2035</span> — вуз (5–6 лет по новой системе)</div>
+        <div class="ev u"><span class="yr">2033–2035</span> — первая работа</div>
+      </div>
+      <p class="sm mb0">Горизонт около 8 лет. Прогнозы такой дальности уже ненадёжны, но структурные факты — демография, регулирование, дефицит в конкретных отраслях — работают.</p>
+    </div>
+    <div class="card y">
+      <h3 class="mt0" style="color:var(--y)">{{Y}} — рынок труда около 2038–2040</h3>
+      <div class="tl">
+        <div class="ev y"><span class="yr">2030</span> — ОГЭ</div>
+        <div class="ev y"><span class="yr">2032–2033</span> — выбор направления</div>
+        <div class="ev y"><span class="yr">2034</span> — поступление</div>
+        <div class="ev y"><span class="yr">2038–2040</span> — первая работа</div>
+      </div>
+      <p class="sm mb0"><b>Для {{Yg}} любой список профессий — беллетристика.</b> Ни один инструмент в мире не прогнозирует на 14 лет. Единственное, что имеет смысл делать сейчас: математика, чтение, добросовестность и здоровье. Решение принимать в 2032–2033 по актуальным данным.</p>
+    </div>
+  </div>
+
+  <h2 id="limits">Пределы прогнозов — прочитать до всего остального</h2>
+  <div class="note bad">
+    <p><b>Самый качественный долгосрочный прогноз занятости в мире — американский BLS — строит горизонт на 10 лет и систематически ошибается в темпах.</b> WEF Future of Jobs — это опрос мнений работодателей на 5 лет вперёд, а не модель: его собственный прогноз 2020 года о 85 млн вытесненных рабочих мест к 2025 году не оправдался. Российский прогноз Минтруда рассчитан на 7 лет и опубликован без отраслевой детализации в абсолютных числах.</p>
+    <p class="mb0"><b>Калибровочный пример, который стоит держать в голове.</b> В 2016 году один из создателей современного глубокого обучения публично призывал перестать обучать радиологов: ИИ вот-вот заменит их. Прошло десять лет — занятость радиологов <i>выросла</i>. Причины: юридическая ответственность за диагноз, интеграция в клинический процесс, регуляторные требования к медицинским изделиям и общий дефицит врачей. Это лучший известный пример того, как уверенный прогноз замещения профессии оказался неверным на горизонте десяти лет.</p>
+  </div>
+  <div class="note warn">
+    <p class="mb0"><b>Чему в этом разделе доверять меньше всего.</b> Процентам роста и падения конкретных профессий по версии WEF: их нет в открытом доступе, а гуляющие по сети цифры вроде «ИИ-специалисты +39%» в значительной части относятся к отчёту 2023 года и при перепечатке смешиваются с изданием 2025-го. Данным агрегаторов вакансий по «новым» профессиям: цифра «оператор БПЛА в Москве — 324 тыс. ₽» почти наверняка загрязнена вакансиями военной службы по контракту. И тезису «дефицит миллиона айтишников» — он кочует по СМИ с 2021 года и прямо противоречит текущим измерениям.</p>
+  </div>
+
+  <h2 id="anchors">Три вещи, которые надёжны и не зависят от прогнозов</h2>
+  <div class="grid g3">
+    <div class="card" style="border-left:3px solid var(--ok)">
+      <h3 class="mt0">Демография России</h3>
+      <p class="sm mb0">До 2032 года нужно заместить <b>11,5 млн человек</b>, уходящих на пенсию, плюс 500 тыс. на новых рабочих местах. Средний возраст работника — 44 года, безработица 2,2%, занятость на историческом максимуме. Люди, которые выйдут на пенсию в 2032–2040, уже родились и их можно посчитать. <b>Это арифметика, а не прогноз</b> — и она указывает на здравоохранение, обрабатывающую промышленность и образование.</p>
+    </div>
+    <div class="card" style="border-left:3px solid var(--ok)">
+      <h3 class="mt0">Предметная глубина</h3>
+      <p class="sm mb0">В пересмотре метаанализов валидности методов отбора (Sackett и соавт., 2022) тесты профессиональных знаний дают <b>r = 0,40</b>, рабочие образцы <b>0,33</b>, общий интеллект <b>0,31</b>. То есть глубокое знание предмета предсказывает результативность в работе <b>лучше</b>, чем общие способности, и намного лучше, чем любые «навыки будущего».</p>
+    </div>
+    <div class="card" style="border-left:3px solid var(--ok)">
+      <h3 class="mt0">Добросовестность</h3>
+      <p class="sm mb0">Метаанализ 267 выборок, <b>N = 413 074</b>: добросовестность — сильный и устойчивый предиктор академической успеваемости. В отличие от интеллекта, она заметно поддаётся развитию через среду и привычки. Вероятно, <b>самая высокая по отдаче родительская инвестиция</b> из всех — и она не зависит ни от одного прогноза.</p>
+    </div>
+  </div>
+
+  <h2 id="catalog">Каталог направлений</h2>
+  <p class="sm">Не рейтинг и не рекомендация, а описание с честными плюсами и минусами. «Спрос в РФ» — по hh-индексу и отраслевым данным 2026 года. «Риск ИИ» — по данным о применимости ИИ к профессии и по тому, автоматизирует он работу или дополняет. «Надёжность» — насколько прочны данные под конкретной оценкой.</p>
+  <div id="cat"></div>
+
+  <h2 id="entry">Главное, что изменилось: сжимается не профессия, а вход в неё</h2>
+  <div class="note bad">
+    <p>Самое сильное на сегодня эмпирическое свидетельство влияния ИИ на занятость — исследование Stanford Digital Economy Lab на данных по 3,5–5 млн работников ежемесячно. Результат: <b>занятость разработчиков ПО в возрасте 22–25 лет упала почти на 20% относительно пика конца 2022 года</b>, тогда как у работников старших возрастов в тех же профессиях занятость выросла на 6–9%.</p>
+    <p>Ключевое различение, которое авторы делают явно: <b>занятость падала там, где ИИ автоматизирует работу, и не падала там, где ИИ её дополняет.</b> Адаптация рынка идёт через занятость, а не через зарплаты.</p>
+    <p class="mb0"><b>Что из этого следует практически.</b> Путь «выучиться → войти джуном на рутину → вырасти» стал существенно менее надёжен. Ценность смещается к тому, что нельзя получить с нуля и что нельзя автоматизировать: доменная экспертиза, лицензия, физическое присутствие, юридическая ответственность, доступ к дефицитному оборудованию или данным. Это радикально повышает ценность реального опыта в предметной области <i>до</i> выпуска — лаборатории, клиники, производства, исследовательского проекта, олимпиады уровня, который даёт доступ.</p>
+  </div>
+  <div class="grid g2">
+    <div class="card">
+      <h3 class="mt0">Что ИИ уже делает хорошо</h3>
+      <p class="sm mt0">Бенчмарк OpenAI GDPval (1 320 задач по 44 профессиям, сентябрь 2025): лучшая модель оценивалась экспертами как «не хуже человека» чуть менее чем в половине задач, работая примерно в 100 раз быстрее и дешевле. Оценка проводилась без итераций и обратной связи.</p>
+      <p class="sm mb0">Максимальная применимость ИИ по данным Microsoft Research: переводчики 0,49, историки 0,46, писатели 0,45, торговые представители 0,45.</p>
+    </div>
+    <div class="card">
+      <h3 class="mt0">Что ИИ не делает — и почему</h3>
+      <p class="sm mt0">Минимальная применимость: лесные и природоохранные рабочие 0,03, озеленители 0,04, помощники по уходу и младший медперсонал 0,04, операторы установок 0,04, рабочие добычи 0,05. Три независимых источника сходятся на одном профиле: <b>физический труд в непредсказуемой среде, работа с людьми и уход, лицензируемая ответственность</b>.</p>
+      <p class="sm mb0">Важная оговорка: авторы исследования сами предупреждают, что применимость ИИ к профессии <b>не равна</b> вытеснению работников, и приводят пример банкоматов, которые увеличили, а не сократили занятость кассиров.</p>
+    </div>
+  </div>
+  <div class="note">
+    <p class="mb0"><b>Насколько всё это касается России.</b> Оценки расходятся в разы даже у официальных ведомств: Минтруд говорит о 8% трудовых функций, которые может полностью заменить ИИ, НИУ ВШЭ — менее чем о 1% занятых. Вакансий с требованием ИИ-навыков в России около 2% от общего числа. Российская экономика менее «беловоротничковая», демографический дефицит перекрывает автоматизацию, а безработица 2,2% означает, что высвобождённые находят работу. <b>Для российского ребёнка риск «ИИ отнимет профессию» существенно ниже риска выбрать направление с перепроизводством выпускников или со структурно низкими зарплатами.</b></p>
+  </div>
+
+  <h2 id="decline">Что сокращается — с цифрами</h2>
+  <p class="sm">Порядок примерно по надёжности данных: сверху то, где сходятся несколько независимых источников.</p>
+  <div class="card" id="dec"></div>
+
+  <h2 id="skills">Пять групп навыков</h2>
+  <p class="sm">Группы даны по порядку доказанности, а не популярности. Первая — с однозначными данными, последняя — с самой высокой отдачей на родительское усилие.</p>
+  <div id="sk"></div>
+  <div class="note warn"><p class="mb0" id="caveat"></p></div>
+
+  <h2 id="combo">Стратегия двух опор</h2>
+  <div class="card">
+    <p class="mt0">Если свести всё доказанное выше к одному принципу: <b>целиться не в профессию, а в комбинацию «регулируемый или физический домен + вычислительные навыки»</b>. Каждая половина такой пары страхует другую. Домен даёт то, что нельзя автоматизировать и нельзя выучить за три месяца; вычислительная часть даёт мобильность и защищает от сжатия самого домена.</p>
+    <div class="tw"><table>
+    <thead><tr><th>Комбинация</th><th>Что даёт домен</th><th>Что даёт вторая опора</th></tr></thead><tbody>
+    <tr><td><b>Медицина + анализ данных</b></td><td>Лицензия, ответственность, демографический дефицит</td><td>Мобильность в медтех, исследования, фарму</td></tr>
+    <tr><td><b>Электроника + САПР и программирование</b></td><td>Физическое производство, госзаказ, посчитанный дефицит</td><td>Инженерные инструменты применимы вне отрасли</td></tr>
+    <tr><td><b>Биология + биоинформатика</b></td><td>Лаборатория, доменная глубина</td><td>Вычислительные навыки конвертируются в ИТ и фарму</td></tr>
+    <tr><td><b>Машиностроение + автоматизация</b></td><td>Производство, 45% бюджетных мест страны</td><td>Роботизация как растущее направление</td></tr>
+    <tr><td><b>Математика + любой предметный домен</b></td><td>Домен даёт содержание</td><td>Математика переносится куда угодно и не устаревает</td></tr>
+    </tbody></table></div>
+    <p class="sm mb0">Обратная сторона того же принципа: <b>чистая специализация без домена — самая уязвимая позиция.</b> «Умею программировать» без предметной области, «умею писать тексты» без экспертизы, «умею делать красиво» без понимания задачи — именно эти позиции сжимаются первыми.</p>
+  </div>
+
+  <h2>Что из этого следует для каждого ребёнка</h2>
+  <div class="grid g2">
+    <div class="card u">
+      <h3 class="mt0" style="color:var(--u)">{{U}}: решение принимается в ближайший год</h3>
+      <ol class="sm mb0">
+        <li>Направление определить до конца 9 класса — олимпиадный трек иначе не успевает разогнаться.</li>
+        <li><b>Учесть реформу высшего образования.</b> Поступление в 2029 почти наверняка уже в новую систему: базовое высшее 4–6 лет одним блоком вместо схемы «бакалавриат плюс магистратура». Гибкость «поступлю, а потом сменю профиль в магистратуре» может исчезнуть, и выбор в 11 классе станет более необратимым.</li>
+        <li>Проверять гипотезу пробами, а не рассуждениями: первые восемь недель заданий по двум веткам как раз для этого.</li>
+        <li>Если рассматривается ИТ — выбирать <b>математически тяжёлую</b> программу (01.03.02 и подобные), а не прикладную: математика переносима, синтаксис нет.</li>
+        <li>Учесть, что платные места сокращены более чем на 45 тыс. — сценарий «не пройдём на бюджет, пойдём на платное» стал заметно менее надёжным.</li>
+      </ol>
+    </div>
+    <div class="card y">
+      <h3 class="mt0" style="color:var(--y)">{{Y}}: никаких решений о профессии сейчас</h3>
+      <ol class="sm mb0">
+        <li>Любой выбор профессии в 10 лет опирается на прогноз, которого не существует. Горизонт 2038–2040 недоступен ни одному инструменту в мире.</li>
+        <li>Вкладываться в то, что точно понадобится при любом сценарии: <b>математика, чтение, добросовестность, здоровье, широкие пробы</b>.</li>
+        <li>Разговоры про профессии вести — но как разговоры о том, что мир меняется, а не как выбор. «Атлас новых профессий» полезен ровно в этом качестве: его прогнозная точность за десять лет оказалась невысокой.</li>
+        <li>Вернуться к этой странице в 2032–2033 и перечитать её заново по актуальным данным.</li>
+      </ol>
+    </div>
+  </div>
+
+  <h2 id="panel">Приборная панель: что смотреть раз в полгода</h2>
+  <div class="card">
+    <p class="mt0 sm">Не полагайтесь на этот раздел через три года — цифры устареют. Смотрите первоисточники сами, это занимает 20 минут.</p>
+    <ul class="clean sm mb0">
+      <li><a href="https://trudvsem.ru/ratings_education_organizations-2026" target="_blank" rel="noopener"><b>Национальный рейтинг трудоустройства выпускников</b></a> (Минтруд) — реальная доля трудоустроенных и <b>медианная зарплата на второй год после выпуска</b> по данным Соцфонда, в разрезе 52 групп специальностей и конкретных вузов. Лучший из существующих в России инструментов связки «вуз плюс направление → деньги».</li>
+      <li><a href="https://stats.hh.ru/" target="_blank" rel="noopener"><b>hh Статистика</b></a> — ежемесячные hh-индексы и медианные предлагаемые зарплаты по профобластям. Норма индекса 4–8; ниже 4 — дефицит, выше 12 — профицит. Смотреть тренд, а не срез.</li>
+      <li><a href="https://rating.a-ai.ru/" target="_blank" rel="noopener"><b>Рейтинг вузов России в области ИИ</b></a> (Альянс в сфере ИИ и Минобрнауки) — если рассматривается ИИ-трек, это точнее общих рейтингов.</li>
+      <li><a href="https://fgosvo.ru/fgosvo/index/24" target="_blank" rel="noopener"><b>ФГОС ВО</b></a> — актуальные коды и стандарты направлений подготовки.</li>
+      <li><a href="https://www.bls.gov/ooh/fastest-growing.htm" target="_blank" rel="noopener"><b>BLS Occupational Outlook</b></a> — самый качественный долгосрочный прогноз в мире, обновляется ежегодно. Для мирового контекста.</li>
+    </ul>
+  </div>
+
+  <p class="sm muted" style="margin-top:26px">Источники раздела: hh.ru «Статистика» и месячные обзоры 2026 · Хабр Карьера, первое полугодие 2026 (45 226 анкет) · Минтруд, прогноз кадровой потребности до 2032 · Минпромторг, опрос 229 предприятий микроэлектроники, февраль 2026 · Минобрнауки, контрольные цифры приёма 2026/27 · WEF Future of Jobs Report 2025 · US BLS, проекции 2024–2034 · Stanford Digital Economy Lab, «Canaries in the Coal Mine?», ноябрь 2025 · Microsoft Research, «Working with AI», июль 2025 · OpenAI GDPval, сентябрь 2025 · McKinsey Global Institute, ноябрь 2025 · Anthropic Economic Index, выпуски 2026 · Sackett и соавт., 2022 · Mammadov, <i>Journal of Personality</i>, 2022 · Sala и Gobet, 2017 · Willingham, 2020 · OECD Learning Compass 2030. Данные собраны 9 августа 2026.</p>
+</main>
+
+<script src="data/professions.js"></script>
+<script src="data/config.js"></script>
+<script src="assets/js/app.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded',()=>{
+  const LV = {high:3, mid:2, low:1};
+  const LBL = {
+    demand:{high:['высокий спрос','ok'], mid:['умеренный спрос','warn'], low:['спрос низкий','bad']},
+    ai:    {low:['риск ИИ низкий','ok'], mid:['риск ИИ средний','warn'], high:['риск ИИ высокий','bad']},
+    conf:  {high:['данные прочные','ok'], mid:['данные средние','warn'], low:['оценка ненадёжна','bad']},
+  };
+  function meter(level, color){
+    const n = LV[level];
+    return el('span',{class:'meter',style:'color:'+color},
+      [1,2,3].map(i=>el('i',{class:i<=n?'on':''})));
+  }
+
+  filterList({
+    items: PROFESSIONS,
+    container: $('#cat'),
+    searchFields:['n','pros','cons','codes','vuz','world'],
+    searchPlaceholder:'Поиск по названию, вузу, коду направления…',
+    facets:[
+      {key:'g', label:'Область', type:'chips', multi:true,
+       options:Object.entries(PROF_GROUPS).map(([k,v])=>[k,v.n]),
+       test:(it,v)=>it.g===v},
+      {key:'demand', label:'Спрос в РФ', type:'select',
+       options:[['high','Высокий'],['mid','Умеренный']],
+       test:(it,v)=>it.demand===v},
+      {key:'ai', label:'Риск замещения ИИ', type:'select',
+       options:[['low','Низкий'],['mid','Средний']],
+       test:(it,v)=>it.ai===v},
+    ],
+    render:(res,list)=>{
+      res.forEach(p=>{
+        const G = PROF_GROUPS[p.g];
+        const body = el('div',{class:'body'});
+
+        body.append(el('div',{style:'display:flex;gap:22px;flex-wrap:wrap;margin-bottom:12px'},
+          el('div',{}, el('div',{class:'xs muted'},'Спрос в России'),
+            el('div',{class:'sm'}, meter(p.demand,'var(--ok)'),' ', el('span',{class:'b '+LBL.demand[p.demand][1]}, LBL.demand[p.demand][0]))),
+          el('div',{}, el('div',{class:'xs muted'},'Риск замещения ИИ'),
+            el('div',{class:'sm'}, meter(p.ai==='low'?'low':p.ai==='mid'?'mid':'high', p.ai==='low'?'var(--ok)':p.ai==='mid'?'var(--warn)':'var(--bad)'),' ',
+              el('span',{class:'b '+LBL.ai[p.ai][1]}, LBL.ai[p.ai][0]))),
+          el('div',{}, el('div',{class:'xs muted'},'Надёжность оценки'),
+            el('div',{class:'sm'}, el('span',{class:'b '+LBL.conf[p.conf][1]}, LBL.conf[p.conf][0])))));
+
+        body.append(el('p',{class:'sm',style:'margin:6px 0'}, el('b',{},'Деньги. '), el('span',{html:p.sal})));
+        body.append(el('p',{class:'sm',style:'margin:6px 0'}, el('b',{},'ЕГЭ. '), p.ege));
+        body.append(el('p',{class:'sm',style:'margin:6px 0'}, el('b',{},'Направления подготовки. '),
+          el('span',{html:p.codes.map(c=>'<code>'+esc(c)+'</code>').join(' · ')})));
+        body.append(el('p',{class:'sm',style:'margin:6px 0'}, el('b',{},'Вузы. '), p.vuz));
+
+        const g2 = el('div',{class:'grid g2',style:'margin-top:12px'});
+        g2.append(el('div',{class:'card',style:'border-left:3px solid var(--ok)'},
+          el('h3',{class:'mt0',style:'font-size:14px'},'За'),
+          el('ul',{class:'sm mb0',style:'padding-left:18px'}, p.pros.map(t=>el('li',{html:t})))));
+        g2.append(el('div',{class:'card',style:'border-left:3px solid var(--bad)'},
+          el('h3',{class:'mt0',style:'font-size:14px'},'Против'),
+          el('ul',{class:'sm mb0',style:'padding-left:18px'}, p.cons.map(t=>el('li',{html:t})))));
+        body.append(g2);
+        body.append(el('p',{class:'sm muted',style:'margin:12px 0 0'}, el('b',{},'В мире: '), p.world));
+
+        list.append(el('details',{class:'pc',style:'border-left:3px solid '+G.c},
+          el('summary',{},
+            el('span',{class:'pn'}, p.n),
+            el('span',{class:'b'}, G.n),
+            el('span',{class:'b '+LBL.demand[p.demand][1]}, LBL.demand[p.demand][0]),
+            el('span',{class:'b '+LBL.ai[p.ai][1]}, LBL.ai[p.ai][0])),
+          body));
+      });
+    }
+  });
+
+  // сокращающиеся
+  const dec = $('#dec');
+  DECLINING.forEach(d=>{
+    dec.append(el('div',{class:'dl2'},
+      el('div',{}, el('b',{}, d.n), el('div',{class:'sm muted',style:'margin-top:3px'}, el('span',{html:d.c}))),
+      el('div',{class:'right'}, el('div',{class:'b bad'}, d.v), el('div',{class:'xs muted',style:'margin-top:4px'}, d.src))));
+  });
+
+  // навыки
+  const sk = $('#sk');
+  SKILLS.forEach(s=>{
+    sk.append(el('div',{class:'card sk',style:'margin-bottom:14px'},
+      el('div',{style:'display:flex;gap:10px;align-items:baseline;flex-wrap:wrap'},
+        el('h3',{class:'mt0',style:'margin-bottom:4px'}, s.n),
+        el('span',{class:'b acc'}, s.tag)),
+      el('p',{class:'sm',html:s.why}),
+      el('ul',{class:'sm',style:'padding-left:18px'}, s.what.map(t=>el('li',{html:t}))),
+      el('div',{class:'grid g2',style:'margin-top:10px'},
+        el('div',{class:'card y',style:'padding:13px'}, el('div',{class:'xs muted',style:'margin-bottom:4px'},'{{Y}}, 10 лет'), el('div',{class:'sm',html:s.y})),
+        el('div',{class:'card u',style:'padding:13px'}, el('div',{class:'xs muted',style:'margin-bottom:4px'},'{{U}}, 15 лет'), el('div',{class:'sm',html:s.u}))),
+      el('p',{class:'sm muted',style:'margin:10px 0 0'}, el('b',{},'Как понять, что растёт: '), s.measure)));
+  });
+  $('#caveat').innerHTML = nm(SKILLS_CAVEAT);
+});
+</script>
+</body>
+</html>
