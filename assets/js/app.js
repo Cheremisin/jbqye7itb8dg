@@ -9,11 +9,12 @@ const NAV = [
   ['tasks.html',      'Задания'],
   ['tracker.html',    'Трекер'],
   ['olympiads.html',  'Олимпиады'],
-  ['admission.html',  'Вузы и приём'],
+  ['admission.html',  'Вузы'],
   ['resources.html',  'Ресурсы'],
   ['tests.html',      'Профориентация'],
+  ['professions.html','Профессии'],
   ['ai.html',         'ИИ в учёбе'],
-  ['strategy.html',   'Стратегия'],
+  ['strategy.html',   'Тренды'],
 ];
 
 /* ---------------- подстановка имён (см. data/config.js) ----------------
@@ -44,7 +45,8 @@ const nm = s => typeof s === 'string' && s.indexOf('{{') >= 0
   };
   ['DEADLINES','OLYMPIADS','RESOURCES','PLANS','PROMPTS','TASKS',
    'RIASEC_TYPES','RIASEC_ITEMS','PROFILE_DIRS','PROFILE_ITEMS',
-   'OBSERVE_AXES','OBSERVE_ITEMS'].forEach(k => walk(window[k]));
+   'OBSERVE_AXES','OBSERVE_ITEMS','PROFESSIONS','DECLINING','SKILLS'].forEach(k => walk(window[k]));
+  if(typeof window.SKILLS_CAVEAT === 'string') window.SKILLS_CAVEAT = nm(window.SKILLS_CAVEAT);
 })();
 
 const KIDS = {
