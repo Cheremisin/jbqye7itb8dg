@@ -13,6 +13,7 @@ const NAV = [
   ['resources.html',  'Ресурсы'],
   ['tests.html',      'Профориентация'],
   ['professions.html','Профессии'],
+  ['missions.html',   'Зачем'],
   ['ai.html',         'ИИ в учёбе'],
   ['strategy.html',   'Тренды'],
 ];
@@ -45,8 +46,11 @@ const nm = s => typeof s === 'string' && s.indexOf('{{') >= 0
   };
   ['DEADLINES','OLYMPIADS','RESOURCES','PLANS','PROMPTS','TASKS',
    'RIASEC_TYPES','RIASEC_ITEMS','PROFILE_DIRS','PROFILE_ITEMS',
-   'OBSERVE_AXES','OBSERVE_ITEMS','PROFESSIONS','DECLINING','SKILLS'].forEach(k => walk(window[k]));
-  if(typeof window.SKILLS_CAVEAT === 'string') window.SKILLS_CAVEAT = nm(window.SKILLS_CAVEAT);
+   'OBSERVE_AXES','OBSERVE_ITEMS','PROFESSIONS','DECLINING','SKILLS',
+   'PROBLEMS','MOTIV','WHY_CHAIN','HEROES','HEROES_MORE','ABROAD','LOCAL','BN'].forEach(k => walk(window[k]));
+  ['SKILLS_CAVEAT','ABROAD_INTRO','LOCAL_INTRO','MISSION_CLOSE'].forEach(k => {
+    if(typeof window[k] === 'string') window[k] = nm(window[k]);
+  });
 })();
 
 const KIDS = {
