@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex,nofollow">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Проекты — Образование</title>
+<link rel="stylesheet" href="assets/css/style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎓</text></svg>">
+<style>
+.pl{padding:16px 0;border-bottom:1px solid var(--line)}
+.pl:last-child{border-bottom:0}
+.pl .h{display:flex;gap:9px;align-items:baseline;flex-wrap:wrap;margin-bottom:5px}
+.pl .h .nm{font-weight:600;font-size:16px}
+.idea{background:var(--bg2);border:1px solid var(--line);border-radius:var(--r);margin-bottom:12px;overflow:hidden}
+.idea>summary{padding:14px 17px;cursor:pointer;list-style:none;display:flex;gap:11px;align-items:baseline;flex-wrap:wrap}
+.idea>summary::-webkit-details-marker{display:none}
+.idea>summary::before{content:'▸';color:var(--tx3);transition:transform .2s;flex-shrink:0}
+.idea[open]>summary::before{transform:rotate(90deg)}
+.idea .nm{font-weight:600;font-size:16px;flex:1;min-width:190px}
+.idea .body{padding:0 17px 17px}
+.idea .body .row{margin-top:12px}
+.idea .body .lb{font-size:12px;text-transform:uppercase;letter-spacing:.04em;color:var(--tx3);margin-bottom:3px}
+.hard{display:inline-flex;gap:2px;vertical-align:middle}
+.hard i{width:7px;height:7px;border-radius:50%;background:var(--bg3)}
+.hard i.on{background:var(--warn)}
+.mth{padding:14px 0;border-bottom:1px solid var(--line)}
+.mth:last-child{border-bottom:0}
+</style>
+</head>
+<body>
+<main class="wrap">
+  <h1>Проекты</h1>
+  <p class="lead" id="lead"></p>
+
+  <div class="toc">
+    <a href="#platforms">Где взять задачу</a><a href="#ideas">Идеи проектов</a>
+    <a href="#younger">Для младшего</a><a href="#method">Как сделать хорошо</a>
+  </div>
+
+  <h2 id="platforms">Где взять настоящую задачу</h2>
+  <p class="sm">Отсортировано по тому, насколько прямой и низкий вход. Пометка «срочно» — дедлайн в ближайшие недели.</p>
+  <div class="card" id="plats"></div>
+  <div class="note warn"><p class="mb0 sm" id="platnote"></p></div>
+
+  <h2 id="ideas">Двадцать одна идея с честной оценкой</h2>
+  <p class="sm">Каждая — реальная задача, посильная за 3–9 месяцев. Фильтры показывают главное: что можно сделать <b>на домашнем ноутбуке и открытых данных</b>, что требует недорогого оборудования, а что без лаборатории не сделать вообще. Кружки в кружках — оценка сложности от 1 до 5.</p>
+  <div id="ideas"></div>
+
+  <h2 id="younger">Шесть проектов для {{Yg}}</h2>
+  <p class="sm">Десятилетнему не нужен научный результат — ему нужно один раз своими руками получить число, которого раньше не было. Все шесть делаются дома при поддержке взрослого.</p>
+  <div class="card" id="yideas"></div>
+
+  <h2 id="method">Как устроен проект, который проходит экспертизу</h2>
+  <div class="card" id="method"></div>
+
+  <p class="sm muted" style="margin-top:20px">Рядом: <a href="olympiads.html">олимпиады и льготы</a> — куда подавать результат и что он даёт. <a href="missions.html">Зачем работать</a> — из каких нерешённых задач человечества выросла половина идей выше. Данные собраны 11 августа 2026; сроки сезона проверяйте на сайтах организаторов.</p>
+</main>
+
+<script src="data/projects.js"></script>
+<script src="data/config.js"></script>
+<script src="assets/js/app.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded',()=>{
+  $('#lead').innerHTML = PROJ_INTRO;
+  $('#platnote').innerHTML = PLAT_NOTE;
+
+  const pb = $('#plats');
+  PLATFORMS.forEach(p=>{
+    pb.append(el('div',{class:'pl'},
+      el('div',{class:'h'},
+        p.u ? el('a',{href:p.u,target:'_blank',rel:'noopener',class:'nm'},p.n) : el('span',{class:'nm'},p.n),
+        p.hot?el('span',{class:'b bad'},'срочно'):null,
+        el('span',{class:'b'},p.cls),
+        ...p.who.map(w=>el('span',{class:'b '+w}, KIDS[w==='u'?'elder':'younger'].name))),
+      el('div',{class:'sm',style:'color:var(--warn);margin-bottom:6px'}, p.when, el('span',{class:'xs muted'},'  ·  '+p.st)),
+      el('div',{class:'sm',html:p.d}),
+      el('div',{class:'sm',style:'margin-top:7px;padding:10px 12px;background:var(--bg3);border-radius:8px',html:p.why})));
+  });
+
+  // идеи
+  const dots = n => el('span',{class:'hard'}, [1,2,3,4,5].map(i=>el('i',{class:i<=n?'on':''})));
+  const NEED = {pc:['💻 Ноутбук и открытые данные','ok'], kit:['🔧 Недорогое оборудование','warn'], lab:['🧪 Нужна лаборатория','bad']};
+  filterList({
+    items: IDEAS,
+    container: $('#ideas'),
+    searchFields: ['n','task','do','skill','send'],
+    searchPlaceholder: 'Поиск по идеям…',
+    facets: [
+      {key:'f', type:'chips', label:'Отрасль', multi:true,
+       options: Object.entries(IDEA_FIELDS).map(([k,v])=>[k,v[0]]), test:(it,v)=>it.f===v},
+      {key:'need', label:'Что нужно',
+       options: Object.entries(NEED).map(([k,v])=>[k,v[0]]), test:(it,v)=>it.need===v},
+    ],
+    render(list, box){
+      list.forEach(p=>{
+        const F = IDEA_FIELDS[p.f], N = NEED[p.need];
+        const body = el('div',{class:'body'},
+          el('div',{class:'row'}, el('div',{class:'lb'},'Задача'), el('div',{class:'sm',html:p.task})),
+          el('div',{class:'row'}, el('div',{class:'lb'},'Что делает школьник'), el('div',{class:'sm',html:p.do})),
+          p.warn ? el('div',{class:'note bad',style:'margin:12px 0 0'}, el('p',{class:'mb0 sm',html:p.warn})) : null,
+          el('div',{class:'grid g2',style:'margin-top:12px'},
+            el('div',{}, el('div',{class:'lb'},'Навыки'), el('div',{class:'sm'},p.skill)),
+            el('div',{}, el('div',{class:'lb'},'Куда подать'), el('div',{class:'sm'},p.send))));
+        box.append(el('details',{class:'idea',style:'border-left:3px solid '+F[1]},
+          el('summary',{},
+            el('span',{class:'nm'}, p.n),
+            el('span',{class:'b',style:'color:'+F[1]+';border-color:'+F[1]}, F[0]),
+            el('span',{class:'b '+N[1]}, N[0]),
+            el('span',{class:'b'}, p.cost),
+            el('span',{class:'xs muted',style:'display:inline-flex;gap:5px;align-items:center'},'сложность',dots(p.hard))),
+          body));
+      });
+    }
+  });
+
+  const yb = $('#yideas');
+  IDEAS_Y.forEach(([n,d],i)=>yb.append(el('div',{style:'padding:13px 0'+(i?';border-top:1px solid var(--line)':'')},
+    el('b',{},n), el('div',{class:'sm',style:'margin-top:4px',html:d}))));
+
+  const mb = $('#method');
+  METHOD.forEach(([n,d])=>mb.append(el('div',{class:'mth'},
+    el('div',{style:'font-weight:600;margin-bottom:4px'},n), el('div',{class:'sm',html:d}))));
+});
+</script>
+</body>
+</html>

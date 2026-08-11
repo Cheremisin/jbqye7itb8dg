@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex,nofollow">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Школы Москвы — Образование</title>
+<link rel="stylesheet" href="assets/css/style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎓</text></svg>">
+<style>
+.sc{background:var(--bg2);border:1px solid var(--line);border-radius:var(--r);margin-bottom:12px;overflow:hidden}
+.sc>summary{padding:15px 18px;cursor:pointer;list-style:none;display:flex;gap:10px;align-items:baseline;flex-wrap:wrap}
+.sc>summary::-webkit-details-marker{display:none}
+.sc>summary::before{content:'▸';color:var(--tx3);transition:transform .2s;flex-shrink:0}
+.sc[open]>summary::before{transform:rotate(90deg)}
+.sc .nm{font-weight:600;font-size:16px;flex:1;min-width:210px}
+.sc .body{padding:0 18px 18px}
+.sc .lb{font-size:12px;text-transform:uppercase;letter-spacing:.04em;color:var(--tx3);margin-bottom:3px}
+.sc .row{margin-top:12px}
+.lim{padding:13px 0;border-bottom:1px solid var(--line)}
+.lim:last-child{border-bottom:0}
+.win{display:grid;grid-template-columns:auto 1fr;gap:6px 16px;padding:12px 0;border-bottom:1px solid var(--line);align-items:baseline}
+.win:last-child{border-bottom:0}
+.win .w{font-weight:700;color:var(--warn);white-space:nowrap}
+@media(max-width:600px){.win{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<main class="wrap">
+  <h1>Школы Москвы</h1>
+  <p class="lead" id="lead"></p>
+
+  <div class="note ok"><p class="mb0" id="top"></p></div>
+
+  <div class="toc">
+    <a href="#rating">Как читать рейтинг</a><a href="#list">Школы рядом</a>
+    <a href="#gym">Гимназия Сколково</a><a href="#window">Календарь отбора</a><a href="#concl">Выводы</a>
+  </div>
+
+  <h2 id="rating">Три рейтинга и что каждый из них меряет</h2>
+  <p class="sm" id="what"></p>
+  <h3>Семь ограничений, без которых рейтинг вводит в заблуждение</h3>
+  <div class="card" id="lims"></div>
+
+  <h2 id="list">Школы рядом: разбор</h2>
+  <p class="sm">Фильтр по округу и по тому, кому школа подходит. У каждой — честный блок «что не так»: он важнее блока «что хорошо». Округа проверены: несколько известных школ на самом деле находятся не там, где их обычно помещают, а для семьи, у которой всё решает дорога, это принципиально.</p>
+  <div id="schools"></div>
+
+  <h2 id="window">Календарь отбора расползается на полгода</h2>
+  <p class="sm">Главная практическая проблема: подать во все школы и потом выбрать не получится — дедлайны стоят в разных месяцах и на разных курсах. Нужен годовой план, начиная с осени 2026.</p>
+  <div class="card" id="win"></div>
+  <div class="note bad"><p class="mb0" id="risk"></p></div>
+
+  <h2 id="concl">Что из этого следует</h2>
+  <div id="concl"></div>
+
+  <p class="sm muted" style="margin-top:20px">Данные на 11 августа 2026. Рейтинг департамента — за 2024/2025 учебный год, новый выходит в конце августа, позиции стоит перепроверить. Стоимость обучения и условия приёма меняются — уточняйте в приёмных комиссиях. Рядом: <a href="admission.html">вузы и правила приёма</a>, <a href="olympiads.html">олимпиады</a>.</p>
+</main>
+
+<script src="data/schools.js"></script>
+<script src="data/config.js"></script>
+<script src="assets/js/app.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded',()=>{
+  $('#lead').innerHTML = SCH_INTRO;
+  $('#top').innerHTML  = SCH_TOP;
+  $('#what').innerHTML = RATING_WHAT;
+  $('#risk').innerHTML = SCH_RISK;
+
+  const lb = $('#lims');
+  RATING_LIMITS.forEach(([n,d],i)=>lb.append(el('div',{class:'lim'},
+    el('div',{style:'font-weight:600;margin-bottom:3px'}, (i+1)+'. '+n),
+    el('div',{class:'sm',html:d}))));
+
+  const OKR = [...new Set(SCHOOLS.map(s=>s.okr))];
+  filterList({
+    items: SCHOOLS,
+    container: $('#schools'),
+    searchFields: ['n','place','prof','how','ok','no'],
+    searchPlaceholder: 'Поиск по школам…',
+    facets: [
+      {key:'okr', type:'chips', label:'Округ', multi:true, options: OKR.map(o=>[o,o]), test:(it,v)=>it.okr===v},
+      {key:'who', label:'Кому', options:[['u','{{U}}'],['y','{{Y}}']], test:(it,v)=>it.who.includes(v)},
+    ],
+    render(list, box){
+      list.slice().sort((a,b)=>a.pri-b.pri).forEach(s=>{
+        const body = el('div',{class:'body'},
+          el('div',{class:'row'}, el('div',{class:'lb'},'Профили'), el('div',{class:'sm',html:s.prof})),
+          el('div',{class:'row'}, el('div',{class:'lb'},'Как поступить'), el('div',{class:'sm',html:s.how})),
+          s.rank && s.rank!=='—' ? el('div',{class:'row'}, el('div',{class:'lb'},'В рейтингах'), el('div',{class:'sm',html:s.rank})) : null,
+          el('div',{class:'row'}, el('div',{class:'lb'},'Дорога'), el('div',{class:'sm',html:s.road})),
+          el('div',{class:'grid g2',style:'margin-top:14px'},
+            el('div',{class:'card',style:'padding:13px;border-left:3px solid var(--ok)'},
+              el('div',{class:'lb'},'Что хорошо'), el('div',{class:'sm',html:s.ok})),
+            el('div',{class:'card',style:'padding:13px;border-left:3px solid var(--bad)'},
+              el('div',{class:'lb'},'Что не так'), el('div',{class:'sm',html:s.no}))),
+          s.u ? el('p',{class:'xs muted',style:'margin:12px 0 0'}, el('a',{href:s.u,target:'_blank',rel:'noopener'},'Сайт школы и приём')) : null);
+        box.append(el('details',{class:'sc',id:s.pri===0?'gym':null},
+          el('summary',{},
+            el('span',{class:'nm'}, s.n),
+            el('span',{class:'b'}, s.okr),
+            el('span',{class:'b '+(s.type.indexOf('бюджет')>=0?'ok':'warn')}, s.type),
+            ...s.who.map(w=>el('span',{class:'b '+w}, KIDS[w==='u'?'elder':'younger'].name)),
+            s.pri===1?el('span',{class:'b acc'},'главный кандидат'):null),
+          body));
+      });
+    }
+  });
+
+  const wb = $('#win');
+  SCH_WINDOW.forEach(([w,d])=>wb.append(el('div',{class:'win'},
+    el('div',{class:'w'},w), el('div',{class:'sm',html:d}))));
+
+  const cb = $('#concl');
+  SCH_CONCL.forEach(([k,n,intro,items])=>{
+    cb.append(el('div',{class:'card '+k,style:'margin-bottom:14px'},
+      el('h3',{class:'mt0',style:'color:var(--'+k+')'}, n),
+      el('p',{class:'sm',html:intro}),
+      el('ul',{class:'sm',style:'padding-left:18px;margin-bottom:0'}, items.map(t=>el('li',{html:t,style:'margin-bottom:7px'})))));
+  });
+});
+</script>
+</body>
+</html>
