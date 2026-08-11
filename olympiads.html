@@ -12,7 +12,7 @@
 <main class="wrap">
   <h1>Олимпиады и льготы</h1>
   <p class="lead">Каталог олимпиад, подобранных под {{Ua}} и {{Yg}}, календарь сезона 2026/27 и разбор того, как льготы работают на практике.</p>
-  <div class="toc"><a href="#how">Как работают льготы</a><a href="#catalog">Каталог</a><a href="#calendar">Календарь сезона</a><a href="#changes">Что изменилось в 2026</a><a href="#ind">Индивидуальные достижения</a></div>
+  <div class="toc"><a href="#how">Как работают льготы</a><a href="#easy">Где вход реально проще</a><a href="#skills">Навыки, а не баллы</a><a href="#catalog">Каталог</a><a href="#intl">Международные</a><a href="#calendar">Календарь сезона</a><a href="#changes">Что изменилось в 2026</a><a href="#ind">Индивидуальные достижения</a></div>
 
   <div class="note warn">
     <p><b>Ключевое предупреждение по датам.</b> Уровни олимпиад в каталоге приведены по перечню 2025/26 (приказ Минобрнауки № 669 от 30.08.2025, 83 олимпиады). Приказ о перечне на 2026/27 выходит в конце августа — октябре 2026 и на 9 августа ещё не издан. С 2026/27 действует новый Порядок (приказ № 16 от 16.01.2026): финалы только очные и в один день, порог 500 участников и 25 регионов, плата за участие запрещена. <b>Число олимпиад в перечне с большой вероятностью сократится.</b> Сверяйтесь с <a href="https://rsr-olymp.ru/docs" target="_blank" rel="noopener">rsr-olymp.ru</a> и <a href="https://olimpiada.ru/" target="_blank" rel="noopener">olimpiada.ru</a>.</p>
@@ -37,9 +37,39 @@
     </div>
   </div>
 
+  <h2 id="easy">Где вход реально проще при том же результате</h2>
+  <p class="sm">Распространённое мнение: технологические олимпиады проще классических предметных, а бонусы дают те же. Это проверяемое утверждение, и вот что показывают цифры.</p>
+  <div class="note warn"><p class="mb0" id="verdict"></p></div>
+
+  <h3>Вероятность получить диплом — прямое сравнение</h3>
+  <div class="card" id="easytab"></div>
+
+  <div class="grid g2" style="margin-top:16px">
+    <div class="card" style="border-left:3px solid var(--ok)">
+      <h3 class="mt0">Где это правда</h3>
+      <div id="etrue"></div>
+    </div>
+    <div class="card" style="border-left:3px solid var(--bad)">
+      <h3 class="mt0">Где это миф</h3>
+      <div id="efalse"></div>
+    </div>
+  </div>
+
+  <h2 id="skills">Навыки, а не баллы: что даёт какой формат</h2>
+  <p class="sm">Здесь тезис о технологических олимпиадах верен полностью, и ради этого в них стоит идти. Классическая предметная олимпиада не развивает ни командную работу, ни проектное мышление, ни защиту результата — она развивает совсем другое и делает это лучше всех. Точки в шкале — от нуля до трёх.</p>
+  <div id="fmt"></div>
+
+  <h3>Что делать в этом сезоне</h3>
+  <div class="grid g2" id="eplan"></div>
+
   <h2 id="catalog">Каталог олимпиад</h2>
   <p class="sm muted">Подобраны под двух детей. Приоритет 1 — то, с чего начинать. Ссылки ведут на сайты организаторов.</p>
   <div id="cat"></div>
+
+  <h2 id="intl">Международные олимпиады и конкурсы</h2>
+  <p class="sm" id="intlintro"></p>
+  <div class="card" id="intl"></div>
+  <div class="note ok"><p class="mb0" id="intlnote"></p></div>
 
   <h2 id="calendar">Календарь сезона 2026/27</h2>
   <p class="sm muted">Даты со звёздочкой* — по прошлому сезону; официальные объявляются организаторами в сентябре–ноябре.</p>
@@ -95,6 +125,7 @@
 </main>
 
 <script src="data/olympiads.js"></script>
+<script src="data/olymp2.js"></script>
 <script src="data/deadlines.js"></script>
 <script src="data/config.js"></script>
 <script src="assets/js/app.js"></script>
@@ -137,6 +168,58 @@ document.addEventListener('DOMContentLoaded',()=>{
         list.append(card);
       });
     }
+  });
+
+  // --- где проще ---
+  $('#verdict').innerHTML  = EASY_VERDICT;
+  $('#intlintro').innerHTML = INTL_INTRO;
+  $('#intlnote').innerHTML  = INTL_NOTE;
+
+  const et = $('#easytab');
+  EASY_ROWS.forEach((r,i)=>{
+    et.append(el('div',{style:'padding:14px 0'+(i?';border-top:1px solid var(--line)':'')},
+      el('div',{style:'display:flex;gap:10px;align-items:baseline;flex-wrap:wrap'},
+        el('b',{style:'flex:1;min-width:200px'}, r.n),
+        el('span',{class:'b '+r.c,style:'font-size:15px;font-weight:700'}, r.pct)),
+      el('div',{class:'xs muted',style:'margin-top:4px'}, r.p+'  →  '+r.d),
+      el('div',{class:'sm',style:'margin-top:6px'}, el('b',{},'Даёт: '), r.g),
+      el('div',{class:'sm muted',style:'margin-top:5px',html:r.note})));
+  });
+
+  const fill = (box, arr) => arr.forEach(([n,d],i)=>box.append(el('div',{style:'padding:11px 0'+(i?';border-top:1px solid var(--line)':'')},
+    el('div',{style:'font-weight:600;font-size:14.5px;margin-bottom:3px'},n), el('div',{class:'sm',html:d}))));
+  fill($('#etrue'), EASY_TRUE);
+  fill($('#efalse'), EASY_FALSE);
+
+  const fb = $('#fmt');
+  const scale = n => el('span',{style:'display:inline-flex;gap:3px;align-items:center'},
+    [1,2,3].map(i=>el('i',{style:'width:8px;height:8px;border-radius:50%;background:'+(i<=n?'var(--acc)':'var(--bg3)')})));
+  SKILL_FORMATS.forEach(f=>{
+    fb.append(el('div',{class:'card',style:'margin-bottom:12px'},
+      el('div',{style:'display:flex;gap:10px;align-items:baseline;flex-wrap:wrap'},
+        el('h3',{class:'mt0',style:'margin-bottom:4px;font-size:16px;flex:1;min-width:200px'}, f.n),
+        f.cls!=='—'?el('span',{class:'b'}, f.cls):null),
+      el('div',{style:'display:flex;gap:14px;flex-wrap:wrap;margin:8px 0 9px'},
+        SKILL_AXES.map(([k,lab])=>el('span',{class:'xs muted',style:'display:inline-flex;gap:5px;align-items:center'}, lab, scale(f[k])))),
+      el('div',{class:'sm',html:f.d})));
+  });
+
+  const pb = $('#eplan');
+  EASY_PLAN.forEach(([k,n,intro,items])=>pb.append(el('div',{class:'card '+k},
+    el('h3',{class:'mt0',style:'color:var(--'+k+')'}, n),
+    el('p',{class:'sm',html:intro}),
+    el('ul',{class:'sm',style:'padding-left:18px;margin-bottom:0'}, items.map(t=>el('li',{html:t,style:'margin-bottom:6px'}))))));
+
+  const ib = $('#intl');
+  INTL.forEach((it,i)=>{
+    const [lab,cls] = INTL_ST[it.st];
+    ib.append(el('div',{style:'padding:14px 0'+(i?';border-top:1px solid var(--line)':'')},
+      el('div',{style:'display:flex;gap:9px;align-items:baseline;flex-wrap:wrap'},
+        el('b',{style:'flex:1;min-width:190px'}, it.n),
+        el('span',{class:'b '+cls}, lab),
+        el('span',{class:'b'}, it.fmt)),
+      el('div',{class:'sm',style:'margin-top:5px',html:it.d}),
+      it.give && it.give!=='—' ? el('div',{class:'sm muted',style:'margin-top:4px'}, el('b',{},'Даёт: '), it.give) : null));
   });
 
   // calendar
