@@ -10,6 +10,7 @@ const NAV = [
   ['tracker.html',    'Трекер'],
   ['olympiads.html',  'Олимпиады'],
   ['projects.html',   'Проекты'],
+  ['clubs.html',      'Кружки'],
   ['admission.html',  'Вузы'],
   ['schools.html',    'Школы'],
   ['resources.html',  'Ресурсы'],
@@ -51,9 +52,11 @@ const nm = s => typeof s === 'string' && s.indexOf('{{') >= 0
    'OBSERVE_AXES','OBSERVE_ITEMS','PROFESSIONS','DECLINING','SKILLS',
    'PROBLEMS','MOTIV','WHY_CHAIN','HEROES','HEROES_MORE','ABROAD','LOCAL','BN',
    'EASY_ROWS','EASY_TRUE','EASY_FALSE','SKILL_FORMATS','EASY_PLAN','INTL',
-   'PLATFORMS','IDEAS','IDEAS_Y','METHOD','SCHOOLS','RATING_LIMITS','SCH_WINDOW','SCH_CONCL'].forEach(k => walk(window[k]));
+   'PLATFORMS','IDEAS','IDEAS_Y','METHOD','SCHOOLS','RATING_LIMITS','SCH_WINDOW','SCH_CONCL','OSTROV',
+   'CLUBS','CLUBS_TRUTH','ROBO_PICK','CAMPS','CAMPS_FALL','CLUB_DIRS'].forEach(k => walk(window[k]));
   ['SKILLS_CAVEAT','ABROAD_INTRO','LOCAL_INTRO','MISSION_CLOSE','EASY_VERDICT','INTL_INTRO','INTL_NOTE',
-   'PROJ_INTRO','PLAT_NOTE','SCH_INTRO','SCH_TOP','RATING_WHAT','SCH_RISK'].forEach(k => {
+   'PROJ_INTRO','PLAT_NOTE','SCH_INTRO','SCH_TOP','RATING_WHAT','SCH_RISK','OSTROV_NOTE',
+   'CLUBS_INTRO','CAMPS_INTRO','CAMPS_KEY'].forEach(k => {
     if(typeof window[k] === 'string') window[k] = nm(window[k]);
   });
 })();
