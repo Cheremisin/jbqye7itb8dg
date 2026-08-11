@@ -9,7 +9,9 @@ const NAV = [
   ['tasks.html',      'Задания'],
   ['tracker.html',    'Трекер'],
   ['olympiads.html',  'Олимпиады'],
+  ['projects.html',   'Проекты'],
   ['admission.html',  'Вузы'],
+  ['schools.html',    'Школы'],
   ['resources.html',  'Ресурсы'],
   ['tests.html',      'Профориентация'],
   ['professions.html','Профессии'],
@@ -47,8 +49,11 @@ const nm = s => typeof s === 'string' && s.indexOf('{{') >= 0
   ['DEADLINES','OLYMPIADS','RESOURCES','PLANS','PROMPTS','TASKS',
    'RIASEC_TYPES','RIASEC_ITEMS','PROFILE_DIRS','PROFILE_ITEMS',
    'OBSERVE_AXES','OBSERVE_ITEMS','PROFESSIONS','DECLINING','SKILLS',
-   'PROBLEMS','MOTIV','WHY_CHAIN','HEROES','HEROES_MORE','ABROAD','LOCAL','BN'].forEach(k => walk(window[k]));
-  ['SKILLS_CAVEAT','ABROAD_INTRO','LOCAL_INTRO','MISSION_CLOSE'].forEach(k => {
+   'PROBLEMS','MOTIV','WHY_CHAIN','HEROES','HEROES_MORE','ABROAD','LOCAL','BN',
+   'EASY_ROWS','EASY_TRUE','EASY_FALSE','SKILL_FORMATS','EASY_PLAN','INTL',
+   'PLATFORMS','IDEAS','IDEAS_Y','METHOD','SCHOOLS','RATING_LIMITS','SCH_WINDOW','SCH_CONCL'].forEach(k => walk(window[k]));
+  ['SKILLS_CAVEAT','ABROAD_INTRO','LOCAL_INTRO','MISSION_CLOSE','EASY_VERDICT','INTL_INTRO','INTL_NOTE',
+   'PROJ_INTRO','PLAT_NOTE','SCH_INTRO','SCH_TOP','RATING_WHAT','SCH_RISK'].forEach(k => {
     if(typeof window[k] === 'string') window[k] = nm(window[k]);
   });
 })();
