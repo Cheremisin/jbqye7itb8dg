@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex,nofollow">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Кружки и лагеря — Образование</title>
+<link rel="stylesheet" href="assets/css/style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎓</text></svg>">
+<style>
+.cl{background:var(--bg2);border:1px solid var(--line);border-radius:var(--r);margin-bottom:11px;overflow:hidden}
+.cl>summary{padding:14px 17px;cursor:pointer;list-style:none;display:flex;gap:9px;align-items:baseline;flex-wrap:wrap}
+.cl>summary::-webkit-details-marker{display:none}
+.cl>summary::before{content:'▸';color:var(--tx3);transition:transform .2s;flex-shrink:0}
+.cl[open]>summary::before{transform:rotate(90deg)}
+.cl .nm{font-weight:600;font-size:16px;flex:1;min-width:200px}
+.cl .body{padding:0 17px 17px}
+.cl .lb{font-size:12px;text-transform:uppercase;letter-spacing:.04em;color:var(--tx3);margin-bottom:3px}
+.cl .row{margin-top:11px}
+.rb{padding:13px 0;border-bottom:1px solid var(--line)}
+.rb:last-child{border-bottom:0}
+.fall{display:grid;grid-template-columns:auto 1fr;gap:5px 16px;padding:13px 0;border-bottom:1px solid var(--line);align-items:baseline}
+.fall:last-child{border-bottom:0}
+.fall .w{font-weight:700;color:var(--warn);white-space:nowrap;font-size:14px}
+.tr{padding:13px 0;border-bottom:1px solid var(--line)}
+.tr:last-child{border-bottom:0}
+@media(max-width:600px){.fall{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<main class="wrap">
+  <h1>Кружки и лагеря</h1>
+  <p class="lead" id="lead"></p>
+
+  <div class="toc">
+    <a href="#robo">Робототехника {{Yd}}</a><a href="#list">Каталог кружков</a>
+    <a href="#camps">Лагеря и смены</a><a href="#fall">Календарь на год</a><a href="#truth">Что важно понимать</a>
+  </div>
+
+  <h2 id="robo">Робототехника и инженерия: что выбрать {{Yd}}</h2>
+  <p class="sm" id="rintro"></p>
+  <div class="grid g2">
+    <div class="card" style="border-left:3px solid var(--ok)">
+      <h3 class="mt0">Что взять</h3>
+      <div id="ryes"></div>
+    </div>
+    <div class="card" style="border-left:3px solid var(--bad)">
+      <h3 class="mt0">Чего не делать</h3>
+      <div id="rno"></div>
+    </div>
+  </div>
+  <div class="note ok" style="margin-top:14px"><p class="mb0" id="rcomp"></p></div>
+  <div class="note warn"><p class="mb0" id="rtest"></p></div>
+
+  <h2 id="list">Каталог: кружки, секции и заочные школы</h2>
+  <p class="sm">★ — то, что стоит рассмотреть в первую очередь. «Срочно» — запись уже идёт или закрывается в ближайшие недели. Фильтр по цене показывает главное: <b>бесплатного здесь больше, чем платного, и оно в среднем сильнее</b>.</p>
+  <div id="clubs"></div>
+
+  <h2 id="camps">Лагеря, смены и интенсивы</h2>
+  <p class="sm" id="cintro"></p>
+  <div id="camps"></div>
+  <div class="note ok"><p class="mb0" id="ckey"></p></div>
+
+  <h2 id="fall">Календарь заявок на год вперёд</h2>
+  <p class="sm">Главная причина потерять год — не лень, а календарь: на летние смены подают зимой, а часть лучших кружков набирает в январе предыдущего учебного года.</p>
+  <div class="card" id="fall"></div>
+
+  <h2 id="truth">Что важно понимать</h2>
+  <div class="card" id="truth"></div>
+
+  <p class="sm muted" style="margin-top:20px">Данные собраны 11 августа 2026. Цены частных клубов взяты из каталогов без даты — считайте их порядком величины, а не ценой. Рядом: <a href="olympiads.html">олимпиады и льготы</a>, <a href="projects.html">проекты и площадки</a>, <a href="schools.html">школы Москвы</a>.</p>
+</main>
+
+<script src="data/clubs.js"></script>
+<script src="data/config.js"></script>
+<script src="assets/js/app.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded',()=>{
+  $('#lead').innerHTML   = CLUBS_INTRO;
+  $('#rintro').innerHTML = ROBO_PICK.intro;
+  $('#rcomp').innerHTML  = ROBO_PICK.comp;
+  $('#rtest').innerHTML  = ROBO_PICK.test;
+  $('#cintro').innerHTML = CAMPS_INTRO;
+  $('#ckey').innerHTML   = CAMPS_KEY;
+
+  const fill = (box, arr) => arr.forEach(([n,d],i)=>box.append(el('div',{class:'rb'},
+    el('div',{style:'font-weight:600;font-size:14.5px;margin-bottom:3px'}, n),
+    el('div',{class:'sm',html:d}))));
+  fill($('#ryes'), ROBO_PICK.yes);
+  fill($('#rno'),  ROBO_PICK.no);
+
+  // каталог кружков
+  filterList({
+    items: CLUBS,
+    container: $('#clubs'),
+    searchFields: ['n','d','why','place','age'],
+    searchPlaceholder: 'Поиск по кружкам…',
+    facets: [
+      {key:'dir', type:'chips', label:'Направление', multi:true,
+       options: Object.entries(CLUB_DIRS).map(([k,v])=>[k,v[0]]), test:(it,v)=>it.dir===v},
+      {key:'who', label:'Кому', options:[['y','{{Y}}'],['u','{{U}}']], test:(it,v)=>it.who.includes(v)},
+      {key:'price', label:'Цена', options: Object.entries(CLUB_PRICE).map(([k,v])=>[k,v[0]]), test:(it,v)=>it.price===v},
+    ],
+    render(list, box){
+      list.slice().sort((a,b)=>(b.star?1:0)-(a.star?1:0)).forEach(c=>{
+        const D = CLUB_DIRS[c.dir], P = CLUB_PRICE[c.price];
+        const body = el('div',{class:'body'},
+          el('div',{class:'row'}, el('div',{class:'lb'},'Что это'), el('div',{class:'sm',html:c.d})),
+          c.place ? el('div',{class:'row'}, el('div',{class:'lb'},'Где'), el('div',{class:'sm',html:c.place})) : null,
+          el('div',{class:'row'}, el('div',{class:'lb'},'Как записаться'), el('div',{class:'sm',html:c.how})),
+          c.priceT ? el('div',{class:'row'}, el('div',{class:'lb'},'Стоимость'), el('div',{class:'sm'},c.priceT)) : null,
+          el('div',{style:'margin-top:12px;padding:11px 13px;background:var(--bg3);border-radius:8px'},
+            el('div',{class:'sm',html:c.why})),
+          el('div',{class:'xs muted',style:'margin-top:10px'},'Достоверность: '+c.conf,
+            c.u ? el('span',{},' · ', el('a',{href:c.u,target:'_blank',rel:'noopener'},'сайт')) : null));
+        box.append(el('details',{class:'cl',style:'border-left:3px solid '+D[1]},
+          el('summary',{},
+            el('span',{class:'nm'}, (c.star?'★ ':'')+c.n),
+            c.hot?el('span',{class:'b bad'},'срочно'):null,
+            el('span',{class:'b',style:'color:'+D[1]+';border-color:'+D[1]}, D[0]),
+            el('span',{class:'b '+P[1]}, P[0]),
+            el('span',{class:'b'}, c.age),
+            el('span',{class:'b'}, c.fmt),
+            ...c.who.map(w=>el('span',{class:'b '+w}, KIDS[w==='u'?'elder':'younger'].name))),
+          body));
+      });
+    }
+  });
+
+  // лагеря
+  const cb = $('#camps');
+  CAMPS.slice().sort((a,b)=>(b.star?1:0)-(a.star?1:0)).forEach(c=>{
+    const P = CLUB_PRICE[c.price];
+    cb.append(el('div',{class:'card',style:'margin-bottom:12px'+(c.star?';border-left:3px solid var(--acc)':'')},
+      el('div',{style:'display:flex;gap:9px;align-items:baseline;flex-wrap:wrap'},
+        el('h3',{class:'mt0',style:'margin-bottom:4px;font-size:16px;flex:1;min-width:200px'}, (c.star?'★ ':'')+c.n),
+        el('span',{class:'b '+P[1]}, P[0]),
+        el('span',{class:'b'}, c.age),
+        ...c.who.map(w=>el('span',{class:'b '+w}, KIDS[w==='u'?'elder':'younger'].name))),
+      el('div',{class:'sm',style:'margin:6px 0 9px',html:c.d}),
+      el('div',{class:'grid g3'},
+        el('div',{}, el('div',{class:'xs muted'},'Когда'), el('div',{class:'sm'},c.when)),
+        el('div',{}, el('div',{class:'xs muted'},'Дедлайн заявки'), el('div',{class:'sm',style:'color:var(--warn)'},c.dl)),
+        el('div',{}, el('div',{class:'xs muted'},'Отбор'), el('div',{class:'sm'},c.sel))),
+      el('div',{class:'sm muted',style:'margin-top:8px'}, c.priceT,
+        c.u ? el('span',{},' · ', el('a',{href:c.u,target:'_blank',rel:'noopener'},'сайт')) : null)));
+  });
+
+  const fb = $('#fall');
+  CAMPS_FALL.forEach(([w,t,who,d])=>fb.append(el('div',{class:'fall'},
+    el('div',{class:'w'}, w),
+    el('div',{},
+      el('div',{style:'font-weight:600;font-size:14.5px'}, t, el('span',{class:'b',style:'margin-left:8px'}, who)),
+      el('div',{class:'sm muted',style:'margin-top:3px',html:d})))));
+
+  const tb = $('#truth');
+  CLUBS_TRUTH.forEach(([n,d],i)=>tb.append(el('div',{class:'tr'},
+    el('div',{style:'font-weight:600;margin-bottom:3px'}, (i+1)+'. '+n),
+    el('div',{class:'sm',html:d}))));
+});
+</script>
+</body>
+</html>

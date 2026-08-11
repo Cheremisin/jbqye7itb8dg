@@ -33,9 +33,13 @@
   <div class="note ok"><p class="mb0" id="top"></p></div>
 
   <div class="toc">
-    <a href="#rating">Как читать рейтинг</a><a href="#list">Школы рядом</a>
-    <a href="#gym">Гимназия Сколково</a><a href="#window">Календарь отбора</a><a href="#concl">Выводы</a>
+    <a href="#ostrov">ЖК «Остров»</a><a href="#rating">Как читать рейтинг</a><a href="#list">Школы рядом</a>
+    <a href="#window">Календарь отбора</a><a href="#concl">Выводы</a>
   </div>
+
+  <h2 id="ostrov">ЖК «Остров»: что там со школой на самом деле</h2>
+  <div class="card" id="ost"></div>
+  <div class="note warn"><p class="mb0 sm" id="ostnote"></p></div>
 
   <h2 id="rating">Три рейтинга и что каждый из них меряет</h2>
   <p class="sm" id="what"></p>
@@ -66,6 +70,12 @@ document.addEventListener('DOMContentLoaded',()=>{
   $('#top').innerHTML  = SCH_TOP;
   $('#what').innerHTML = RATING_WHAT;
   $('#risk').innerHTML = SCH_RISK;
+
+  $('#ostnote').innerHTML = OSTROV_NOTE;
+  const ob = $('#ost');
+  OSTROV.forEach(([n,d],i)=>ob.append(el('div',{class:'lim'},
+    el('div',{style:'font-weight:600;margin-bottom:3px'}, n),
+    el('div',{class:'sm',html:d}))));
 
   const lb = $('#lims');
   RATING_LIMITS.forEach(([n,d],i)=>lb.append(el('div',{class:'lim'},
