@@ -1,0 +1,1577 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Semejnyj obrazovatelnyj portal//Deadlines//RU
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALNAME:Образование — дедлайны
+X-WR-CALDESC:Олимпиады, кружки, лагеря и подача документов. Обновляется автоматически.
+X-WR-TIMEZONE:Europe/Moscow
+REFRESH-INTERVAL;VALUE=DURATION:PT6H
+X-PUBLISHED-TTL:PT6H
+BEGIN:VTIMEZONE
+TZID:Europe/Moscow
+BEGIN:STANDARD
+DTSTART:20141026T010000
+TZOFFSETFROM:+0400
+TZOFFSETTO:+0300
+TZNAME:MSK
+END:STANDARD
+END:VTIMEZONE
+BEGIN:VEVENT
+UID:20260815-1@jbqye7itb8dg
+DTSTAMP:20260906T142622Z
+DTSTART;TZID=Europe/Moscow:20260815T100000
+DTEND;TZID=Europe/Moscow:20260815T103000
+SUMMARY:❗ Дворец пионеров — запись в кружк
+ и (робототехника) — Дочь и Сын
+DESCRIPTION:Запись открыта с 10 августа через m
+ os.ru и идёт до 30 сентября. Более 1800 програ
+ мм\, бесплатно. 15–30 августа — формат «З
+ акулисье»: визиты в лаборатории до запи
+ си. В сентябре «Стартовый интенсив» на 4
+ –6 часов\, группы до 12 человек — способ 
+ проверить попадание до годового обязат
+ ельства.\nСайт: https://mdp-deti.ru/\nПортал: https://c
+ heremisin.github.io/jbqye7itb8dg/index.html
+URL:https://mdp-deti.ru/
+CATEGORIES:кружок
+TRANSP:TRANSPARENT
+STATUS:CONFIRMED
+BEGIN:VALARM
+ACTION:DISPLAY
+TRIGGER;RELATED=START:-P7D
+DESCRIPTION:Через неделю: ❗ Дворец пионеров 
+ — запись в кружки (робототехника) — Доч
+ ь и Сын
+END:VALARM
+BEGIN:VALARM
+ACTION:DISPLAY
+TRIGGER;RELATED=START:-P1D
+DESCRIPTION:Завтра: ❗ Дворец пионеров — запи
+ сь в кружки (робототехника) — Дочь и Сын
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:20260820-2@jbqye7itb8dg
+DTSTAMP:20260906T142622Z
+DTSTART;TZID=Europe/Moscow:20260820T100000
+DTEND;TZID=Europe/Moscow:20260820T103000
+SUMMARY:❗ Кружки биофака МГУ — открывается
+  запись — Дочь и Сын (дата ориентировоч
+ ная)
+DESCRIPTION:Середина августа — середина сент
+ ября. Больше десяти кружков\, часть дост
+ упна с 5 класса (Сын). Бесплатно\, обращат
+ ься напрямую к руководителям. Телефон +7
+  (495) 939-59-43.\nДата по прошлому сезону — оф
+ ициальную объявляют позже\, проверьте н
+ а сайте организатора.\nСайт: https://bio.msu.ru/\n
+ Портал: https://cheremisin.github.io/jbqye7itb8dg/index.html
+URL:https://bio.msu.ru/
+CATEGORIES:кружок
+TRANSP:TRANSPARENT
+STATUS:CONFIRMED
+BEGIN:VALARM
+ACTION:DISPLAY
+TRIGGER;RELATED=START:-P7D
+DESCRIPTION:Через неделю: ❗ Кружки биофака МГ
+ У — открывается запись — Дочь и Сын
+END:VALARM
+BEGIN:VALARM
+ACTION:DISPLAY
+TRIGGER;RELATED=START:-P1D
+DESCRIPTION:Завтра: ❗ Кружки биофака МГУ — от
+ крывается запись — Дочь и Сын
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:20260820-3@jbqye7itb8dg
+DTSTAMP:20260906T142622Z
+DTSTART;TZID=Europe/Moscow:20260820T100000
+DTEND;TZID=Europe/Moscow:20260820T103000
+SUMMARY:«Высшая проба» (ВШЭ) — открывается 
+ регистрация — Дочь
+DESCRIPTION:Регистрация 20 августа – 21 сентяб
+ ря 2026 (до 14:00 МСК). 1-й отборочный тур 25 се
+ нт – 11 окт. I уровень по математике и инф
+ орматике.\nСайт: https://olymp.hse.ru/mmo/timetable\nПор
+ тал: https://cheremisin.github.io/jbqye7itb8dg/index.html
+URL:https://olymp.hse.ru/mmo/timetable
+CATEGORIES:олимпиада
+TRANSP:TRANSPARENT
+STATUS:CONFIRMED
+BEGIN:VALARM
+ACTION:DISPLAY
+TRIGGER;RELATED=START:-P7D
+DESCRIPTION:Через неделю: «Высшая проба» (ВШЭ)
+  — открывается регистрация — Дочь
+END:VALARM
+BEGIN:VALARM
+ACTION:DISPLAY
+TRIGGER;RELATED=START:-P1D
+DESCRIPTION:Завтра: «Высшая проба» (ВШЭ) — отк
+ рывается регистрация — Дочь
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:20260824-4@jbqye7itb8dg
+DTSTAMP:20260906T142622Z
+DTSTART;TZID=Europe/Moscow:20260824T100000
+DTEND;TZID=Europe/Moscow:20260824T103000
+SUMMARY:❗ НТО — предрегистрация XII сезона з
+ акрывается — Дочь и Сын
+DESCRIPTION:Предрегистрация на платформе «Та
+ лант» до 24 августа. Дальше открывается 
+ основная регистрация: старший трек 8–11 
+ класс (Дочь)\, НТО Junior 5–7 класс (Сын). Тре
+ звый разбор того\, что реально даёт дипл
+ ом НТО\, — в разделе «Где вход проще».\nС
+ айт: https://ntcontest.ru/\nПортал: https://cheremisin.github.i
+ o/jbqye7itb8dg/index.html
+URL:https://ntcontest.ru/
+CATEGORIES:олимпиада
+TRANSP:TRANSPARENT
+STATUS:CONFIRMED
+BEGIN:VALARM
+ACTION:DISPLAY
+TRIGGER;RELATED=START:-P7D
+DESCRIPTION:Через неделю: ❗ НТО — предрегист
+ рация XII сезона закрывается — Дочь и Сы
+ н
+END:VALARM
+BEGIN:VALARM
+ACTION:DISPLAY
+TRIGGER;RELATED=START:-P1D
+DESCRIPTION:Завтра: ❗ НТО — предрегистрация X
+ II сезона закрывается — Дочь и Сын
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:20260825-5@jbqye7itb8dg
+DTSTAMP:20260906T142622Z
+DTSTART;TZID=Europe/Moscow:20260825T100000
+DTEND;TZID=Europe/Moscow:20260825T103000
+SUMMARY:Предпрофессиональные классы Москв
+ ы — запись — Дочь
+DESCRIPTION:Инженерный\, медицинский\, IT\, акад
+ емический и курчатовский классы. Это до
+ ступ к вузовским лабораториям в школьн
+ ые годы и к людям\, которые там работают.
+  Проверить допуск для учеников школы из
+  Московской области нужно отдельно.\nПо
+ ртал: https://cheremisin.github.io/jbqye7itb8dg/index.html
+CATEGORIES:школа
+TRANSP:TRANSPARENT
+STATUS:CONFIRMED
+BEGIN:VALARM
+ACTION:DISPLAY
+TRIGGER;RELATED=START:-P7D
+DESCRIPTION:Через неделю: Предпрофессиональн
+ ые классы Москвы — запись — Дочь
+END:VALARM
+BEGIN:VALARM
+ACTION:DISPLAY
+TRIGGER;RELATED=START:-P1D
+DESCRIPTION:Завтра: Предпрофессиональные кла
+ ссы Москвы — запись — Дочь
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:20260825-6@jbqye7itb8dg
+DTSTAMP:20260906T142622Z
+DTSTART;TZID=Europe/Moscow:20260825T100000
+DTEND;TZID=Europe/Moscow:20260825T103000
+SUMMARY:❗ ЗФТШ МФТИ — осенний набор\, вступ
+ ительное задание — Дочь
+DESCRIPTION:Окно 25.08–10.09.2026\, результаты до 21.09
+ . Онлайн-олимпиада 4 часа на предмет. При
+  прохождении конкурса обучение БЕСПЛАТ
+ НО. Окончание ЗФТШ даёт до 4 баллов при п
+ оступлении в МФТИ.\nСайт: https://zftsh.online/page/p
+ riem\nПортал: https://cheremisin.github.io/jbqye7itb8dg/index.html
+URL:https://zftsh.online/page/priem
+CATEGORIES:школа
+TRANSP:TRANSPARENT
+STATUS:CONFIRMED
+BEGIN:VALARM
+ACTION:DISPLAY
+TRIGGER;RELATED=START:-P7D
+DESCRIPTION:Через неделю: ❗ ЗФТШ МФТИ — осенн
+ ий набор\, вступительное задание — Дочь
+END:VALARM
+BEGIN:VALARM
+ACTION:DISPLAY
+TRIGGER;RELATED=START:-P1D
+DESCRIPTION:Завтра: ❗ ЗФТШ МФТИ — осенний наб
+ ор\, вступительное задание — Дочь
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:20260826-7@jbqye7itb8dg
+DTSTAMP:20260906T142622Z
+DTSTART;TZID=Europe/Moscow:20260826T100000
+DTEND;TZID=Europe/Moscow:20260826T103000
+SUMMARY:❗ НТО Junior — открывается регистраци
+ я (5–7 класс) — Сын
+DESCRIPTION:Регистрация 26 августа – 25 октябр
+ я\, отборочный этап 26 октября – 15 ноября
+ \, финалы 28 ноября – 20 декабря. Семь сфер
+ : Агротех\, Игротех\, ИИтех\, Кибертех\, Ко
+ смотех\, Медтех\, Роботех. Полностью ком
+ андный формат. Льгот при поступлении не
+  даёт и не должен — это вход в среду.\nСа
+ йт: https://junior.ntcontest.ru/\nПортал: https://cheremisin.git
+ hub.io/jbqye7itb8dg/index.html
+URL:https://junior.ntcontest.ru/
+CATEGORIES:олимпиада
+TRANSP:TRANSPARENT
+STATUS:CONFIRMED
+BEGIN:VALARM
+ACTION:DISPLAY
+TRIGGER;RELATED=START:-P7D
+DESCRIPTION:Через неделю: ❗ НТО Junior — открыва
+ ется регистрация (5–7 класс) — Сын
+END:VALARM
+BEGIN:VALARM
+ACTION:DISPLAY
+TRIGGER;RELATED=START:-P1D
+DESCRIPTION:Завтра: ❗ НТО Junior — открывается р
+ егистрация (5–7 класс) — Сын
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:20260826-8@jbqye7itb8dg
+DTSTAMP:20260906T142622Z
+DTSTART;TZID=Europe/Moscow:20260826T100000
+DTEND;TZID=Europe/Moscow:20260826T103000
+SUMMARY:НТО (Национальная технологическая 
+ олимпиада) — регистрация — Дочь и Сын (
+ дата ориентировочная)
+DESCRIPTION:Обычно открывается в конце авгус
+ та. Старший трек — 8–11 класс (Дочь). НТО 
+ Юниоры — 5–7 класс (Сын). Даёт БВИ или 100 
+ баллов ЕГЭ.\nДата по прошлому сезону — о
+ фициальную объявляют позже\, проверьте 
+ на сайте организатора.\nСайт: https://ntcontest.r
+ u/\nПортал: https://cheremisin.github.io/jbqye7itb8dg/index.html
+URL:https://ntcontest.ru/
+CATEGORIES:олимпиада
+TRANSP:TRANSPARENT
+STATUS:CONFIRMED
+BEGIN:VALARM
+ACTION:DISPLAY
+TRIGGER;RELATED=START:-P7D
+DESCRIPTION:Через неделю: НТО (Национальная т
+ ехнологическая олимпиада) — регистрац
+ ия — Дочь и Сын
+END:VALARM
+BEGIN:VALARM
+ACTION:DISPLAY
+TRIGGER;RELATED=START:-P1D
+DESCRIPTION:Завтра: НТО (Национальная техноло
+ гическая олимпиада) — регистрация — До
+ чь и Сын
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:20260828-9@jbqye7itb8dg
+DTSTAMP:20260906T142622Z
+DTSTART;TZID=Europe/Moscow:20260828T100000
+DTEND;TZID=Europe/Moscow:20260828T103000
+SUMMARY:❗ «Факториал» и БИО-ЦПМ — регистра
+ ция — Дочь (дата ориентировочная)
+DESCRIPTION:«Факториал» — вечерняя физматшк
+ ола физфака МГУ\, 7–11 класс\, бесплатно\; 
+ экзамен в середине сентября (3 задачи по
+  физике\, 3 по математике\, собеседование
+ )\, занятия с октября. БИО-ЦПМ — бесплатн
+ ая олимпиадная биология\, испытания в н
+ ачале сентября.\nДата по прошлому сезон
+ у — официальную объявляют позже\, прове
+ рьте на сайте организатора.\nСайт: http://ffa
+ ctorial.phys.msu.ru/\nПортал: https://cheremisin.github.io/jbqye7i
+ tb8dg/index.html
+URL:http://ffactorial.phys.msu.ru/
+CATEGORIES:кружок
+TRANSP:TRANSPARENT
+STATUS:CONFIRMED
+BEGIN:VALARM
+ACTION:DISPLAY
+TRIGGER;RELATED=START:-P7D
+DESCRIPTION:Через неделю: ❗ «Факториал» и БИО
+ -ЦПМ — регистрация — Дочь
+END:VALARM
+BEGIN:VALARM
+ACTION:DISPLAY
+TRIGGER;RELATED=START:-P1D
+DESCRIPTION:Завтра: ❗ «Факториал» и БИО-ЦПМ —
+  регистрация — Дочь
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:20260831-10@jbqye7itb8dg
+DTSTAMP:20260906T142622Z
+DTSTART;TZID=Europe/Moscow:20260831T100000
+DTEND;TZID=Europe/Moscow:20260831T103000
+SUMMARY:Яндекс Лицей — набор на годовые про
+ граммы — Дочь (дата ориентировочная)
+DESCRIPTION:Полностью бесплатно\, 13–20 лет. Ку
+ рс «Основы программирования на Python» — 
+ с нуля\, без экзамена. Сертификат даёт д
+ ополнительные баллы в технические вузы
+ .\nДата по прошлому сезону — официальну
+ ю объявляют позже\, проверьте на сайте о
+ рганизатора.\nСайт: https://lyceum.yandex.ru/\nПорта
+ л: https://cheremisin.github.io/jbqye7itb8dg/index.html
+URL:https://lyceum.yandex.ru/
+CATEGORIES:школа
+TRANSP:TRANSPARENT
+STATUS:CONFIRMED
+BEGIN:VALARM
+ACTION:DISPLAY
+TRIGGER;RELATED=START:-P7D
+DESCRIPTION:Через неделю: Яндекс Лицей — набо
+ р на годовые программы — Дочь
+END:VALARM
+BEGIN:VALARM
+ACTION:DISPLAY
+TRIGGER;RELATED=START:-P1D
+DESCRIPTION:Завтра: Яндекс Лицей — набор на г
+ одовые программы — Дочь
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:20260901-11@jbqye7itb8dg
+DTSTAMP:20260906T142622Z
+DTSTART;TZID=Europe/Moscow:20260901T100000
+DTEND;TZID=Europe/Moscow:20260901T103000
+SUMMARY:❗ Школьный этап ВсОШ — старт — Доч
+ ь и Сын
+DESCRIPTION:1 сентября – 25 октября. Дочь — все
+  предметы\, записаться минимум на 4. Сын 
+ — математика и русский язык (доступны с
+  4 класса). Запись у классного руководит
+ еля. По 6 предметам во многих регионах —
+  на платформе «Сириус.Курсы».\nСайт: https:/
+ /siriusolymp.ru/\nПортал: https://cheremisin.github.io/jbqye7itb8d
+ g/index.html
+URL:https://siriusolymp.ru/
+CATEGORIES:ВсОШ
+TRANSP:TRANSPARENT
+STATUS:CONFIRMED
+BEGIN:VALARM
+ACTION:DISPLAY
+TRIGGER;RELATED=START:-P7D
+DESCRIPTION:Через неделю: ❗ Школьный этап ВсО
+ Ш — старт — Дочь и Сын
+END:VALARM
+BEGIN:VALARM
+ACTION:DISPLAY
+TRIGGER;RELATED=START:-P1D
+DESCRIPTION:Завтра: ❗ Школьный этап ВсОШ — ст
+ арт — Дочь и Сын
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:20260915-12@jbqye7itb8dg
+DTSTAMP:20260906T142622Z
+DTSTART;TZID=Europe/Moscow:20260915T100000
+DTEND;TZID=Europe/Moscow:20260915T103000
+SUMMARY:Заочная школа СУНЦ МГУ — вступител
+ ьное тестирование — Дочь
+DESCRIPTION:15–21 сентября 2026\, 12:00–18:00 МСК. Пол
+ ностью бесплатно\, 7–11 класс\, 3 предмета
+  из 5. Ограничение: не более 1 ученика из 
+ одной школы. План набора в 9 класс — 95 ме
+ ст.\nСайт: https://internat.msu.ru/distantsionnoe-obuchenie/zaochn
+ aya-shkola-sunts-mgu/kak-postupit-v-zsh-sunts-mgu/\nПортал: https:
+ //cheremisin.github.io/jbqye7itb8dg/index.html
+URL:https://internat.msu.ru/distantsionnoe-obuchenie/zaochnaya-shkola-sun
+ ts-mgu/kak-postupit-v-zsh-sunts-mgu/
+CATEGORIES:школа
+TRANSP:TRANSPARENT
+STATUS:CONFIRMED
+BEGIN:VALARM
+ACTION:DISPLAY
+TRIGGER;RELATED=START:-P7D
+DESCRIPTION:Через неделю: Заочная школа СУНЦ 
+ МГУ — вступительное тестирование — До
+ чь
+END:VALARM
+BEGIN:VALARM
+ACTION:DISPLAY
+TRIGGER;RELATED=START:-P1D
+DESCRIPTION:Завтра: Заочная школа СУНЦ МГУ — 
+ вступительное тестирование — Дочь
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:20260927-13@jbqye7itb8dg
+DTSTAMP:20260906T142622Z
+DTSTART;TZID=Europe/Moscow:20260927T100000
+DTEND;TZID=Europe/Moscow:20260927T103000
+SUMMARY:Турнир имени М.В. Ломоносова — Дочь 
+ и Сын (дата ориентировочная)
+DESCRIPTION:Последнее воскресенье сентября / 
+ первое воскресенье октября. Перечневая
+  (II уровень)\, но участвовать могут все с 
+ 6 класса. 8 предметов в один день — можно
+  пробовать несколько. Лучший «первый се
+ рьёзный турнир».\nДата по прошлому сезо
+ ну — официальную объявляют позже\, пров
+ ерьте на сайте организатора.\nСайт: https://
+ turlom.olimpiada.ru/description\nПортал: https://cheremisin.github
+ .io/jbqye7itb8dg/index.html
+URL:https://turlom.olimpiada.ru/description
+CATEGORIES:олимпиада
+TRANSP:TRANSPARENT
+STATUS:CONFIRMED
+BEGIN:VALARM
+ACTION:DISPLAY
+TRIGGER;RELATED=START:-P7D
+DESCRIPTION:Через неделю: Турнир имени М.В. Ло
+ моносова — Дочь и Сын
+END:VALARM
+BEGIN:VALARM
+ACTION:DISPLAY
+TRIGGER;RELATED=START:-P1D
+DESCRIPTION:Завтра: Турнир имени М.В. Ломоносо
+ ва — Дочь и Сын
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:20260930-14@jbqye7itb8dg
+DTSTAMP:20260906T142622Z
+DTSTART;TZID=Europe/Moscow:20260930T100000
+DTEND;TZID=Europe/Moscow:20260930T103000
+SUMMARY:«Летово» — подача заявки на поступ
+ ление (за год!) — Дочь (дата ориентирово
+ чная)
+DESCRIPTION:Заявка подаётся за год до поступл
+ ения. Набор идёт в 7–9 классы\; набор в 10 
+ класс не подтверждён — это прямой вопр
+ ос в приёмную комиссию\, и задать его ну
+ жно до конца сентября. Стипендии покрыв
+ ают до 100% стоимости.\nДата по прошлому с
+ езону — официальную объявляют позже\, п
+ роверьте на сайте организатора.\nСайт: ht
+ tps://letovo.ru/\nПортал: https://cheremisin.github.io/jbqye7itb8d
+ g/index.html
+URL:https://letovo.ru/
+CATEGORIES:школа
+TRANSP:TRANSPARENT
+STATUS:CONFIRMED
+BEGIN:VALARM
+ACTION:DISPLAY
+TRIGGER;RELATED=START:-P7D
+DESCRIPTION:Через неделю: «Летово» — подача з
+ аявки на поступление (за год!) — Дочь
+END:VALARM
+BEGIN:VALARM
+ACTION:DISPLAY
+TRIGGER;RELATED=START:-P1D
+DESCRIPTION:Завтра: «Летово» — подача заявки 
+ на поступление (за год!) — Дочь
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:20261001-15@jbqye7itb8dg
+DTSTAMP:20260906T142622Z
+DTSTART;TZID=Europe/Moscow:20261001T100000
+DTEND;TZID=Europe/Moscow:20261001T103000
+SUMMARY:Публикация условий перечневых олим
+ пиад — Дочь
+DESCRIPTION:По новому Порядку (приказ Минобрн
+ ауки № 16 от 16.01.2026) организаторы обязаны
+  опубликовать условия до 1 октября. К эт
+ ому же моменту обычно выходит приказ о 
+ самом перечне олимпиад на 2026/27 — сверьт
+ е уровни\, они могли измениться.\nСайт: htt
+ ps://rsr-olymp.ru/docs\nПортал: https://cheremisin.github.io/jbqye
+ 7itb8dg/index.html
+URL:https://rsr-olymp.ru/docs
+CATEGORIES:правила
+TRANSP:TRANSPARENT
+STATUS:CONFIRMED
+BEGIN:VALARM
+ACTION:DISPLAY
+TRIGGER;RELATED=START:-P7D
+DESCRIPTION:Через неделю: Публикация условий 
+ перечневых олимпиад — Дочь
+END:VALARM
+BEGIN:VALARM
+ACTION:DISPLAY
+TRIGGER;RELATED=START:-P1D
+DESCRIPTION:Завтра: Публикация условий переч
+ невых олимпиад — Дочь
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:20261005-16@jbqye7itb8dg
+DTSTAMP:20260906T142622Z
+DTSTART;TZID=Europe/Moscow:20261005T100000
+DTEND;TZID=Europe/Moscow:20261005T103000
+SUMMARY:❗ «Сириус.Лето» — приём заявок шко
+ льников — Дочь
+DESCRIPTION:5–25 октября. Школьник берёт реаль
+ ную задачу от компании или лаборатории 
+ и делает её под руководством студента-н
+ аставника. Самый прямой вход к настояще
+ й проектной работе — и самый недооценё
+ нный: порог низкий\, задача настоящая.\nС
+ айт: https://siriusleto.ru/\nПортал: https://cheremisin.github.
+ io/jbqye7itb8dg/index.html
+URL:https://siriusleto.ru/
+CATEGORIES:проект
+TRANSP:TRANSPARENT
+STATUS:CONFIRMED
+BEGIN:VALARM
+ACTION:DISPLAY
+TRIGGER;RELATED=START:-P7D
+DESCRIPTION:Через неделю: ❗ «Сириус.Лето» — п
+ риём заявок школьников — Дочь
+END:VALARM
+BEGIN:VALARM
+ACTION:DISPLAY
+TRIGGER;RELATED=START:-P1D
+DESCRIPTION:Завтра: ❗ «Сириус.Лето» — приём з
+ аявок школьников — Дочь
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:20261006-17@jbqye7itb8dg
+DTSTAMP:20260906T142622Z
+DTSTART;TZID=Europe/Moscow:20261006T100000
+DTEND;TZID=Europe/Moscow:20261006T103000
+SUMMARY:Московская олимпиада по робототехн
+ ике — регистрация — Сын (дата ориентир
+ овочная)
+DESCRIPTION:5–11 класс\, бесплатно\, отбор онла
+ йн в конце октября\, финал очно. Вместе с
+  НТО Junior это основная соревновательная 
+ траектория Сына в этом сезоне: FIRST LEGO Leagu
+ e в России без оператора\, «Робофест» и И
+ КаР на сезон не подтверждены.\nДата по п
+ рошлому сезону — официальную объявляю
+ т позже\, проверьте на сайте организато
+ ра.\nСайт: https://mosrobotics.ru/\nПортал: https://cheremis
+ in.github.io/jbqye7itb8dg/index.html
+URL:https://mosrobotics.ru/
+CATEGORIES:олимпиада
+TRANSP:TRANSPARENT
+STATUS:CONFIRMED
+BEGIN:VALARM
+ACTION:DISPLAY
+TRIGGER;RELATED=START:-P7D
+DESCRIPTION:Через неделю: Московская олимпиа
+ да по робототехнике — регистрация — Сы
+ н
+END:VALARM
+BEGIN:VALARM
+ACTION:DISPLAY
+TRIGGER;RELATED=START:-P1D
+DESCRIPTION:Завтра: Московская олимпиада по р
+ обототехнике — регистрация — Сын
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:20261015-18@jbqye7itb8dg
+DTSTAMP:20260906T142622Z
+DTSTART;TZID=Europe/Moscow:20261015T100000
+DTEND;TZID=Europe/Moscow:20261015T103000
+SUMMARY:«Формула Единства / Третье тысячеле
+ тие» — отбор — Дочь и Сын (дата ориенти
+ ровочная)
+DESCRIPTION:Отборочный тур онлайн 15 октября 
+ – 5 ноября\, финал 9 марта 2027. Математика\
+ , физика\, английский\, экология. Междуна
+ родный формат\, открытый с 5 класса — по
+ дходит обоим.\nДата по прошлому сезону 
+ — официальную объявляют позже\, провер
+ ьте на сайте организатора.\nПортал: https://
+ cheremisin.github.io/jbqye7itb8dg/index.html
+CATEGORIES:олимпиада
+TRANSP:TRANSPARENT
+STATUS:CONFIRMED
+BEGIN:VALARM
+ACTION:DISPLAY
+TRIGGER;RELATED=START:-P7D
+DESCRIPTION:Через неделю: «Формула Единства / 
+ Третье тысячелетие» — отбор — Дочь и С
+ ын
+END:VALARM
+BEGIN:VALARM
+ACTION:DISPLAY
+TRIGGER;RELATED=START:-P1D
+DESCRIPTION:Завтра: «Формула Единства / Треть
+ е тысячелетие» — отбор — Дочь и Сын
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:20261022-19@jbqye7itb8dg
+DTSTAMP:20260906T142622Z
+DTSTART;TZID=Europe/Moscow:20261022T100000
+DTEND;TZID=Europe/Moscow:20261022T103000
+SUMMARY:Олимпиада «Звезда» — интернет-тур 
+ — Дочь и Сын (дата ориентировочная)
+DESCRIPTION:Регистрация и первый интернет-ту
+ р обычно с 22 октября. Много профилей\, до
+ ступна с 5 класса — редкий случай\, когд
+ а младший может участвовать в перечнев
+ ой.\nДата по прошлому сезону — официаль
+ ную объявляют позже\, проверьте на сайт
+ е организатора.\nСайт: https://zv.susu.ru/\nПорта
+ л: https://cheremisin.github.io/jbqye7itb8dg/index.html
+URL:https://zv.susu.ru/
+CATEGORIES:олимпиада
+TRANSP:TRANSPARENT
+STATUS:CONFIRMED
+BEGIN:VALARM
+ACTION:DISPLAY
+TRIGGER;RELATED=START:-P7D
+DESCRIPTION:Через неделю: Олимпиада «Звезда» 
+ — интернет-тур — Дочь и Сын
+END:VALARM
+BEGIN:VALARM
+ACTION:DISPLAY
+TRIGGER;RELATED=START:-P1D
+DESCRIPTION:Завтра: Олимпиада «Звезда» — инт
+ ернет-тур — Дочь и Сын
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:20261025-20@jbqye7itb8dg
+DTSTAMP:20260906T142622Z
+DTSTART;TZID=Europe/Moscow:20261025T100000
+DTEND;TZID=Europe/Moscow:20261025T103000
+SUMMARY:Школьный этап ВсОШ — последний ден
+ ь — Дочь и Сын
+DESCRIPTION:Крайний срок проведения школьног
+ о этапа по Порядку ВсОШ.\nПортал: https://chere
+ misin.github.io/jbqye7itb8dg/index.html
+CATEGORIES:ВсОШ
+TRANSP:TRANSPARENT
+STATUS:CONFIRMED
+BEGIN:VALARM
+ACTION:DISPLAY
+TRIGGER;RELATED=START:-P7D
+DESCRIPTION:Через неделю: Школьный этап ВсОШ 
+ — последний день — Дочь и Сын
+END:VALARM
+BEGIN:VALARM
+ACTION:DISPLAY
+TRIGGER;RELATED=START:-P1D
+DESCRIPTION:Завтра: Школьный этап ВсОШ — посл
+ едний день — Дочь и Сын
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:20261025-21@jbqye7itb8dg
+DTSTAMP:20260906T142622Z
+DTSTART;TZID=Europe/Moscow:20261025T100000
+DTEND;TZID=Europe/Moscow:20261025T103000
+SUMMARY:НТО Junior — закрытие регистрации — С
+ ын
+DESCRIPTION:Последний день записи. Дальше отб
+ орочный этап 26 октября – 15 ноября.\nСайт
+ : https://junior.ntcontest.ru/\nПортал: https://cheremisin.github.
+ io/jbqye7itb8dg/index.html
+URL:https://junior.ntcontest.ru/
+CATEGORIES:олимпиада
+TRANSP:TRANSPARENT
+STATUS:CONFIRMED
+BEGIN:VALARM
+ACTION:DISPLAY
+TRIGGER;RELATED=START:-P7D
+DESCRIPTION:Через неделю: НТО Junior — закрытие 
+ регистрации — Сын
+END:VALARM
+BEGIN:VALARM
+ACTION:DISPLAY
+TRIGGER;RELATED=START:-P1D
+DESCRIPTION:Завтра: НТО Junior — закрытие регист
+ рации — Сын
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:20261101-22@jbqye7itb8dg
+DTSTAMP:20260906T142622Z
+DTSTART;TZID=Europe/Moscow:20261101T100000
+DTEND;TZID=Europe/Moscow:20261101T103000
+SUMMARY:Муниципальный этап ВсОШ — старт — 
+ Дочь
+DESCRIPTION:1 ноября – 25 декабря\, с 7 класса. П
+ роходной балл устанавливает регион. Дл
+ я Дочери это ворота в региональный этап
+  (январь–февраль).\nПортал: https://cheremisin.gith
+ ub.io/jbqye7itb8dg/index.html
+CATEGORIES:ВсОШ
+TRANSP:TRANSPARENT
+STATUS:CONFIRMED
+BEGIN:VALARM
+ACTION:DISPLAY
+TRIGGER;RELATED=START:-P7D
+DESCRIPTION:Через неделю: Муниципальный этап 
+ ВсОШ — старт — Дочь
+END:VALARM
+BEGIN:VALARM
+ACTION:DISPLAY
+TRIGGER;RELATED=START:-P1D
+DESCRIPTION:Завтра: Муниципальный этап ВсОШ 
+ — старт — Дочь
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:20261103-23@jbqye7itb8dg
+DTSTAMP:20260906T142622Z
+DTSTART;TZID=Europe/Moscow:20261103T100000
+DTEND;TZID=Europe/Moscow:20261103T103000
+SUMMARY:Январские школы «Летово» — дедлайн
+  заявки — Сын (дата ориентировочная)
+DESCRIPTION:Астрофизика\, биология\, инженерн
+ ые технологии\, математика\, физика. 6–8 
+ класс\, бесплатно\, плюс приоритет при п
+ оступлении в «Летово». Онлайн-тест с пр
+ окторингом в начале ноября. Сын проходи
+ т по возрасту с января 2028 — напоминание
+  на осень 2027.\nДата по прошлому сезону — 
+ официальную объявляют позже\, проверьт
+ е на сайте организатора.\nСайт: https://events.l
+ etovo.ru/\nПортал: https://cheremisin.github.io/jbqye7itb8dg/index
+ .html
+URL:https://events.letovo.ru/
+CATEGORIES:лагерь
+TRANSP:TRANSPARENT
+STATUS:CONFIRMED
+BEGIN:VALARM
+ACTION:DISPLAY
+TRIGGER;RELATED=START:-P7D
+DESCRIPTION:Через неделю: Январские школы «Ле
+ тово» — дедлайн заявки — Сын
+END:VALARM
+BEGIN:VALARM
+ACTION:DISPLAY
+TRIGGER;RELATED=START:-P1D
+DESCRIPTION:Завтра: Январские школы «Летово» 
+ — дедлайн заявки — Сын
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:20261115-24@jbqye7itb8dg
+DTSTAMP:20260906T142622Z
+DTSTART;TZID=Europe/Moscow:20261115T100000
+DTEND;TZID=Europe/Moscow:20261115T103000
+SUMMARY:«Русский медвежонок» — языкознани
+ е для всех — Дочь и Сын (дата ориентиров
+ очная)
+DESCRIPTION:Обычно вторая половина ноября\, ч
+ ерез школу\, символический взнос. 2–11 кл
+ асс. Не даёт льгот\, но хорошая недорога
+ я проба для Сына.\nДата по прошлому сезо
+ ну — официальную объявляют позже\, пров
+ ерьте на сайте организатора.\nПортал: http
+ s://cheremisin.github.io/jbqye7itb8dg/index.html
+CATEGORIES:конкурс
+TRANSP:TRANSPARENT
+STATUS:CONFIRMED
+BEGIN:VALARM
+ACTION:DISPLAY
+TRIGGER;RELATED=START:-P7D
+DESCRIPTION:Через неделю: «Русский медвежоно
+ к» — языкознание для всех — Дочь и Сын
+END:VALARM
+BEGIN:VALARM
+ACTION:DISPLAY
+TRIGGER;RELATED=START:-P1D
+DESCRIPTION:Завтра: «Русский медвежонок» — я
+ зыкознание для всех — Дочь и Сын
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:20261115-25@jbqye7itb8dg
+DTSTAMP:20260906T142622Z
+DTSTART;TZID=Europe/Moscow:20261115T100000
+DTEND;TZID=Europe/Moscow:20261115T103000
+SUMMARY:Школа молекулярной биологии (Стамб
+ ул) — открывается приём — Дочь (дата ор
+ иентировочная)
+DESCRIPTION:Окно заявки с середины ноября до 
+ середины января. 17 дней настоящей лабор
+ атории\, бесплатно: жильё\, питание\, стр
+ аховка\, лабораторные материалы\; школа 
+ сама высылает визовые документы\, Турци
+ я безвизовая. Отбор — заявка и онлайн-с
+ обеседование. Лучшая из доступных межд
+ ународных позиций.\nДата по прошлому се
+ зону — официальную объявляют позже\, пр
+ оверьте на сайте организатора.\nСайт: http
+ s://molbioschool.org/ru/participants/admission/\nПортал: https://c
+ heremisin.github.io/jbqye7itb8dg/index.html
+URL:https://molbioschool.org/ru/participants/admission/
+CATEGORIES:лагерь
+TRANSP:TRANSPARENT
+STATUS:CONFIRMED
+BEGIN:VALARM
+ACTION:DISPLAY
+TRIGGER;RELATED=START:-P7D
+DESCRIPTION:Через неделю: Школа молекулярной 
+ биологии (Стамбул) — открывается приём 
+ — Дочь
+END:VALARM
+BEGIN:VALARM
+ACTION:DISPLAY
+TRIGGER;RELATED=START:-P1D
+DESCRIPTION:Завтра: Школа молекулярной биоло
+ гии (Стамбул) — открывается приём — Доч
+ ь
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:20261124-26@jbqye7itb8dg
+DTSTAMP:20260906T142622Z
+DTSTART;TZID=Europe/Moscow:20261124T100000
+DTEND;TZID=Europe/Moscow:20261124T103000
+SUMMARY:Олимпиада Innopolis Open по робототехнике
+  — первый отбор — Дочь (дата ориентиров
+ очная)
+DESCRIPTION:24–30 ноября\, бесплатно\, 7–11 класс
+ . Финалисты зачисляются на летнюю школу
+  Университета Иннополис без тестирован
+ ия и могут получить стопроцентный гран
+ т — то есть бесплатную смену вместо 70 т
+ ысяч рублей.\nДата по прошлому сезону — 
+ официальную объявляют позже\, проверьт
+ е на сайте организатора.\nСайт: https://dovuz.in
+ nopolis.university/\nПортал: https://cheremisin.github.io/jbqye7it
+ b8dg/index.html
+URL:https://dovuz.innopolis.university/
+CATEGORIES:олимпиада
+TRANSP:TRANSPARENT
+STATUS:CONFIRMED
+BEGIN:VALARM
+ACTION:DISPLAY
+TRIGGER;RELATED=START:-P7D
+DESCRIPTION:Через неделю: Олимпиада Innopolis Open п
+ о робототехнике — первый отбор — Дочь
+END:VALARM
+BEGIN:VALARM
+ACTION:DISPLAY
+TRIGGER;RELATED=START:-P1D
+DESCRIPTION:Завтра: Олимпиада Innopolis Open по робо
+ тотехнике — первый отбор — Дочь
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:20261201-27@jbqye7itb8dg
+DTSTAMP:20260906T142622Z
+DTSTART;TZID=Europe/Moscow:20261201T100000
+DTEND;TZID=Europe/Moscow:20261201T103000
+SUMMARY:Отборочные туры перечневых олимпиа
+ д — пик сезона — Дочь
+DESCRIPTION:«Ломоносов» (МГУ)\, олимпиада СПбГ
+ У\, «Физтех»\, «Росатом»\, Всесибирская 
+ — отборочные онлайн-туры идут октябрь
+ –январь. Ставьте напоминания по каждой
+  выбранной олимпиаде отдельно.\nСайт: http
+ s://olimpiada.ru/\nПортал: https://cheremisin.github.io/jbqye7itb8
+ dg/index.html
+URL:https://olimpiada.ru/
+CATEGORIES:олимпиада
+TRANSP:TRANSPARENT
+STATUS:CONFIRMED
+BEGIN:VALARM
+ACTION:DISPLAY
+TRIGGER;RELATED=START:-P7D
+DESCRIPTION:Через неделю: Отборочные туры пер
+ ечневых олимпиад — пик сезона — Дочь
+END:VALARM
+BEGIN:VALARM
+ACTION:DISPLAY
+TRIGGER;RELATED=START:-P1D
+DESCRIPTION:Завтра: Отборочные туры перечнев
+ ых олимпиад — пик сезона — Дочь
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:20261220-28@jbqye7itb8dg
+DTSTAMP:20260906T142622Z
+DTSTART;TZID=Europe/Moscow:20261220T100000
+DTEND;TZID=Europe/Moscow:20261220T103000
+SUMMARY:Конкурс им. В.И. Вернадского — приём
+  работ — Дочь и Сын (дата ориентировочн
+ ая)
+DESCRIPTION:20 декабря – 15 января\, Чтения в ап
+ реле–мае. Есть отдельный трек «Тропой 
+ открытий» для 5–7 классов (Сын). Важно: т
+ екст\, написанный нейросетью\, и плагиат
+  — прямое основание для отклонения раб
+ оты.\nДата по прошлому сезону — официал
+ ьную объявляют позже\, проверьте на сай
+ те организатора.\nСайт: https://vernadsky.info/\nПо
+ ртал: https://cheremisin.github.io/jbqye7itb8dg/index.html
+URL:https://vernadsky.info/
+CATEGORIES:проект
+TRANSP:TRANSPARENT
+STATUS:CONFIRMED
+BEGIN:VALARM
+ACTION:DISPLAY
+TRIGGER;RELATED=START:-P7D
+DESCRIPTION:Через неделю: Конкурс им. В.И. Верн
+ адского — приём работ — Дочь и Сын
+END:VALARM
+BEGIN:VALARM
+ACTION:DISPLAY
+TRIGGER;RELATED=START:-P1D
+DESCRIPTION:Завтра: Конкурс им. В.И. Вернадско
+ го — приём работ — Дочь и Сын
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:20261230-29@jbqye7itb8dg
+DTSTAMP:20260906T142622Z
+DTSTART;TZID=Europe/Moscow:20261230T100000
+DTEND;TZID=Europe/Moscow:20261230T103000
+SUMMARY:«Шаг в будущее» (МГТУ им. Баумана) — 
+ приём работ — Дочь (дата ориентировочн
+ ая)
+DESCRIPTION:Единственная перечневая олимпиа
+ да\, где льгота даётся фактически за про
+ ект: обязательная защита научно-исслед
+ овательской работы с предзащитой на от
+ борочном этапе. II–III уровень\, БВИ или 100
+  баллов в Бауманке.\nДата по прошлому се
+ зону — официальную объявляют позже\, пр
+ оверьте на сайте организатора.\nСайт: http
+ s://step-into-the-future.ru/\nПортал: https://cheremisin.github.io
+ /jbqye7itb8dg/index.html
+URL:https://step-into-the-future.ru/
+CATEGORIES:олимпиада
+TRANSP:TRANSPARENT
+STATUS:CONFIRMED
+BEGIN:VALARM
+ACTION:DISPLAY
+TRIGGER;RELATED=START:-P7D
+DESCRIPTION:Через неделю: «Шаг в будущее» (МГТ
+ У им. Баумана) — приём работ — Дочь
+END:VALARM
+BEGIN:VALARM
+ACTION:DISPLAY
+TRIGGER;RELATED=START:-P1D
+DESCRIPTION:Завтра: «Шаг в будущее» (МГТУ им. Б
+ аумана) — приём работ — Дочь
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:20270112-30@jbqye7itb8dg
+DTSTAMP:20260906T142622Z
+DTSTART;TZID=Europe/Moscow:20270112T100000
+DTEND;TZID=Europe/Moscow:20270112T103000
+SUMMARY:Лицей НИУ ВШЭ — подача заявки в 10 кл
+ асс — Дочь (дата ориентировочная)
+DESCRIPTION:В сезоне 2026 окно было 12 января – 3 
+ марта. Экзамены март–апрель: дистанцио
+ нный этап с прокторингом\, затем очный. 
+ Зачисление — только с московской регис
+ трацией\; экзамены может писать кто уго
+ дно. Есть «Лицей.Онлайн».\nДата по прошл
+ ому сезону — официальную объявляют поз
+ же\, проверьте на сайте организатора.\nС
+ айт: https://school.hse.ru/abitur/\nПортал: https://cheremisin.
+ github.io/jbqye7itb8dg/index.html
+URL:https://school.hse.ru/abitur/
+CATEGORIES:школа
+TRANSP:TRANSPARENT
+STATUS:CONFIRMED
+BEGIN:VALARM
+ACTION:DISPLAY
+TRIGGER;RELATED=START:-P7D
+DESCRIPTION:Через неделю: Лицей НИУ ВШЭ — под
+ ача заявки в 10 класс — Дочь
+END:VALARM
+BEGIN:VALARM
+ACTION:DISPLAY
+TRIGGER;RELATED=START:-P1D
+DESCRIPTION:Завтра: Лицей НИУ ВШЭ — подача за
+ явки в 10 класс — Дочь
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:20270112-31@jbqye7itb8dg
+DTSTAMP:20260906T142622Z
+DTSTART;TZID=Europe/Moscow:20270112T100000
+DTEND;TZID=Europe/Moscow:20270112T103000
+SUMMARY:«Большие вызовы» (Сириус) — подача 
+ проектов — Дочь (дата ориентировочная)
+DESCRIPTION:12 января – 20 февраля\, отбор до 28 м
+ арта\, финал апрель–май\, проектная сме
+ на в Сириусе в июле. До 10 дополнительных
+  баллов при поступлении и попадание в г
+ осударственный реестр лиц\, проявивших 
+ выдающиеся способности.\nДата по прошло
+ му сезону — официальную объявляют позж
+ е\, проверьте на сайте организатора.\nСа
+ йт: https://bigchallenges.ru/\nПортал: https://cheremisin.github
+ .io/jbqye7itb8dg/index.html
+URL:https://bigchallenges.ru/
+CATEGORIES:проект
+TRANSP:TRANSPARENT
+STATUS:CONFIRMED
+BEGIN:VALARM
+ACTION:DISPLAY
+TRIGGER;RELATED=START:-P7D
+DESCRIPTION:Через неделю: «Большие вызовы» (С
+ ириус) — подача проектов — Дочь
+END:VALARM
+BEGIN:VALARM
+ACTION:DISPLAY
+TRIGGER;RELATED=START:-P1D
+DESCRIPTION:Завтра: «Большие вызовы» (Сириус) 
+ — подача проектов — Дочь
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:20270115-32@jbqye7itb8dg
+DTSTAMP:20260906T142622Z
+DTSTART;TZID=Europe/Moscow:20270115T100000
+DTEND;TZID=Europe/Moscow:20270115T103000
+SUMMARY:Региональный этап ВсОШ — Дочь (дата
+  ориентировочная)
+DESCRIPTION:Январь–февраль\, 9–11 класс. Призё
+ рство здесь БВИ не даёт\, но многие вузы 
+ засчитывают его как индивидуальное дос
+ тижение (ИТМО — 7 баллов)\, и это пропуск 
+ на заключительный этап.\nДата по прошло
+ му сезону — официальную объявляют позж
+ е\, проверьте на сайте организатора.\nПо
+ ртал: https://cheremisin.github.io/jbqye7itb8dg/index.html
+CATEGORIES:ВсОШ
+TRANSP:TRANSPARENT
+STATUS:CONFIRMED
+BEGIN:VALARM
+ACTION:DISPLAY
+TRIGGER;RELATED=START:-P7D
+DESCRIPTION:Через неделю: Региональный этап В
+ сОШ — Дочь
+END:VALARM
+BEGIN:VALARM
+ACTION:DISPLAY
+TRIGGER;RELATED=START:-P1D
+DESCRIPTION:Завтра: Региональный этап ВсОШ — 
+ Дочь
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:20270115-33@jbqye7itb8dg
+DTSTAMP:20260906T142622Z
+DTSTART;TZID=Europe/Moscow:20270115T100000
+DTEND;TZID=Europe/Moscow:20270115T103000
+SUMMARY:⚠️ Малый мехмат МГУ — открывается 
+ регистрация на 2027/28 — Сын и Дочь (дата о
+ риентировочная)
+DESCRIPTION:Набор на 2026/27 шёл с 20 января по 30 м
+ арта и уже закрыт — сезон упущен. Беспл
+ атно\, 4–11 класс\, занятия по субботам в 
+ МГУ. Не повторять ошибку: половина лучш
+ их бесплатных программ набирает в янва
+ ре\, а не в августе.\nДата по прошлому сез
+ ону — официальную объявляют позже\, про
+ верьте на сайте организатора.\nСайт: https:
+ //mmmf.msu.ru/\nПортал: https://cheremisin.github.io/jbqye7itb8dg/
+ index.html
+URL:https://mmmf.msu.ru/
+CATEGORIES:кружок
+TRANSP:TRANSPARENT
+STATUS:CONFIRMED
+BEGIN:VALARM
+ACTION:DISPLAY
+TRIGGER;RELATED=START:-P7D
+DESCRIPTION:Через неделю: ⚠️ Малый мехмат МГ
+ У — открывается регистрация на 2027/28 — С
+ ын и Дочь
+END:VALARM
+BEGIN:VALARM
+ACTION:DISPLAY
+TRIGGER;RELATED=START:-P1D
+DESCRIPTION:Завтра: ⚠️ Малый мехмат МГУ — от
+ крывается регистрация на 2027/28 — Сын и Д
+ очь
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:20270201-34@jbqye7itb8dg
+DTSTAMP:20260906T142622Z
+DTSTART;TZID=Europe/Moscow:20270201T100000
+DTEND;TZID=Europe/Moscow:20270201T103000
+SUMMARY:Заключительные этапы перечневых ол
+ импиад — Дочь (дата ориентировочная)
+DESCRIPTION:Февраль–март. По новому Порядку 
+ финалы теперь только очные и в один ден
+ ь для всей возрастной группы — планиру
+ йте поездки заранее.\nДата по прошлому с
+ езону — официальную объявляют позже\, п
+ роверьте на сайте организатора.\nПортал
+ : https://cheremisin.github.io/jbqye7itb8dg/index.html
+CATEGORIES:олимпиада
+TRANSP:TRANSPARENT
+STATUS:CONFIRMED
+BEGIN:VALARM
+ACTION:DISPLAY
+TRIGGER;RELATED=START:-P7D
+DESCRIPTION:Через неделю: Заключительные эта
+ пы перечневых олимпиад — Дочь
+END:VALARM
+BEGIN:VALARM
+ACTION:DISPLAY
+TRIGGER;RELATED=START:-P1D
+DESCRIPTION:Завтра: Заключительные этапы пер
+ ечневых олимпиад — Дочь
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:20270210-35@jbqye7itb8dg
+DTSTAMP:20260906T142622Z
+DTSTART;TZID=Europe/Moscow:20270210T100000
+DTEND;TZID=Europe/Moscow:20270210T103000
+SUMMARY:«Инженеры будущего» — приём проект
+ ов — Дочь (дата ориентировочная)
+DESCRIPTION:Московская конференция инженерн
+ ых проектов\, финал во второй половине а
+ преля. Обязательна видеозащита — снима
+ ть надо установку в работе\, а не говоря
+ щую голову. Лучшая площадка для проекта
+  с «железом».\nДата по прошлому сезону —
+  официальную объявляют позже\, проверьт
+ е на сайте организатора.\nСайт: https://conf.pro
+ fil.mos.ru/inj/\nПортал: https://cheremisin.github.io/jbqye7itb8dg
+ /index.html
+URL:https://conf.profil.mos.ru/inj/
+CATEGORIES:проект
+TRANSP:TRANSPARENT
+STATUS:CONFIRMED
+BEGIN:VALARM
+ACTION:DISPLAY
+TRIGGER;RELATED=START:-P7D
+DESCRIPTION:Через неделю: «Инженеры будущего
+ » — приём проектов — Дочь
+END:VALARM
+BEGIN:VALARM
+ACTION:DISPLAY
+TRIGGER;RELATED=START:-P1D
+DESCRIPTION:Завтра: «Инженеры будущего» — пр
+ иём проектов — Дочь
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:20270211-36@jbqye7itb8dg
+DTSTAMP:20260906T142622Z
+DTSTART;TZID=Europe/Moscow:20270211T100000
+DTEND;TZID=Europe/Moscow:20270211T103000
+SUMMARY:«Смарт Кенгуру» (онлайн) — математи
+ ка — Сын (дата ориентировочная)
+DESCRIPTION:Онлайн-версия «Кенгуру»\, февраль
+ . 2–10 класс. Игровой формат\, идеальная п
+ ервая математическая проба.\nДата по пр
+ ошлому сезону — официальную объявляют 
+ позже\, проверьте на сайте организатора
+ .\nПортал: https://cheremisin.github.io/jbqye7itb8dg/index.html
+CATEGORIES:конкурс
+TRANSP:TRANSPARENT
+STATUS:CONFIRMED
+BEGIN:VALARM
+ACTION:DISPLAY
+TRIGGER;RELATED=START:-P7D
+DESCRIPTION:Через неделю: «Смарт Кенгуру» (он
+ лайн) — математика — Сын
+END:VALARM
+BEGIN:VALARM
+ACTION:DISPLAY
+TRIGGER;RELATED=START:-P1D
+DESCRIPTION:Завтра: «Смарт Кенгуру» (онлайн) 
+ — математика — Сын
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:20270214-37@jbqye7itb8dg
+DTSTAMP:20260906T142622Z
+DTSTART;TZID=Europe/Moscow:20270214T100000
+DTEND;TZID=Europe/Moscow:20270214T103000
+SUMMARY:Балтийский научно-инженерный конку
+ рс — подача — Дочь (дата ориентировочн
+ ая)
+DESCRIPTION:Самая жёсткая научная экспертиза
+  среди школьных конкурсов России. Обяза
+ телен научный руководитель\, работа дол
+ жна быть выполнена за последний год. Ес
+ ли работа проходит здесь — она настоящ
+ ая.\nДата по прошлому сезону — официаль
+ ную объявляют позже\, проверьте на сайт
+ е организатора.\nСайт: https://baltkonkurs.ru/\nПор
+ тал: https://cheremisin.github.io/jbqye7itb8dg/index.html
+URL:https://baltkonkurs.ru/
+CATEGORIES:проект
+TRANSP:TRANSPARENT
+STATUS:CONFIRMED
+BEGIN:VALARM
+ACTION:DISPLAY
+TRIGGER;RELATED=START:-P7D
+DESCRIPTION:Через неделю: Балтийский научно-и
+ нженерный конкурс — подача — Дочь
+END:VALARM
+BEGIN:VALARM
+ACTION:DISPLAY
+TRIGGER;RELATED=START:-P1D
+DESCRIPTION:Завтра: Балтийский научно-инжене
+ рный конкурс — подача — Дочь
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:20270220-38@jbqye7itb8dg
+DTSTAMP:20260906T142622Z
+DTSTART;TZID=Europe/Moscow:20270220T100000
+DTEND;TZID=Europe/Moscow:20270220T103000
+SUMMARY:Университетская гимназия МГУ — пер
+ вый этап отбора в 10 класс — Дочь (дата о
+ риентировочная)
+DESCRIPTION:В 2026 году первый этап прошёл 20–24 
+ февраля. Набор в 8 и 10 классы\, три этапа. 
+ Физика\, химия\, биология\, математика. С
+ амый ранний и самый легко пропускаемый 
+ из школьных дедлайнов.\nДата по прошлом
+ у сезону — официальную объявляют позже
+ \, проверьте на сайте организатора.\nПор
+ тал: https://cheremisin.github.io/jbqye7itb8dg/index.html
+CATEGORIES:школа
+TRANSP:TRANSPARENT
+STATUS:CONFIRMED
+BEGIN:VALARM
+ACTION:DISPLAY
+TRIGGER;RELATED=START:-P7D
+DESCRIPTION:Через неделю: Университетская ги
+ мназия МГУ — первый этап отбора в 10 кла
+ сс — Дочь
+END:VALARM
+BEGIN:VALARM
+ACTION:DISPLAY
+TRIGGER;RELATED=START:-P1D
+DESCRIPTION:Завтра: Университетская гимназия
+  МГУ — первый этап отбора в 10 класс — До
+ чь
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:20270301-39@jbqye7itb8dg
+DTSTAMP:20260906T142622Z
+DTSTART;TZID=Europe/Moscow:20270301T100000
+DTEND;TZID=Europe/Moscow:20270301T103000
+SUMMARY:«Сириус» — дедлайн отборочных курс
+ ов на летние смены — Дочь (дата ориенти
+ ровочная)
+DESCRIPTION:Для 7–9 классов вход не требует ол
+ импиадных дипломов: двухмесячный диста
+ нционный курс плюс очный региональный 
+ тур. С 10 класса эта дверь закрывается и 
+ остаются только ВсОШ и перечневые олим
+ пиады. Курс стартует в январе-феврале\, 
+ догнать в марте нельзя.\nДата по прошлом
+ у сезону — официальную объявляют позже
+ \, проверьте на сайте организатора.\nСай
+ т: https://sochisirius.ru/kak-popast/science-programs\nПортал: ht
+ tps://cheremisin.github.io/jbqye7itb8dg/index.html
+URL:https://sochisirius.ru/kak-popast/science-programs
+CATEGORIES:лагерь
+TRANSP:TRANSPARENT
+STATUS:CONFIRMED
+BEGIN:VALARM
+ACTION:DISPLAY
+TRIGGER;RELATED=START:-P7D
+DESCRIPTION:Через неделю: «Сириус» — дедлайн 
+ отборочных курсов на летние смены — До
+ чь
+END:VALARM
+BEGIN:VALARM
+ACTION:DISPLAY
+TRIGGER;RELATED=START:-P1D
+DESCRIPTION:Завтра: «Сириус» — дедлайн отбор
+ очных курсов на летние смены — Дочь
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:20270318-40@jbqye7itb8dg
+DTSTAMP:20260906T142622Z
+DTSTART;TZID=Europe/Moscow:20270318T100000
+DTEND;TZID=Europe/Moscow:20270318T103000
+SUMMARY:«Кенгуру» — основной конкурс — Сын
+  (дата ориентировочная)
+DESCRIPTION:Третий четверг марта\, через школ
+ у. 2–11 класс.\nДата по прошлому сезону — 
+ официальную объявляют позже\, проверьт
+ е на сайте организатора.\nПортал: https://cher
+ emisin.github.io/jbqye7itb8dg/index.html
+CATEGORIES:конкурс
+TRANSP:TRANSPARENT
+STATUS:CONFIRMED
+BEGIN:VALARM
+ACTION:DISPLAY
+TRIGGER;RELATED=START:-P7D
+DESCRIPTION:Через неделю: «Кенгуру» — основн
+ ой конкурс — Сын
+END:VALARM
+BEGIN:VALARM
+ACTION:DISPLAY
+TRIGGER;RELATED=START:-P1D
+DESCRIPTION:Завтра: «Кенгуру» — основной кон
+ курс — Сын
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:20270320-41@jbqye7itb8dg
+DTSTAMP:20260906T142622Z
+DTSTART;TZID=Europe/Moscow:20270320T100000
+DTEND;TZID=Europe/Moscow:20270320T103000
+SUMMARY:Заключительный этап ВсОШ — Дочь (да
+ та ориентировочная)
+DESCRIPTION:Март – начало мая. Победа или при
+ зёрство здесь = БВИ в любой вуз РФ по про
+ филю\, без требования подтверждать ЕГЭ. 
+ Действует 4 года.\nДата по прошлому сезо
+ ну — официальную объявляют позже\, пров
+ ерьте на сайте организатора.\nПортал: http
+ s://cheremisin.github.io/jbqye7itb8dg/index.html
+CATEGORIES:ВсОШ
+TRANSP:TRANSPARENT
+STATUS:CONFIRMED
+BEGIN:VALARM
+ACTION:DISPLAY
+TRIGGER;RELATED=START:-P7D
+DESCRIPTION:Через неделю: Заключительный эта
+ п ВсОШ — Дочь
+END:VALARM
+BEGIN:VALARM
+ACTION:DISPLAY
+TRIGGER;RELATED=START:-P1D
+DESCRIPTION:Завтра: Заключительный этап ВсОШ 
+ — Дочь
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:20270404-42@jbqye7itb8dg
+DTSTAMP:20260906T142622Z
+DTSTART;TZID=Europe/Moscow:20270404T100000
+DTEND;TZID=Europe/Moscow:20270404T103000
+SUMMARY:Физтех-лицей им. Капицы — I этап отб
+ ора — Дочь (дата ориентировочная)
+DESCRIPTION:В 2026 туры были 4\, 11 и 18 апреля\, зат
+ ем летняя школа в июне. Набор в 8–11 клас
+ сы.\nДата по прошлому сезону — официаль
+ ную объявляют позже\, проверьте на сайт
+ е организатора.\nСайт: https://phtl.ru/pages/incoming.h
+ tml\nПортал: https://cheremisin.github.io/jbqye7itb8dg/index.html
+URL:https://phtl.ru/pages/incoming.html
+CATEGORIES:школа
+TRANSP:TRANSPARENT
+STATUS:CONFIRMED
+BEGIN:VALARM
+ACTION:DISPLAY
+TRIGGER;RELATED=START:-P7D
+DESCRIPTION:Через неделю: Физтех-лицей им. Кап
+ ицы — I этап отбора — Дочь
+END:VALARM
+BEGIN:VALARM
+ACTION:DISPLAY
+TRIGGER;RELATED=START:-P1D
+DESCRIPTION:Завтра: Физтех-лицей им. Капицы — 
+ I этап отбора — Дочь
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:20270415-43@jbqye7itb8dg
+DTSTAMP:20260906T142622Z
+DTSTART;TZID=Europe/Moscow:20270415T100000
+DTEND;TZID=Europe/Moscow:20270415T103000
+SUMMARY:СУНЦ МГУ (школа Колмогорова) — I тур 
+ в 10 класс — Дочь (дата ориентировочная)
+DESCRIPTION:Отборочное тестирование → экзам
+ ены (математика + профиль)\, результаты д
+ о 16 июня\; II тур — Колмогоровская летняя
+  школа. Все испытания бесплатны\, есть о
+ бщежитие для иногородних.\nДата по прош
+ лому сезону — официальную объявляют по
+ зже\, проверьте на сайте организатора.\n
+ Сайт: https://internat.msu.ru/for-abiturients/pravila-priema/\nПо
+ ртал: https://cheremisin.github.io/jbqye7itb8dg/index.html
+URL:https://internat.msu.ru/for-abiturients/pravila-priema/
+CATEGORIES:школа
+TRANSP:TRANSPARENT
+STATUS:CONFIRMED
+BEGIN:VALARM
+ACTION:DISPLAY
+TRIGGER;RELATED=START:-P7D
+DESCRIPTION:Через неделю: СУНЦ МГУ (школа Колм
+ огорова) — I тур в 10 класс — Дочь
+END:VALARM
+BEGIN:VALARM
+ACTION:DISPLAY
+TRIGGER;RELATED=START:-P1D
+DESCRIPTION:Завтра: СУНЦ МГУ (школа Колмогоро
+ ва) — I тур в 10 класс — Дочь
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:20270515-44@jbqye7itb8dg
+DTSTAMP:20260906T142622Z
+DTSTART;TZID=Europe/Moscow:20270515T100000
+DTEND;TZID=Europe/Moscow:20270515T103000
+SUMMARY:ЛКШ — вступительный контест — Дочь
+  (дата ориентировочная)
+DESCRIPTION:Пятичасовой контест по спортивно
+ му программированию\, 6–10 класс. Стоимо
+ сть 79 000 ₽\, со скидками для олимпиадник
+ ов 49 000–59 000 ₽. Смена во второй половине 
+ июля.\nДата по прошлому сезону — официа
+ льную объявляют позже\, проверьте на са
+ йте организатора.\nСайт: https://lksh.ru/\nПорта
+ л: https://cheremisin.github.io/jbqye7itb8dg/index.html
+URL:https://lksh.ru/
+CATEGORIES:лагерь
+TRANSP:TRANSPARENT
+STATUS:CONFIRMED
+BEGIN:VALARM
+ACTION:DISPLAY
+TRIGGER;RELATED=START:-P7D
+DESCRIPTION:Через неделю: ЛКШ — вступительны
+ й контест — Дочь
+END:VALARM
+BEGIN:VALARM
+ACTION:DISPLAY
+TRIGGER;RELATED=START:-P1D
+DESCRIPTION:Завтра: ЛКШ — вступительный конт
+ ест — Дочь
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:20270520-45@jbqye7itb8dg
+DTSTAMP:20260906T142622Z
+DTSTART;TZID=Europe/Moscow:20270520T100000
+DTEND;TZID=Europe/Moscow:20270520T103000
+SUMMARY:Приём в СУНЦ НГУ\, ЛНМО\, лицей 239\, СУ
+ НЦ УрФУ — Дочь (дата ориентировочная)
+DESCRIPTION:Май–июнь: вступительные испытан
+ ия в специализированные школы. СУНЦ НГУ
+  — обучение и интернат полностью за счё
+ т федерального бюджета.\nДата по прошло
+ му сезону — официальную объявляют позж
+ е\, проверьте на сайте организатора.\nПо
+ ртал: https://cheremisin.github.io/jbqye7itb8dg/index.html
+CATEGORIES:школа
+TRANSP:TRANSPARENT
+STATUS:CONFIRMED
+BEGIN:VALARM
+ACTION:DISPLAY
+TRIGGER;RELATED=START:-P7D
+DESCRIPTION:Через неделю: Приём в СУНЦ НГУ\, ЛН
+ МО\, лицей 239\, СУНЦ УрФУ — Дочь
+END:VALARM
+BEGIN:VALARM
+ACTION:DISPLAY
+TRIGGER;RELATED=START:-P1D
+DESCRIPTION:Завтра: Приём в СУНЦ НГУ\, ЛНМО\, ли
+ цей 239\, СУНЦ УрФУ — Дочь
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:20270525-46@jbqye7itb8dg
+DTSTAMP:20260906T142622Z
+DTSTART;TZID=Europe/Moscow:20270525T100000
+DTEND;TZID=Europe/Moscow:20270525T103000
+SUMMARY:ОГЭ — Дочь\, 9 класс — Дочь (дата ори
+ ентировочная)
+DESCRIPTION:4 экзамена: русский\, математика + 2
+  по выбору. Предметы по выбору лучше сог
+ ласовать с будущим профилем 10 класса. У
+ стный экзамен по истории вводится толь
+ ко с 2028 — Дочь не затронет.\nДата по прош
+ лому сезону — официальную объявляют по
+ зже\, проверьте на сайте организатора.\n
+ Портал: https://cheremisin.github.io/jbqye7itb8dg/index.html
+CATEGORIES:экзамен
+TRANSP:TRANSPARENT
+STATUS:CONFIRMED
+BEGIN:VALARM
+ACTION:DISPLAY
+TRIGGER;RELATED=START:-P7D
+DESCRIPTION:Через неделю: ОГЭ — Дочь\, 9 класс 
+ — Дочь
+END:VALARM
+BEGIN:VALARM
+ACTION:DISPLAY
+TRIGGER;RELATED=START:-P1D
+DESCRIPTION:Завтра: ОГЭ — Дочь\, 9 класс — Дочь
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:20270601-47@jbqye7itb8dg
+DTSTAMP:20260906T142622Z
+DTSTART;TZID=Europe/Moscow:20270601T100000
+DTEND;TZID=Europe/Moscow:20270601T103000
+SUMMARY:Летняя школа Иннополиса — конкурс 
+ на грант — Дочь (дата ориентировочная)
+DESCRIPTION:Математика\, робототехника\, инфо
+ рмационная безопасность\, ИИ. От 70 000 ₽ д
+ о нуля по гранту\; финалисты осенней оли
+ мпиады Innopolis Open зачисляются без тестиро
+ вания.\nДата по прошлому сезону — офици
+ альную объявляют позже\, проверьте на с
+ айте организатора.\nСайт: https://dovuz.innopolis.un
+ iversity/pre-olympiads/io-school\nПортал: https://cheremisin.githu
+ b.io/jbqye7itb8dg/index.html
+URL:https://dovuz.innopolis.university/pre-olympiads/io-school
+CATEGORIES:лагерь
+TRANSP:TRANSPARENT
+STATUS:CONFIRMED
+BEGIN:VALARM
+ACTION:DISPLAY
+TRIGGER;RELATED=START:-P7D
+DESCRIPTION:Через неделю: Летняя школа Иннопо
+ лиса — конкурс на грант — Дочь
+END:VALARM
+BEGIN:VALARM
+ACTION:DISPLAY
+TRIGGER;RELATED=START:-P1D
+DESCRIPTION:Завтра: Летняя школа Иннополиса 
+ — конкурс на грант — Дочь
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:20270719-48@jbqye7itb8dg
+DTSTAMP:20260906T142622Z
+DTSTART;TZID=Europe/Moscow:20270719T100000
+DTEND;TZID=Europe/Moscow:20270719T103000
+SUMMARY:Летние школы: ЛКШ\, ЛШСМ\, смены «Сир
+ иуса» — Дочь (дата ориентировочная)
+DESCRIPTION:ЛКШ (программирование) — вступит
+ ельный контест в мае. Летняя школа «Сов
+ ременная математика» — после 10–11 клас
+ са\, заявки до 20 мая. Сириус — заявки отк
+ рываются за полгода до смены.\nДата по п
+ рошлому сезону — официальную объявляю
+ т позже\, проверьте на сайте организато
+ ра.\nСайт: https://sochisirius.ru/kak-popast/science-programs\nП
+ ортал: https://cheremisin.github.io/jbqye7itb8dg/index.html
+URL:https://sochisirius.ru/kak-popast/science-programs
+CATEGORIES:школа
+TRANSP:TRANSPARENT
+STATUS:CONFIRMED
+BEGIN:VALARM
+ACTION:DISPLAY
+TRIGGER;RELATED=START:-P7D
+DESCRIPTION:Через неделю: Летние школы: ЛКШ\, Л
+ ШСМ\, смены «Сириуса» — Дочь
+END:VALARM
+BEGIN:VALARM
+ACTION:DISPLAY
+TRIGGER;RELATED=START:-P1D
+DESCRIPTION:Завтра: Летние школы: ЛКШ\, ЛШСМ\, с
+ мены «Сириуса» — Дочь
+END:VALARM
+END:VEVENT
+END:VCALENDAR

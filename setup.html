@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex,nofollow">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Напоминания и приложение — Образование</title>
+<link rel="stylesheet" href="assets/css/style.css">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#0e1116">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Образование">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎓</text></svg>">
+<style>
+.step{display:grid;grid-template-columns:34px 1fr;gap:6px 14px;padding:14px 0;border-bottom:1px solid var(--line);align-items:start}
+.step:last-child{border-bottom:0}
+.step .n{width:28px;height:28px;border-radius:50%;background:var(--acc);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px}
+.step .t{font-weight:600;margin-bottom:3px}
+.chan{border-left:3px solid var(--line);margin-bottom:14px}
+.chan.on{border-left-color:var(--ok)}
+.chan.todo{border-left-color:var(--warn)}
+.url{display:flex;gap:8px;align-items:center;flex-wrap:wrap;background:var(--bg3);border:1px solid var(--line);border-radius:9px;padding:9px 12px;margin:10px 0}
+.url code{background:none;padding:0;font-size:13px;word-break:break-all;flex:1;min-width:200px}
+.rel{display:grid;grid-template-columns:auto 1fr;gap:6px 14px;padding:11px 0;border-bottom:1px solid var(--line);align-items:baseline}
+.rel:last-child{border-bottom:0}
+@media(max-width:600px){.rel{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<main class="wrap">
+  <h1>Напоминания и приложение</h1>
+  <p class="lead">Портал сам по себе ничего не напомнит — в него нужно зайти. Здесь настраивается обратное: чтобы даты приходили к вам, а не вы к ним. Пятнадцать минут один раз, дальше работает само.</p>
+
+  <div class="toc">
+    <a href="#app">Иконка на телефоне</a><a href="#cal">Календарь</a>
+    <a href="#tg">Телеграм</a><a href="#sync">Синхронизация</a><a href="#how">Как это устроено</a>
+  </div>
+
+  <div class="note ok">
+    <p class="mb0"><b>Честно о надёжности каналов.</b> Ни один канал не покрывает всё, поэтому их два. <b>Календарь</b> показывает даты в контексте вашего дня и работает на всех устройствах — но подписные календари обновляются с задержкой, а Google для чужих календарей часто игнорирует встроенные напоминания. <b>Телеграм</b> — наоборот: приходит точно и вовремя, но живёт отдельно от расписания. Вместе они закрывают дыры друг друга.</p>
+  </div>
+
+  <h2 id="app">1. Иконка на телефоне</h2>
+  <div class="card chan on">
+    <p class="mt0 sm">Портал устанавливается как приложение: иконка на домашнем экране, открывается на весь экран без адресной строки, работает без интернета (последняя загруженная версия). Магазины приложений не нужны, обновляется само.</p>
+    <button class="btn" data-install hidden>Установить приложение</button>
+    <div class="grid g2" style="margin-top:12px">
+      <div class="card" style="padding:14px">
+        <div class="t" style="font-weight:600;margin-bottom:6px">iPhone и iPad</div>
+        <p class="sm mb0">Открыть портал <b>в Safari</b> (в Chrome на iPhone установка не работает) → кнопка «Поделиться» внизу → <b>«На экран „Домой“»</b> → «Добавить».</p>
+      </div>
+      <div class="card" style="padding:14px">
+        <div class="t" style="font-weight:600;margin-bottom:6px">Android</div>
+        <p class="sm mb0">Открыть в Chrome → меню из трёх точек → <b>«Установить приложение»</b> или «Добавить на главный экран». Часто Chrome предлагает сам — кнопка выше появится, если браузер готов установить.</p>
+      </div>
+    </div>
+    <p class="sm muted" style="margin:12px 0 0">Поставьте на телефоны всем четверым. Детям это единственный способ не терять ссылку.</p>
+  </div>
+
+  <h2 id="cal">2. Календарь: даты приходят в телефон сами</h2>
+  <div class="card chan on">
+    <p class="mt0 sm">Все даты портала — олимпиады, кружки, лагеря, подача документов — опубликованы отдельным файлом-календарём. На него <b>подписываются один раз</b>: дальше новые даты появляются сами, а изменённые обновляются. Каждое событие помечено, чьё оно, и содержит ссылку на сайт организатора.</p>
+
+    <div class="url">
+      <code id="icsurl">webcal://cheremisin.github.io/jbqye7itb8dg/edu.ics</code>
+      <button class="btn sm sec" id="copyics">Копировать</button>
+      <a class="btn sm" id="subics" href="webcal://cheremisin.github.io/jbqye7itb8dg/edu.ics">Подписаться</a>
+    </div>
+
+    <div class="grid g3" style="margin-top:6px">
+      <div class="card" style="padding:14px">
+        <div style="font-weight:600;margin-bottom:6px">iPhone</div>
+        <p class="sm mb0">Нажать «Подписаться» выше прямо с телефона — откроется календарь, подтвердить. Либо вручную: <b>Настройки → Приложения → Календарь → Учётные записи → Добавить учётную запись → Другое → Подписной календарь</b>, вставить адрес.</p>
+        <p class="sm mb0" style="margin-top:8px;color:var(--warn)">Важно: в настройках подписки <b>не включайте «Удалить напоминания»</b> — иначе пропадут уведомления за неделю и за день.</p>
+      </div>
+      <div class="card" style="padding:14px">
+        <div style="font-weight:600;margin-bottom:6px">Android и Google</div>
+        <p class="sm mb0">С телефона не получится — только с компьютера: <b>calendar.google.com → «Другие календари» → «+» → «Подписаться по URL»</b>, вставить адрес (в Google вставляйте <code>https://</code> вместо <code>webcal://</code>). Дальше календарь появится и в приложении на телефоне.</p>
+        <p class="sm mb0" style="margin-top:8px;color:var(--warn)">Google обычно <b>не показывает уведомления</b> по подписным календарям и обновляет их раз в сутки и реже. Даты видно, напоминания — из Телеграма.</p>
+      </div>
+      <div class="card" style="padding:14px">
+        <div style="font-weight:600;margin-bottom:6px">Яндекс Календарь</div>
+        <p class="sm mb0">calendar.yandex.ru → <b>«Добавить календарь» → «Подписаться на календарь»</b> → вставить адрес с <code>https://</code>. Удобно, если семья уже живёт в Яндексе.</p>
+      </div>
+    </div>
+    <p class="sm muted" style="margin:12px 0 0">Прямая ссылка на файл: <a href="edu.ics">edu.ics</a>. Внутри <span id="evcount">все</span> событий с напоминаниями за 7 дней и за 1 день до даты.</p>
+  </div>
+
+  <h2 id="tg">3. Телеграм: утренний дайджест</h2>
+  <div class="card chan todo">
+    <p class="mt0 sm">Бот раз в день пишет в семейный чат, что горит: сегодня, на этой неделе и что закрывается в ближайшие две недели — отдельно по каждому ребёнку. По понедельникам — сводка недели. Это тот канал, который реально доходит.</p>
+    <p class="sm"><b>Работает бесплатно и без сервера:</b> расписание запускает GitHub, он же читает даты портала и отправляет сообщение. Ничего не нужно держать включённым.</p>
+
+    <div class="note warn">
+      <p class="mb0 sm"><b>Два шага, которые могу сделать только вы</b> — они требуют ввода пароля и токена, а этого я не делаю. Пятнадцать минут.</p>
+    </div>
+
+    <div class="card" style="padding:14px;background:var(--bg3)">
+      <div class="step"><div class="n">1</div><div><div class="t">Создать бота</div><div class="sm">В Телеграме найти <b>@BotFather</b> → команда <code>/newbot</code> → придумать имя и адрес (например, <code>edu_family_bot</code>). В ответ придёт строка вида <code>8123456789:AAF...</code> — это токен, никому его не показывайте.</div></div></div>
+      <div class="step"><div class="n">2</div><div><div class="t">Создать семейный чат и добавить бота</div><div class="sm">Группа с вами, женой и детьми → добавить туда бота. Затем узнать номер чата: добавить в группу <b>@getmyid_bot</b> или <b>@RawDataBot</b>, он пришлёт <code>chat id</code> (у групп он отрицательный, например <code>-1001234567890</code>), после чего этого бота удалить.</div></div></div>
+      <div class="step"><div class="n">3</div><div><div class="t">Положить токен в настройки репозитория</div><div class="sm">GitHub → репозиторий портала → <b>Settings → Secrets and variables → Actions → New repository secret</b>. Создать два: <code>TG_TOKEN</code> (строка от BotFather) и <code>TG_CHAT</code> (номер чата). Секреты зашифрованы и в коде не видны, даже если репозиторий публичный.</div></div></div>
+      <div class="step"><div class="n">4</div><div><div class="t">Проверить</div><div class="sm">GitHub → вкладка <b>Actions</b> → «Телеграм-дайджест» → <b>Run workflow</b>. Если сообщение пришло в чат — всё, дальше он будет приходить каждое утро сам.</div></div></div>
+    </div>
+    <p class="sm muted" style="margin:12px 0 0">Расписание и текст сообщения настраиваются в файле <code>.github/workflows/digest.yml</code> и <code>tools/telegram-digest.js</code> — скажите, если захотите другое время или другую периодичность.</p>
+  </div>
+
+  <h2 id="sync">4. Синхронизация: один прогресс на всех устройствах</h2>
+  <div class="card chan todo">
+    <p class="mt0 sm">Сейчас отметки о выполнении, дневник интересов и результаты тестов лежат в том браузере, где их поставили. С телефона не видно, что отмечено на ноутбуке, и вы не видите, что отметили дети. Это главное ограничение портала.</p>
+    <p class="sm">Решение — маленькая бесплатная база. Каждый заходит по своему коду, данные видны на всех устройствах, вы видите прогресс детей. Хранится только то, что уже хранится сейчас: галочки, заметки, результаты тестов.</p>
+    <div class="note">
+      <p class="mb0 sm"><b>Что нужно от вас:</b> завести бесплатный проект на <a href="https://supabase.com" target="_blank" rel="noopener">supabase.com</a> (регистрация через GitHub, одна кнопка) и прислать мне два значения из настроек проекта — адрес и публичный ключ <code>anon</code>. Этот ключ по своему назначению публичный, его специально кладут в код сайта. Всё остальное сделаю я.</p>
+    </div>
+    <p class="sm" style="margin:12px 0 0">Состояние: <span class="b" data-sync-status>синхронизация выключена</span></p>
+    <p class="sm muted mb0" style="margin-top:10px">Пока не настроено — работает как раньше: данные в браузере, резервная копия кнопкой на дашборде. Раз в месяц скачивайте её, это две секунды.</p>
+  </div>
+
+  <h2 id="how">Как это устроено и что может сломаться</h2>
+  <div class="card">
+    <div class="rel"><div><span class="b ok">Календарь</span></div><div class="sm">Файл <code>edu.ics</code> пересобирается автоматически при каждом изменении дат на портале. <b>Что ломается:</b> календари обновляют подписку не сразу — Apple раз в час-сутки, Google до суток и дольше. Для срочного «завтра дедлайн» полагайтесь на Телеграм.</div></div>
+    <div class="rel"><div><span class="b ok">Приложение</span></div><div class="sm">Обычный сайт плюс сервис-воркер: держит копию страниц в телефоне. <b>Что ломается:</b> после обновления портала телефон может показать старую версию до перезагрузки страницы. Потянуть страницу вниз — обновится.</div></div>
+    <div class="rel"><div><span class="b warn">Телеграм</span></div><div class="sm">GitHub запускает скрипт по расписанию. <b>Что ломается:</b> бесплатное расписание GitHub иногда опаздывает на 10–60 минут — для утреннего дайджеста это незаметно. Если репозиторий не трогать больше 60 дней, GitHub отключает расписание и присылает письмо — достаточно нажать кнопку в письме.</div></div>
+    <div class="rel"><div><span class="b"></span>Приватность</div><div class="sm">Календарь лежит по тому же неугадываемому адресу, что и портал, и содержит нейтральные обозначения детей, а не имена. Тот, у кого есть ссылка, видит и портал, и календарь — это осознанный размен, о котором мы договорились.</div></div>
+  </div>
+
+  <p class="sm muted" style="margin-top:20px">Настроено 6 сентября 2026. Если что-то из шагов выше не получится — напишите, на каком именно месте, и я разберу.</p>
+</main>
+
+<script src="data/deadlines.js"></script>
+<script src="data/config.js"></script>
+<script src="assets/js/app.js"></script>
+<script src="data/sync-config.js"></script>
+<script src="assets/js/sync.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded',()=>{
+  const httpsUrl = location.origin + location.pathname.replace(/setup\.html$/,'') + 'edu.ics';
+  const webcal   = httpsUrl.replace(/^https?:/, 'webcal:');
+  $('#icsurl').textContent = webcal;
+  $('#subics').href = webcal;
+  $('#copyics').addEventListener('click', async e => {
+    try{ await navigator.clipboard.writeText(httpsUrl); e.target.textContent='Скопировано ✓'; }
+    catch(err){ e.target.textContent='Скопируйте вручную'; }
+    setTimeout(()=>e.target.textContent='Копировать', 2000);
+  });
+  if(window.DEADLINES) $('#evcount').textContent = DEADLINES.length;
+});
+</script>
+</body>
+</html>

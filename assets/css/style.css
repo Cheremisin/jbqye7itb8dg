@@ -1,8 +1,8 @@
 :root{
   --bg:#0e1116; --bg2:#161b22; --bg3:#1c232c; --line:#2a323d;
   --tx:#e6edf3; --tx2:#9aa7b4; --tx3:#6e7c8c;
-  --u:#7aa2f7;   /* Ульяна */
-  --y:#f7a072;   /* Ярослав */
+  --u:#7aa2f7;   /* старшая */
+  --y:#f7a072;   /* младший */
   --ok:#5ec27a; --warn:#e3b341; --bad:#f07178; --acc:#a78bfa;
   --r:12px; --w:1180px;
 }
@@ -158,5 +158,7 @@ details[open] summary{margin-bottom:10px}
   nav.main{order:3;width:100%;flex:0 0 100%;margin:0 -20px;padding:0 20px 2px}
   .filters input[type=search]{min-width:100%}
   .dl{flex-direction:column;gap:2px}
+  .b{white-space:normal}
+  input[type=text],input[type=number],input[type=date],textarea,select{max-width:100%}
 }
 @media print{header.top,footer,.filters,.btn{display:none}body{background:#fff;color:#000}}

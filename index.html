@@ -7,6 +7,13 @@
 <title>Дашборд — Образование: {{U}} и {{Y}}</title>
 <meta name="description" content="Семейный портал подготовки к поступлению в ведущие вузы России">
 <link rel="stylesheet" href="assets/css/style.css">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#0e1116">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Образование">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎓</text></svg>">
 </head>
 <body>
@@ -65,6 +72,14 @@
     <div class="card"><h3 class="mt0"><a href="schools.html">Школы Москвы</a></h3><p class="sm mt0 mb0">Как читать московский рейтинг и почему буквально его читать нельзя, разбор школ Запада, Юго-Запада, Щукина и района Остров, честный разбор гимназии Сколково и главное: 10 класс — самое широкое окно во всей системе, но календарь отбора расползается на полгода.</p></div>
   </div>
 
+  <h2>Чтобы это работало без вас</h2>
+  <div class="card" style="border-left:3px solid var(--acc)">
+    <h3 class="mt0">Напоминания, календарь и иконка на телефоне</h3>
+    <p class="sm mt0">Портал сам ничего не напомнит — в него надо зайти. На отдельной странице настраивается обратное: <b>подписка на календарь</b> (все даты приезжают в телефон сами, с напоминаниями за неделю и за день), <b>утренний дайджест в Телеграм</b> с тем, что горит, <b>установка портала как приложения</b> на домашний экран и <b>синхронизация прогресса</b> между устройствами. Пятнадцать минут один раз.</p>
+    <a class="btn" href="setup.html">Настроить напоминания</a>
+    <button class="btn sec" data-install hidden style="margin-left:8px">Установить приложение</button>
+  </div>
+
   <h2>Задания на эту неделю</h2>
   <div class="grid g2" id="wk"></div>
 
@@ -85,6 +100,8 @@
 <script src="data/tasks.js"></script>
 <script src="data/config.js"></script>
 <script src="assets/js/app.js"></script>
+<script src="data/sync-config.js"></script>
+<script src="assets/js/sync.js"></script>
 <script>
 document.addEventListener('DOMContentLoaded',()=>{
   const uIds = PLANS.elder.now.map(x=>x[0]);

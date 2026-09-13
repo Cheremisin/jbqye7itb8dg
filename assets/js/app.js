@@ -161,7 +161,8 @@ function buildChrome(){
       el('p',{class:'mb0'},'Данные исследования собраны 9 августа 2026 г. Правила приёма, перечни олимпиад и сроки меняются ежегодно — перед решениями сверяйтесь с первоисточниками (ссылки на каждой странице).'),
       el('p',{class:'mb0 xs'},'Ваш прогресс хранится только в этом браузере. Регулярно делайте резервную копию: ',
         el('a',{href:'#',onclick:e=>{e.preventDefault();Store.export();}},'скачать JSON'),' · ',
-        el('a',{href:'#',onclick:e=>{e.preventDefault();Store.reset();}},'сбросить всё'))
+        el('a',{href:'#',onclick:e=>{e.preventDefault();Store.reset();}},'сбросить всё'),' · ',
+        el('a',{href:'setup.html'},'напоминания и приложение'))
     )
   ));
 }
@@ -286,3 +287,29 @@ function filterList({items, container, render, facets, searchFields, searchPlace
 }
 
 document.addEventListener('DOMContentLoaded', buildChrome);
+
+/* ---------------- PWA: установка на телефон и офлайн ---------------- */
+(function pwa(){
+  if('serviceWorker' in navigator){   // браузер сам разрешит только по https и на localhost
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('sw.js').catch(()=>{});
+    });
+  }
+  // Chrome/Android: показываем свою кнопку установки вместо системной подсказки
+  let deferred = null;
+  window.addEventListener('beforeinstallprompt', e => {
+    e.preventDefault(); deferred = e;
+    document.querySelectorAll('[data-install]').forEach(b => {
+      b.hidden = false;
+      b.addEventListener('click', async () => {
+        if(!deferred) return;
+        deferred.prompt();
+        await deferred.userChoice;
+        deferred = null; b.hidden = true;
+      }, {once:true});
+    });
+  });
+  window.addEventListener('appinstalled', () => {
+    document.querySelectorAll('[data-install]').forEach(b => b.hidden = true);
+  });
+})();
