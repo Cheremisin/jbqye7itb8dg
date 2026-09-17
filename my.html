@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex,nofollow">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Мой прогресс — Образование</title>
+<meta name="description" content="Личный кабинет: прогресс, календарь и напоминания">
+<link rel="stylesheet" href="assets/css/style.css">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#0e1116">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+</head>
+<body>
+<main class="wrap">
+  <h1>Мой прогресс</h1>
+  <p class="lead">Задания, даты и напоминания сохраняются в аккаунте Supabase и доступны с любого устройства.</p>
+  <div id="status" style="margin-top:18px"></div>
+
+  <div id="cabinet" hidden>
+    <div class="card portal-online" style="border-left:3px solid var(--ok);margin-top:18px">
+      <b>Синхронизация включена</b><span class="sm muted"> · данные хранятся в аккаунте, а не только в браузере</span>
+      <button id="notify-btn" class="btn sec sm" style="float:right">Включить уведомления</button>
+    </div>
+
+    <div class="grid g2" style="margin-top:16px">
+      <section class="card">
+        <h3 class="mt0" id="who"></h3>
+        <p class="sm muted mt0" id="who-sub"></p>
+        <div id="prog" style="margin-top:12px"></div>
+      </section>
+
+      <section class="card" style="border-left:3px solid var(--acc)">
+        <h3 class="mt0">Куда записались</h3>
+        <p class="sm muted mt0">Олимпиады, кружки и школы: дедлайн регистрации и дата события.</p>
+        <div id="kids-switch" style="margin-bottom:10px"></div>
+        <div id="regs"><p class="sm muted">Загрузка…</p></div>
+        <details style="margin:12px 0 0">
+          <summary>Добавить событие</summary>
+          <form id="regform" style="margin-top:10px">
+            <input type="text" id="r-title" placeholder="Что? (олимпиада, кружок, школа…)" required>
+            <input type="text" id="r-place" placeholder="Где? (организатор/сайт)">
+            <div style="display:flex;gap:10px">
+              <input type="date" id="r-deadline" title="Зарегистрироваться до">
+              <input type="date" id="r-date" title="Когда событие">
+            </div>
+            <input type="url" id="r-link" placeholder="Ссылка (необязательно)">
+            <textarea id="r-note" rows="2" placeholder="Заметка (необязательно)"></textarea>
+            <button class="btn" type="submit">Сохранить событие</button>
+            <span id="r-msg" class="sm"></span>
+          </form>
+        </details>
+      </section>
+    </div>
+
+    <section class="card" style="margin-top:16px">
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap">
+        <h2 class="mt0 mb0">Календарь</h2>
+        <div>
+          <button class="btn sec sm" id="prev-month">←</button>
+          <button class="btn sec sm" id="today-month">Сегодня</button>
+          <button class="btn sec sm" id="next-month">→</button>
+          <button class="btn sec sm" id="download-ics">Скачать календарь</button>
+        </div>
+      </div>
+      <p class="sm muted">События и тренировки видны всем, кому доступен профиль ребёнка. Файл календаря можно добавить в календарь телефона — напоминания будет показывать уже приложение календаря.</p>
+      <div id="calendar" class="portal-calendar"></div>
+    </section>
+
+    <section class="card" style="margin-top:16px;border-left:3px solid var(--warn)">
+      <h2 class="mt0">Мои напоминания</h2>
+      <div id="reminders"><p class="sm muted">Загрузка…</p></div>
+      <details style="margin-top:12px">
+        <summary>Добавить напоминание</summary>
+        <form id="remform" style="margin-top:10px">
+          <input type="text" id="m-title" placeholder="Например: 20 минут — задачи по математике" required>
+          <div style="display:flex;gap:10px;flex-wrap:wrap">
+            <input type="datetime-local" id="m-time" required>
+            <select id="m-kind">
+              <option value="training">Тренировка</option>
+              <option value="registration">Регистрация</option>
+              <option value="event">Событие</option>
+              <option value="other">Другое</option>
+            </select>
+          </div>
+          <input type="url" id="m-link" placeholder="Ссылка (необязательно)">
+          <textarea id="m-note" rows="2" placeholder="Заметка (необязательно)"></textarea>
+          <button class="btn" type="submit">Поставить напоминание</button>
+          <span id="m-msg" class="sm"></span>
+        </form>
+      </details>
+    </section>
+  </div>
+</main>
+
+<script src="data/plans.js"></script>
+<script src="data/tasks.js"></script>
+<script src="data/deadlines.js"></script>
+<script src="data/config.js"></script>
+<script src="assets/js/app.js"></script>
+<script src="data/sync-config.js"></script>
+<script src="assets/js/sync.js"></script>
+<script src="assets/js/vendor/supabase.js"></script>
+<script src="assets/js/portal.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const st = $('#status'), cab = $('#cabinet');
+  const model = { registrations: [], reminders: [], month: new Date() };
+  model.month.setDate(1);
+
+  const dateText = d => { if(!d) return ''; const x = new Date(d+'T00:00:00');
+    return x.toLocaleDateString('ru-RU',{day:'numeric',month:'short',year:'numeric'}); };
+  const dateKey = d => { const x = new Date(d); return `${x.getFullYear()}-${String(x.getMonth()+1).padStart(2,'0')}-${String(x.getDate()).padStart(2,'0')}`; };
+  const isoToKey = iso => dateKey(new Date(iso));
+  const htmlEsc = s => String(s??'').replace(/[&<>\"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','\"':'&quot;'}[c]));
+  const msg = (node,text,ok=false) => { node.textContent=text; node.style.color=ok?'var(--ok)':'var(--bad)'; };
+
+  function notReady(){
+    st.append(el('div',{class:'card',style:'border-left:3px solid var(--warn)'},
+      el('h3',{class:'mt0'},'Личный вход ещё не подключён'),
+      el('p',{class:'sm mt0'},'Нужно заполнить data/sync-config.js и применить db/002_calendar_reminders.sql в Supabase.')));
+  }
+
+  function drawKidsSwitch(){
+    const box=$('#kids-switch'); box.innerHTML='';
+    if(Portal.me && Portal.me.role==='parent' && Portal.kids.length>1){
+      const wrap=el('div',{style:'display:flex;gap:6px;flex-wrap:wrap'});
+      Portal.kids.forEach(k=>{ const c=el('span',{class:'chip'+(Portal.ctx.id===k.id?' on':'')},k.name||'Ребёнок');
+        c.onclick=async()=>{ await Portal.switchKid(k.id); await loadData(); draw(); }; wrap.append(c); });
+      box.append(wrap);
+    }
+  }
+
+  function drawProgress(){
+    const box=$('#prog'); box.innerHTML=''; const ctx=Portal.ctx;
+    const plan=ctx.cls==='y'?PLANS.younger:PLANS.elder;
+    $('#who').textContent=ctx.role==='parent'?'Родитель':(ctx.name||'Я');
+    $('#who-sub').textContent=ctx.role==='parent'?'Выберите ребёнка в меню кнопки входа.':(ctx.cls==='y'?'Младший профиль':'Старший профиль');
+    if(!plan || !plan.now){ box.append(el('p',{class:'sm muted'},'План пока не задан.')); return; }
+    const ids=plan.now.map(x=>x[0]);
+    box.append(el('h4',{class:'mt0'},'Задания стартового плана'),progressBar(ids));
+  }
+
+  function regRow(r){
+    const row=el('div',{class:'card',style:'padding:10px;margin:8px 0;'+(r.done_at?'opacity:.6':'')});
+    row.append(el('div',{style:'display:flex;justify-content:space-between;gap:8px'},el('b',{},r.title+(r.place?' — '+r.place:'')),r.deadline?el('span',{class:'xs muted'},'до '+dateText(r.deadline)):null));
+    if(r.date) row.append(el('div',{class:'sm muted'},'Событие: '+dateText(r.date)));
+    if(r.link) row.append(el('a',{href:r.link,target:'_blank',rel:'noopener',class:'sm'},'открыть сайт →'));
+    if(r.note) row.append(el('div',{class:'sm muted'},r.note));
+    const check=el('input',{type:'checkbox',...(r.done_at?{checked:'checked'}:{})});
+    check.onchange=async()=>{try{await Portal.setRegistrationDone(r.id,check.checked);await loadData();draw();}catch(e){alert(e.message);}};
+    const del=el('button',{class:'btn sec sm'},'удалить');
+    del.onclick=async()=>{if(confirm('Удалить событие?')){await Portal.deleteRegistration(r.id);await loadData();draw();}};
+    row.append(el('div',{class:'sm',style:'display:flex;gap:10px;align-items:center;margin-top:6px'},el('label',{},check,' зарегистрировались'),del));
+    return row;
+  }
+
+  function drawRegistrations(){
+    const box=$('#regs');box.innerHTML='';
+    if(!model.registrations.length) box.append(el('p',{class:'sm muted'},'Пока ничего не добавлено.'));
+    model.registrations.forEach(r=>box.append(regRow(r)));
+  }
+
+  function drawReminders(){
+    const box=$('#reminders');box.innerHTML='';
+    const rows=model.reminders.filter(r=>!r.done_at).slice().sort((a,b)=>a.remind_at.localeCompare(b.remind_at));
+    if(!rows.length) box.append(el('p',{class:'sm muted'},'Активных напоминаний нет.'));
+    rows.forEach(r=>{
+      const row=el('div',{class:'card',style:'padding:10px;margin:8px 0'},
+        el('div',{style:'display:flex;justify-content:space-between;gap:8px'},el('b',{},r.title),el('span',{class:'xs muted'},new Date(r.remind_at).toLocaleString('ru-RU',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'}))),
+        el('div',{class:'sm muted'},({training:'Тренировка',registration:'Регистрация',event:'Событие',other:'Другое'})[r.kind]||'Напоминание'));
+      if(r.note) row.append(el('div',{class:'sm muted'},r.note));
+      if(r.link) row.append(el('a',{href:r.link,target:'_blank',rel:'noopener',class:'sm'},'открыть ссылку →'));
+      const done=el('button',{class:'btn sec sm'},'Готово'); done.onclick=async()=>{await Portal.setReminderDone(r.id,true);await loadData();draw();};
+      const del=el('button',{class:'btn sec sm'},'удалить'); del.onclick=async()=>{if(confirm('Удалить напоминание?')){await Portal.deleteReminder(r.id);await loadData();draw();}};
+      row.append(el('div',{style:'display:flex;gap:8px;margin-top:6px'},done,del));box.append(row);
+    });
+    Portal.notifyDue(model.reminders);
+  }
+
+  function drawCalendar(){
+    const box=$('#calendar');box.innerHTML='';
+    const y=model.month.getFullYear(), m=model.month.getMonth();
+    const title=new Date(y,m,1).toLocaleDateString('ru-RU',{month:'long',year:'numeric'});
+    box.append(el('h3',{class:'portal-cal-title'},title.charAt(0).toUpperCase()+title.slice(1)));
+    const grid=el('div',{class:'portal-cal-grid'});
+    ['Пн','Вт','Ср','Чт','Пт','Сб','Вс'].forEach(x=>grid.append(el('div',{class:'portal-cal-week'},x)));
+    const first=(new Date(y,m,1).getDay()+6)%7, days=new Date(y,m+1,0).getDate();
+    for(let i=0;i<first;i++) grid.append(el('div',{class:'portal-cal-day empty'}));
+    for(let d=1;d<=days;d++){
+      const key=`${y}-${String(m+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+      const cell=el('div',{class:'portal-cal-day'+(key===dateKey(new Date())?' today':'')},el('b',{},String(d)));
+      const items=[];
+      model.registrations.forEach(r=>{if(r.deadline===key)items.push(['дедлайн',r.title,'warn']);if(r.date===key)items.push(['событие',r.title,'']);});
+      model.reminders.forEach(r=>{if(isoToKey(r.remind_at)===key && !r.done_at)items.push(['напоминание',r.title,'acc']);});
+      items.slice(0,3).forEach(x=>cell.append(el('div',{class:'portal-cal-item '+x[2],title:x[1]},x[0]+': '+x[1])));
+      if(items.length>3)cell.append(el('div',{class:'xs muted'},`ещё ${items.length-3}`));
+      grid.append(cell);
+    }
+    box.append(grid);
+  }
+
+  async function loadData(){
+    model.registrations=await Portal.listRegistrations();
+    model.reminders=await Portal.listReminders();
+  }
+  function draw(){drawKidsSwitch();drawProgress();drawRegistrations();drawReminders();drawCalendar();}
+
+  $('#prev-month').onclick=()=>{model.month.setMonth(model.month.getMonth()-1);drawCalendar();};
+  $('#next-month').onclick=()=>{model.month.setMonth(model.month.getMonth()+1);drawCalendar();};
+  $('#today-month').onclick=()=>{model.month=new Date();model.month.setDate(1);drawCalendar();};
+  $('#notify-btn').onclick=async()=>{const p=await Portal.requestNotifications();$('#notify-btn').textContent=p==='granted'?'Уведомления включены ✓':(p==='unsupported'?'Браузер не поддерживает':'Разрешение не выдано');};
+
+  $('#regform').onsubmit=async e=>{e.preventDefault();const n=$('#r-msg');try{await Portal.addRegistration({title:$('#r-title').value.trim(),place:$('#r-place').value.trim(),deadline:$('#r-deadline').value,date:$('#r-date').value,link:$('#r-link').value.trim(),note:$('#r-note').value.trim()});e.target.reset();msg(n,'Событие сохранено ✓',true);await loadData();draw();}catch(x){msg(n,x.message);}};
+  $('#remform').onsubmit=async e=>{e.preventDefault();const n=$('#m-msg');try{const dt=$('#m-time').value;if(!dt)throw new Error('Выберите дату и время');await Portal.addReminder({title:$('#m-title').value.trim(),remind_at:new Date(dt).toISOString(),kind:$('#m-kind').value,link:$('#m-link').value.trim(),note:$('#m-note').value.trim()});e.target.reset();msg(n,'Напоминание сохранено ✓',true);await loadData();draw();}catch(x){msg(n,x.message);}};
+
+  async function render(){
+    if(!window.Portal||!Portal.ready){notReady();return;}
+    if(!Portal.session){st.append(el('div',{class:'card',style:'border-left:3px solid var(--acc)'},el('h3',{class:'mt0'},'Войдите, чтобы открыть кабинет'),el('button',{class:'btn',onclick:()=>Portal.showLogin()},'Войти')));return;}
+    cab.hidden=false;st.innerHTML='';try{await loadData();draw();}catch(e){st.append(el('p',{class:'pm-err'},'Не удалось загрузить данные: '+e.message));}
+  }
+
+  $('#download-ics').onclick=()=>{
+    const lines=['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Education Portal//RU','CALSCALE:GREGORIAN'];
+    const add=(uid,start,end,title,desc)=>{const fmt=x=>new Date(x).toISOString().replace(/[-:]/g,'').replace(/\.\d{3}Z$/,'Z');lines.push('BEGIN:VEVENT','UID:'+uid,'DTSTAMP:'+fmt(new Date()),'DTSTART:'+fmt(start),'DTEND:'+fmt(end),'SUMMARY:'+String(title).replace(/[\\;,]/g,' '),'DESCRIPTION:'+String(desc||'').replace(/[\\;,]/g,' '),'END:VEVENT');};
+    model.registrations.forEach(r=>{if(r.deadline)add('r'+r.id+'d',r.deadline+'T09:00:00',r.deadline+'T09:30:00','Дедлайн регистрации: '+r.title,r.link||'');if(r.date)add('r'+r.id+'e',r.date+'T09:00:00',r.date+'T10:00:00',r.title,r.link||'');});
+    model.reminders.filter(r=>!r.done_at).forEach(r=>add('m'+r.id,r.remind_at,new Date(new Date(r.remind_at).getTime()+30*60000),r.title,r.note||r.link||''));
+    lines.push('END:VCALENDAR');const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([lines.join('\r\n')],{type:'text/calendar'}));a.download='obrazovanie-calendar.ics';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000);
+  };
+
+  render();document.addEventListener('portal:login',render);document.addEventListener('portal:logout',render);
+});
+</script>
+</body>
+</html>

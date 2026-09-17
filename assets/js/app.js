@@ -151,7 +151,8 @@ function buildChrome(){
     el('div',{class:'wrap topin'},
       el('a',{class:'brand',href:'index.html'}, '🎓 ', el('span',{},'Образование'), ' · семейный портал'),
       el('nav',{class:'main'}, NAV.map(([h,t])=>el('a',{href:h,class:h===page?'on':''},t))),
-      el('button',{class:'tbtn',title:'Светлая / тёмная тема',onclick:toggleTheme},'◐')
+      el('button',{class:'tbtn',title:'Светлая / тёмная тема',onclick:toggleTheme},'◐'),
+      el('button',{id:'portal-auth',class:'tbtn portal-btn',title:'Вход в личные разделы'},'Вход')
     )
   );
   document.body.prepend(head);

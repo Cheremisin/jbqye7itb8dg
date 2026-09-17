@@ -1,20 +1,14 @@
 /* ============================================================
-   СИНХРОНИЗАЦИЯ МЕЖДУ УСТРОЙСТВАМИ — выключена, пока не заполнено.
+   СИНХРОНИЗАЦИЯ МЕЖДУ УСТРОЙСТВАМИ И АВТОРИЗАЦИЯ
 
-   Чтобы включить, нужны три значения:
-
-   1. Завести бесплатный проект на supabase.com (вход через GitHub).
-   2. Project Settings → API: скопировать Project URL и ключ «anon public».
-      Ключ anon предназначен для публикации в коде сайта — это не секрет.
-   3. FAMILY_ID — любая длинная случайная строка. Именно она,
-      а не пароль, защищает данные: кто знает её, тот видит прогресс.
-      Сгенерировать можно прямо в браузере: crypto.randomUUID()
-
-   Пока значения пустые, портал работает как раньше:
-   данные лежат в браузере, резервная копия — кнопкой на дашборде.
+   Заполнено для проекта Supabase:
+     ref: crlgbxapxqptnvvhrrpo (создан 13.09.2026)
+   url/key — публичные значения из Project Settings → API.
+   family остаётся пустым: старый семейный синк (sync.js) не активен,
+   работает новый персональный (portal.js) с аккаунтами через RLS.
    ============================================================ */
 window.SYNC = {
-  url:  '',      // https://xxxxxxxx.supabase.co
-  key:  '',      // публичный ключ anon
-  family: '',    // случайная строка, одна на всю семью
+  url:  'https://crlgbxapxqptnvvhrrpo.supabase.co',
+  key:  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNybGdieGFweHFwdG52dmhycnBvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODkzMDgyOTYsImV4cCI6MjEwNDg4NDI5Nn0.vsih3B6ftOgC7Yu3ON9Q1JDj82yKbQ2AF3r0sgWl_ZA',
+  family: '',
 };
