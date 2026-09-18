@@ -257,9 +257,23 @@
   }
 
   async function createKid(email, pwd, name, cls){
-    const { data, error } = await sb.rpc('create_kid', { email, pwd, nm: name, cl: cls });
+    if(!state.session || !state.me || state.me.role!=='parent') throw new Error('Только родитель может создавать аккаунты детей');
+    // Отдельный клиент без persistSession: создание ребёнка не меняет
+    // активную родительскую сессию в браузере.
+    const childClient = window.supabase.createClient(CFG.url, CFG.key, {
+      auth: { persistSession:false, autoRefreshToken:false, detectSessionInUrl:false },
+    });
+    const { data, error } = await withTimeout(childClient.auth.signUp({
+      email: email.trim(), password: pwd,
+    }));
     if(error) throw error;
-    return data;
+    if(!data || !data.user) throw new Error('Supabase не вернул созданного пользователя');
+
+    const linked = await withTimeout(sb.rpc('link_kid_profile', {
+      p_kid_id: data.user.id, p_name: name, p_cls: cls,
+    }));
+    if(linked.error) throw linked.error;
+    return data.user.id;
   }
 
   async function signOut(){
