@@ -147,7 +147,8 @@ document.addEventListener('DOMContentLoaded', () => {
     $('#who-sub').textContent=ctx.role==='parent'?'Выберите ребёнка в меню кнопки входа.':(ctx.cls==='y'?'Младший профиль':'Старший профиль');
     if(!plan || !plan.now){ box.append(el('p',{class:'sm muted'},'План пока не задан.')); return; }
     const ids=plan.now.map(x=>x[0]);
-    box.append(el('h4',{class:'mt0'},'Задания стартового плана'),progressBar(ids));
+    box.append(el('h4',{class:'mt0'},'Задания стартового плана'),progressBar(ids),
+      el('a',{class:'btn sm sec',style:'margin-top:10px',href:'tasks.html'},'Открыть недельные задания'));
   }
 
   function regRow(r){

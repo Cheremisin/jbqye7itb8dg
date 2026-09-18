@@ -72,7 +72,16 @@
 document.addEventListener('DOMContentLoaded',()=>{
   const SETS = ['younger','elder_core','elder_a','elder_b'];
   const tabs=$('#tabs'), out=$('#out');
-  let cur = location.hash.replace('#','') || 'elder_core';
+
+  // Набор по умолчанию зависит от того, кто вошёл: ребёнку — его набор.
+  function defaultSet(){
+    if(window.Portal && Portal.session && Portal.me && Portal.me.role==='kid'){
+      return (Portal.me.cls==='y') ? 'younger' : 'elder_core';
+    }
+    const h=location.hash.replace('#','');
+    return SETS.includes(h) ? h : 'elder_core';
+  }
+  let cur = defaultSet();
   if(!SETS.includes(cur)) cur='elder_core';
 
   SETS.forEach(k=>{
@@ -82,11 +91,27 @@ document.addEventListener('DOMContentLoaded',()=>{
     tabs.append(t);
   });
 
-  function render(){
+  // Ребёнок вошёл после загрузки страницы — перерисовываем под его набор.
+  document.addEventListener('portal:login', () => {
+    if(Portal.me && Portal.me.role==='kid'){
+      cur = (Portal.me.cls==='y') ? 'younger' : 'elder_core';
+    }
+    render();
+  });
+  window.addEventListener('hashchange', () => {
+    const h=location.hash.replace('#','');
+    if(SETS.includes(h)){ cur=h; render(); }
+  });
+
+function render(){
     $$('.tab',tabs).forEach((t,i)=>t.classList.toggle('on',SETS[i]===cur));
     const T=TASKS[cur];
     out.innerHTML='';
-    out.append(el('h2',{style:'margin-top:6px'}, T.title, ' ', el('span',{class:'b '+T.who}, T.sub)));
+    // Показываем, для кого этот набор (важно, когда вошёл ребёнок)
+    const whoNote = (window.Portal && Portal.session && Portal.me && Portal.me.role==='kid')
+      ? ' · твой набор ('+ (Portal.me.name||'Я') +')'
+      : '';
+    out.append(el('h2',{style:'margin-top:6px'}, T.title, ' ', el('span',{class:'b '+T.who}, T.sub + whoNote)));
     out.append(el('p',{class:'sm'}, T.intro));
 
     const ids=[];
