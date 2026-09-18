@@ -69,11 +69,50 @@
     const easy = ids.filter(id => { const o = getOutcome(id); return o && o.r === 1; });
 
     const picks = [];
-    if(hard.length)   picks.push({ id: hard[hard.length - 1], kind: 'Повторить сложное' });
-    if(unrated.length) picks.push({ id: unrated[0],           kind: 'Следующее задание' });
-    if(picks.length < n && easy.length) picks.push({ id: easy[easy.length - 1], kind: 'Разминка' });
+    if(hard.length)   picks.push({ id: hard[hard.length - 1], kind: 'Повторить сложное', group: null });
+    if(unrated.length) picks.push({ id: unrated[0],           kind: 'Следующее задание', group: null });
+    const weak = weakTopics(set, 1)[0];
+    if(weak){
+      const fromWeak = weak.ids.find(id => !Store.get('tasks.' + id, false));
+      if(fromWeak && !picks.some(p => p.id === fromWeak)){
+        picks.push({ id: fromWeak, kind: 'Прокачать слабую тему: ' + weak.topic, group: weak.topic });
+      }
+    }
+    if(picks.length < n && easy.length) picks.push({ id: easy[easy.length - 1], kind: 'Разминка', group: null });
     return picks.slice(0, n).map(p => ({ ...p, text: taskText(p.id) }));
   }
+
+  /* ---------- темы недель: статистика по каждой ---------- */
+  function groupsOf(set){
+    const T = window.TASKS && TASKS[set];
+    if(!T || !T.weeks) return [];
+    const map = new Map();
+    T.weeks.forEach(w => {
+      const g = map.get(w.topic) || { topic: w.topic, ids: [] };
+      w.items.forEach((_, i) => g.ids.push(`tk.${set}.${w.n}.${i}`));
+      map.set(w.topic, g);
+    });
+    return [...map.values()].filter(g => g.topic);
+  }
+
+  // Проблемность группы: много «Трудно» и нерешённых — выше.
+  function topicStats(set){
+    return groupsOf(set).map(g => {
+      let rated = 0, easy = 0, mid = 0, hard = 0, done = 0;
+      g.ids.forEach(id => {
+        if(Store.get('tasks.' + id, false)) done++;
+        const o = getOutcome(id);
+        if(o){ rated++; if(o.r === 1) easy++; else if(o.r === 2) mid++; else hard++; }
+      });
+      const avg = rated ? (easy + mid * 2 + hard * 3) / rated : null;
+      const wrong = hard * 2 + (g.ids.length - done) - easy * 0.5;
+      return { topic: g.topic, ids: g.ids, total: g.ids.length, rated, done, avg, wrong };
+    })
+    .sort((a, b) => b.wrong - a.wrong);
+  }
+
+  // Слабые темы: первая — самая проблемная
+  function weakTopics(set, n = 3){ return topicStats(set).slice(0, n); }
 
   /* ---------- серия дней ---------- */
   function streakInfo(){
@@ -95,6 +134,7 @@
 
   window.Coach = {
     getOutcome, setOutcome, stats, suggested, streakInfo,
-    taskIdsOf, taskText, OUTCOME_KEY, LEVEL_LABEL,
+    taskIdsOf, taskText, groupsOf, topicStats, weakTopics,
+    OUTCOME_KEY, LEVEL_LABEL,
   };
 })();

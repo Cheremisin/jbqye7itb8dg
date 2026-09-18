@@ -239,6 +239,19 @@ document.addEventListener('DOMContentLoaded', () => {
       el('b',{},p.kind),
       el('div',{class:'sm muted'}, p.text||''),
       el('a',{class:'btn sec sm',href:'tasks.html'},'Открыть задания'))));
+
+    const topics=Coach.weakTopics(set,3);
+    if(topics.length){
+      const dots=a=>a==null?'—':(a<1.7?'●○○':a<2.4?'●●○':'●●●');
+      box.append(el('h4',{class:'mt0',style:'margin-top:12px'},'Темы в фокусе'));
+      topics.forEach(t=>{
+        box.append(el('div',{class:'coach-pick sm'},
+          el('div',{style:'display:flex;justify-content:space-between;gap:8px'},
+            el('b',{},t.topic), el('span',{title:'сложность: 1 — легко, 3 — трудно'}, dots(t.avg))),
+          el('div',{class:'muted'},
+            (t.done? t.done+' из '+t.total+' сделано':'ничего не сделано') + (t.avg? ' · средняя оценка '+t.avg.toFixed(1)+'/3':''))));
+      });
+    }
   }
 
   function draw(){drawKidsSwitch();drawProgress();drawCoach();drawRegistrations();drawReminders();drawCalendar();}
