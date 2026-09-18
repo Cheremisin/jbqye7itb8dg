@@ -95,6 +95,7 @@ document.addEventListener('DOMContentLoaded',()=>{
   document.addEventListener('portal:login', () => {
     if(Portal.me && Portal.me.role==='kid'){
       cur = (Portal.me.cls==='y') ? 'younger' : 'elder_core';
+      history.replaceState(null, '', '#' + cur);   // адрес не должен противоречить набору
     }
     render();
   });
