@@ -295,17 +295,26 @@
 
   /* ================= режим ребёнка: своё меню и вход на свои страницы ================= */
 
+  // Ребёнку доступны все образовательные материалы. Ограничены только
+  // страницы с общесемейным дашбордом, семейным планом и настройками.
   const KID_NAV = [
-    ['my.html',       'Мой прогресс'],
-    ['tasks.html',    'Задания'],
-    ['tracker.html',  'Трекер'],
-    ['olympiads.html','Олимпиады'],
-    ['tests.html',    'Профориентация'],
+    ['my.html',        'Мой прогресс'],
+    ['tasks.html',     'Задания'],
+    ['tracker.html',   'Трекер'],
+    ['olympiads.html', 'Олимпиады'],
+    ['projects.html',  'Проекты'],
+    ['clubs.html',     'Кружки'],
+    ['admission.html', 'Вузы'],
+    ['schools.html',   'Школы'],
+    ['resources.html', 'Ресурсы'],
+    ['tests.html',     'Профориентация'],
+    ['professions.html','Профессии'],
+    ['missions.html',  'Зачем'],
+    ['ai.html',        'ИИ в учёбе'],
+    ['strategy.html',  'Стратегия'],
   ];
   const PARENT_ONLY_PAGES = [
-    'index.html','plan.html','admission.html','schools.html','strategy.html',
-    'professions.html','missions.html','clubs.html','projects.html','resources.html',
-    'setup.html','ai.html',
+    'index.html', 'plan.html', 'setup.html',
   ];
 
   let fullNavHTML = null;   // исходное меню (восстанавливается для родителей)
