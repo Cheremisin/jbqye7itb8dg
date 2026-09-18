@@ -2,8 +2,14 @@ name: Telegram digest
 
 on:
   schedule:
-    - cron: '30 5 * * *'
+    - cron: '30 5 * * *'   # 08:30 по Москве (UTC+3)
   workflow_dispatch:
+    inputs:
+      force:
+        description: 'Отправить сообщение даже в тихий день'
+        required: false
+        default: false
+        type: boolean
 
 permissions:
   contents: read
@@ -20,3 +26,4 @@ jobs:
           TG_CHAT: ${{ secrets.TG_CHAT }}
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
           SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+          FORCE_SEND: ${{ github.event.inputs.force == 'true' }}
