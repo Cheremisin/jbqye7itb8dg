@@ -216,6 +216,33 @@ document.addEventListener('DOMContentLoaded', () => {
     box.append(grid);
   }
 
+  // Сводка по ребёнку из сырых строк прогресса (для родителя)
+  function reportOf(rows, cls){
+    const set = cls==='y' ? 'younger' : 'elder_core';
+    const T = window.TASKS && TASKS[set];
+    const total = T && T.weeks ? T.weeks.reduce((n,w)=>n+w.items.length,0) : 0;
+    let done=0, easy=0, mid=0, hard=0, rated=0, streak=0;
+    const gmap={};
+    if(T) T.weeks.forEach(w=>w.items.forEach((_,i)=>{ gmap[`tk.${set}.${w.n}.${i}`]=w.topic; }));
+    const agg={};
+    (rows||[]).forEach(r=>{
+      if(r.path.startsWith('tasks.') && r.value===true) done++;
+      if(r.path.startsWith('task.outcome.')){
+        const id=r.path.slice('task.outcome.'.length);
+        const rr=(r.value&&r.value.r)||0;
+        if(rr===1||rr===2||rr===3){ rated++; rr===1?easy++:rr===2?mid++:hard++; }
+        const tp=gmap[id]; if(tp) (agg[tp]=agg[tp]||[]).push(rr);
+      }
+      if(r.path==='agent.streak' && r.value && r.value.days>1) streak=r.value.days;
+    });
+    let weak=null, best=-1;
+    for(const [tp,arr] of Object.entries(agg)){
+      const avg=arr.reduce((a,b)=>a+b,0)/arr.length;
+      if(avg>best){ best=avg; weak=tp; }
+    }
+    return { total, done, rated, easy, mid, hard, streak, weak };
+  }
+
   async function loadData(){
     model.registrations=await Portal.listRegistrations();
     model.reminders=await Portal.listReminders();
@@ -224,8 +251,35 @@ document.addEventListener('DOMContentLoaded', () => {
   function drawCoach(){
     const box=$('#coach'); if(!box) return;
     box.innerHTML='';
-    if(!window.Coach || !Portal.ctx || Portal.ctx.role!=='kid'){
-      box.append(el('p',{class:'sm muted'},'Рекомендации появляются, когда вошёл ребёнок: отметьте «Как прошло?» под несколькими заданиями — и тренер будет собирать тренировку дня.'));
+    if(!window.Coach){ box.append(el('p',{class:'sm muted'},'Тренер недоступен.')); return; }
+
+    if(Portal.ctx && Portal.ctx.role==='parent'){
+      if(!Portal.kids.length){ box.append(el('p',{class:'sm muted'},'Создайте аккаунты детей — тогда появится еженедельная сводка.')); return; }
+      box.append(el('p',{class:'sm muted mt0'},'Сводка по детям обновляется из базы и видна здесь в любой день недели:'));
+      Portal.kids.forEach(k => {
+        const card=el('details',{class:'coach-pick'});
+        card.append(el('summary',{style:'cursor:pointer;font-weight:600'}, (k.name||'Ребёнок')+' — неделя'));
+        const body=el('div',{class:'sm muted',style:'margin-top:6px'},'Загрузка…');
+        card.append(body);
+        box.append(card);
+        (async()=>{
+          try{
+            const rows=await Portal.kidProgress(k.id);
+            const rpt=reportOf(rows, k.cls);
+            body.innerHTML='';
+            body.append(el('div',{style:'color:var(--tx)'},'Задач плана выполнено: '+rpt.done+' из '+rpt.total));
+            if(rpt.rated) body.append(el('div',{},'Оценки: легко '+rpt.easy+' · средне '+rpt.mid+' · трудно '+rpt.hard));
+            else body.append(el('div',{},'Пока нет оценок «Как прошло?»'));
+            if(rpt.streak) body.append(el('div',{},'Серия тренировок: '+rpt.streak+' '+plural(rpt.streak,'день','дня','дней')+' подряд 🔥'));
+            if(rpt.weak) body.append(el('div',{style:'color:var(--warn)'},'Слабая тема: '+rpt.weak));
+            if(!rpt.done && !rpt.rated) body.append(el('div',{},'Ещё не начинал(а).'));
+          }catch(e){ body.textContent='Не удалось загрузить: '+e.message; }
+        })();
+      });
+      return;
+    }
+    if(!Portal.ctx || Portal.ctx.role!=='kid'){
+      box.append(el('p',{class:'sm muted'},'Рекомендации появляются, когда вошёл ребёнок.'));
       return;
     }
     const set = Portal.ctx.cls==='y' ? 'younger' : 'elder_core';
@@ -259,7 +313,7 @@ document.addEventListener('DOMContentLoaded', () => {
   $('#prev-month').onclick=()=>{model.month.setMonth(model.month.getMonth()-1);drawCalendar();};
   $('#next-month').onclick=()=>{model.month.setMonth(model.month.getMonth()+1);drawCalendar();};
   $('#today-month').onclick=()=>{model.month=new Date();model.month.setDate(1);drawCalendar();};
-  $('#notify-btn').onclick=async()=>{const p=await Portal.requestNotifications();$('#notify-btn').textContent=p==='granted'?'Уведомления включены ✓':(p==='unsupported'?'Браузер не поддерживает':'Разрешение не выдано');};
+  $('#notify-btn').onclick=async()=>{const p=await Portal.requestNotifications();$('#notify-btn').textContent=p==='granted'?'Уведомления включены (в т.ч. фоновые ✓)':(p==='unsupported'?'Браузер не поддерживает':'Разрешение не выдано');};
 
   $$('[data-q]').forEach(b=>b.onclick=()=>{
     const n=Number(b.dataset.q);

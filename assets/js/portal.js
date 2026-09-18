@@ -110,6 +110,14 @@
     return mergeRows(data || []);
   }
 
+  // Для родительского отчёта: сырые строки прогресса конкретного ребёнка
+  async function kidProgress(kidId){
+    if(!state.session || !sb) return [];
+    const { data, error } = await sb.from('progress').select('path, value, ts').eq('kid_id', kidId);
+    if(error) throw error;
+    return data || [];
+  }
+
   // Буфер путей на запись (kid_id -> {path: {val, ts}})
   const pending = {};
   let timer = null;
@@ -212,8 +220,40 @@
 
   async function requestNotifications(){
     if(!('Notification' in window)) return 'unsupported';
-    return Notification.requestPermission();
+    if(Notification.permission !== 'granted'){
+      const p = await Notification.requestPermission();
+      if(p !== 'granted') return p;
+    }
+    // подписка Web Push (фоновая доставка), если браузер умеет и ключ задан
+    const PUSH_CFG = window.PUSH || {};
+    if(!state.session || !state.ctx || !PUSH_CFG.publicKey) return Notification.permission;
+    if(!('PushManager' in window)) return Notification.permission;
+    try{
+      const reg = await navigator.serviceWorker.ready;
+      let sub = await reg.pushManager.getSubscription();
+      if(!sub){
+        sub = await reg.pushManager.subscribe({
+          userVisibleOnly: true,
+          applicationServerKey: PUSH_CFG.publicKey,
+        });
+      }
+      await sb.from('push_subscriptions').upsert({
+        kid_id: state.ctx.id,
+        endpoint: sub.endpoint,
+        keys: { p256dh: b64ToUrl(sub.getKey('p256dh')), auth: b64ToUrl(sub.getKey('auth')) },
+        user_agent: navigator.userAgent.slice(0, 200),
+      }, { onConflict: 'endpoint' });
+      return 'granted';
+    }catch(e){ warn('push subscribe: ' + e.message); return Notification.permission; }
   }
+
+  const b64ToUrl = arr => {
+    if(!arr) return '';
+    let bin = '';
+    const bytes = new Uint8Array(arr);
+    for(let i = 0; i < bytes.length; i++) bin += String.fromCharCode(bytes[i]);
+    return btoa(bin).replace(/=+$/, '').replace(/\+/g, '-').replace(/\//g, '_');
+  };
 
   // Уведомление показывается при открытии сайта/PWA. Фоновая доставка
   // без открытого сайта потребует отдельной Edge Function/Web Push на следующем этапе.
@@ -518,6 +558,7 @@
     createKid,            // (email, pwd, name, cls)
     switchKid,
     pull: pullProgress,
+    kidProgress,
     listRegistrations, addRegistration, setRegistrationDone, deleteRegistration,
     listReminders, addReminder, setReminderDone, deleteReminder,
     requestNotifications, notifyDue,

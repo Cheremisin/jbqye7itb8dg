@@ -178,3 +178,26 @@ create policy "family update" on family_state for update using (true);
 - кнопка «Скачать календарь» создаёт `.ics` для календаря телефона.
 
 Кнопка «Включить уведомления» показывает уведомления, когда сайт или установленное PWA-приложение открыто. Полностью фоновые push-уведомления при закрытом сайте требуют отдельного серверного планировщика и будут следующим этапом.
+
+## Фоновые push-уведомления (Web Push)
+
+Настройка: `db/005_push_subscriptions.sql` + Edge Function `supabase/functions/send-reminders/index.ts` + задание `pg_cron`/`pg_net`.
+
+- Секреты функции: `VAPID_PUBLIC_KEY`, `VAPID_PRIVATE_KEY`, `VAPID_SUBJECT`, `CRON_SECRET`.
+- Публичный VAPID лежит в `data/push-config.js`; приватный — только в секретах Edge Function.
+- SQL-задание (замените URL и секрет):
+
+```sql
+select cron.schedule('reminders-push', '*/10 * * * *', $$
+  select net.http_post(
+    url := 'https://<ref>.functions.supabase.co/send-reminders',
+    headers := jsonb_build_object('Content-Type','application/json','x-cron-secret','<CRON_SECRET>'),
+    body := '{}'
+  )
+$$);
+```
+
+## Еженедельный отчёт родителю
+
+- на сайте: страница «Мой прогресс» в режиме родителя — раскрывающиеся сводки по каждому ребёнку (задачи, оценки, серия, слабая тема);
+- в Telegram: воскресный дайджест добавляет блок «📊 Итоги недели» с теми же цифрами.

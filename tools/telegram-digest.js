@@ -103,6 +103,10 @@ async function personalBlock(){
   const parts = [];
   let any = false;
 
+  /* еженедельная сводка (воскресенье): что сделано за неделю */
+  const isSunday = today.getDay() === 0;
+  const weekParts = [];
+
   for(const k of kids){
     const notes = [];
     try{
@@ -122,8 +126,26 @@ async function personalBlock(){
       if(v && v.days >= 2) notes.push(`🔥 тренируется ${v.days} ${v.days < 5 ? 'дня' : 'дней'} подряд`);
     }catch(e){ console.warn('personal: ' + e.message); }
     if(notes.length){ any = true; parts.push(`<b>${esc(k.name || 'Ребёнок')}</b>\n` + notes.slice(0, 8).join('\n')); }
+
+    /* воскресная сводка по прогрессу */
+    if(isSunday){
+      try{
+        const rows = await get(`progress?select=path,value&kid_id=eq.${k.id}`);
+        const rpt = weeklyReport(rows, k.cls);
+        const lineW = [];
+        if(rpt.total) lineW.push(`задач: ${rpt.done}/${rpt.total}`);
+        if(rpt.rated) lineW.push(`оценки: лёгк.${rpt.easy}/ср.${rpt.mid}/труд.${rpt.hard}`);
+        if(rpt.streak) lineW.push(`серия ${rpt.streak} ${rpt.streak < 5 ? 'дня' : 'дней'}`);
+        if(rpt.weak) lineW.push(`трудно: ${esc(rpt.weak)}`);
+        if(lineW.length) weekParts.push(`<b>${esc(k.name || 'Ребёнок')}</b>: ${lineW.join(' · ')}`);
+      }catch(e){ console.warn('weekly: ' + e.message); }
+    }
   }
-  return any ? '👨‍👩‍👧 <b>Личное</b>\n' + parts.join('\n\n') : null;
+  let block = any ? '👨‍👩‍👧 <b>Личное</b>\n' + parts.join('\n\n') : null;
+  if(isSunday && weekParts.length){
+    block = (block ? block + '\n\n' : '') + '📊 <b>Итоги недели</b>\n' + weekParts.join('\n');
+  }
+  return block;
 }
 
 /* сборка сообщения */
@@ -152,6 +174,33 @@ if(nothing){
     (next ? ` Следующая дата — ${fmt(next.d)}: ${esc(nm(next.t))}.` : ''));
 }
 const footer = `\n<a href="${SITE}index.html">Портал</a> · <a href="${SITE}my.html">Мой прогресс</a> · <a href="${SITE}olympiads.html#calendar">весь календарь</a>`;
+
+/* сводка «что сделано» по ребёнку из прогресса (для воскресного блока) */
+function weeklyReport(rows, cls){
+  const set = cls === 'y' ? 'younger' : 'elder_core';
+  const T = win.TASKS && win.TASKS[set];
+  const total = T && T.weeks ? T.weeks.reduce((n,w)=>n+w.items.length,0) : 0;
+  let done = 0, easy = 0, mid = 0, hard = 0, rated = 0, streak = 0;
+  const gmap = {};
+  if(T) T.weeks.forEach(w => w.items.forEach((_,i)=>{ gmap[`tk.${set}.${w.n}.${i}`] = w.topic; }));
+  const agg = {};
+  (rows || []).forEach(r => {
+    if(String(r.path).startsWith('tasks.') && r.value === true) done++;
+    if(String(r.path).startsWith('task.outcome.')){
+      const id = String(r.path).slice('task.outcome.'.length);
+      const rr = (r.value && r.value.r) || 0;
+      if(rr === 1 || rr === 2 || rr === 3){ rated++; rr===1?easy++:rr===2?mid++:hard++; }
+      const tp = gmap[id]; if(tp) (agg[tp] = agg[tp] || []).push(rr);
+    }
+    if(r.path === 'agent.streak' && r.value && r.value.days > 1) streak = r.value.days;
+  });
+  let weak = null, best = -1;
+  for(const tp of Object.keys(agg)){
+    const avg = agg[tp].reduce((a,b)=>a+b,0) / agg[tp].length;
+    if(avg > best){ best = avg; weak = tp; }
+  }
+  return { total, done, rated, easy, mid, hard, streak, weak };
+}
 
 /* отправка */
 (async () => {
