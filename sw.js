@@ -2,14 +2,14 @@
    Стратегия: сеть в приоритете, кэш как запасной вариант.
    Так содержание всегда свежее, но портал открывается и без интернета. */
 
-const VERSION = 'edu-v2';
+const VERSION = 'edu-v3';
 const CORE = [
   './', './index.html', './plan.html', './tasks.html', './tracker.html',
   './olympiads.html', './projects.html', './clubs.html', './admission.html',
   './schools.html', './resources.html', './tests.html', './professions.html',
   './missions.html', './ai.html', './strategy.html', './setup.html', './my.html',
   './assets/css/style.css', './assets/js/app.js', './assets/js/sync.js',
-  './assets/js/portal.js', './assets/js/vendor/supabase.js',
+  './assets/js/portal.js', './assets/js/coach.js', './assets/js/vendor/supabase.js',
   './assets/icon-192.png', './assets/icon-512.png',
   './manifest.webmanifest',
   './data/config.js', './data/sync-config.js', './data/deadlines.js', './data/olympiads.js', './data/olymp2.js',

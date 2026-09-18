@@ -56,6 +56,11 @@
       </section>
     </div>
 
+    <section class="card" style="margin-top:16px;border-left:3px solid var(--u)">
+      <h2 class="mt0">Твоя тренировка дня</h2>
+      <div id="coach"><p class="sm muted">Загрузка…</p></div>
+    </section>
+
     <section class="card" style="margin-top:16px">
       <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap">
         <h2 class="mt0 mb0">Календарь</h2>
@@ -111,6 +116,7 @@
 <script src="assets/js/sync.js"></script>
 <script src="assets/js/vendor/supabase.js"></script>
 <script src="assets/js/portal.js"></script>
+<script src="assets/js/coach.js"></script>
 <script>
 document.addEventListener('DOMContentLoaded', () => {
   const st = $('#status'), cab = $('#cabinet');
@@ -214,7 +220,28 @@ document.addEventListener('DOMContentLoaded', () => {
     model.registrations=await Portal.listRegistrations();
     model.reminders=await Portal.listReminders();
   }
-  function draw(){drawKidsSwitch();drawProgress();drawRegistrations();drawReminders();drawCalendar();}
+
+  function drawCoach(){
+    const box=$('#coach'); if(!box) return;
+    box.innerHTML='';
+    if(!window.Coach || !Portal.ctx || Portal.ctx.role!=='kid'){
+      box.append(el('p',{class:'sm muted'},'Рекомендации появляются, когда вошёл ребёнок: отметьте «Как прошло?» под несколькими заданиями — и тренер будет собирать тренировку дня.'));
+      return;
+    }
+    const set = Portal.ctx.cls==='y' ? 'younger' : 'elder_core';
+    const s=Coach.stats(set), st=Coach.streakInfo();
+    const lvl=s.level ? 'Уровень: ' + (Coach.LEVEL_LABEL[s.level] || '') : 'Отметьте несколько заданий кнопками «Как прошло?» — тренер начнёт подбирать нагрузку.';
+    box.append(el('p',{class:'sm mt0'}, el('b',{},'Уровень набора: '), s.level ? Coach.LEVEL_LABEL[s.level] : lvl));
+    if(st) box.append(el('p',{class:'sm'}, 'Тренировка дней подряд: '+plural(st.days,'день','дня','дней')+' 🔥'));
+    const picks=Coach.suggested(set);
+    if(!picks.length) box.append(el('p',{class:'sm muted'},'Все оценки свежие — можно взять любое задание из плана.'));
+    picks.forEach(p=>box.append(el('div',{class:'coach-pick'},
+      el('b',{},p.kind),
+      el('div',{class:'sm muted'}, p.text||''),
+      el('a',{class:'btn sec sm',href:'tasks.html'},'Открыть задания'))));
+  }
+
+  function draw(){drawKidsSwitch();drawProgress();drawCoach();drawRegistrations();drawReminders();drawCalendar();}
 
   $('#prev-month').onclick=()=>{model.month.setMonth(model.month.getMonth()-1);drawCalendar();};
   $('#next-month').onclick=()=>{model.month.setMonth(model.month.getMonth()+1);drawCalendar();};

@@ -68,6 +68,7 @@
 <script src="assets/js/sync.js"></script>
 <script src="assets/js/vendor/supabase.js"></script>
 <script src="assets/js/portal.js"></script>
+<script src="assets/js/coach.js"></script>
 <script>
 document.addEventListener('DOMContentLoaded',()=>{
   const SETS = ['younger','elder_core','elder_a','elder_b'];
@@ -104,7 +105,23 @@ document.addEventListener('DOMContentLoaded',()=>{
     if(SETS.includes(h)){ cur=h; render(); }
   });
 
-function render(){
+// Оценка «как прошло» — данные для тренера-агента
+  function outcomeWidget(id){
+    const wrap=el('div',{class:'outcome'});
+    const draw=()=>{
+      wrap.innerHTML='';
+      const cur = window.Coach ? Coach.getOutcome(id) : null;
+      wrap.append(el('span',{class:'xs muted'},'Как прошло? '));
+      [[1,'Легко'],[2,'Средне'],[3,'Трудно']].forEach(([v,txt])=>{
+        wrap.append(el('button',{class:'btn sec sm'+(cur&&cur.r===v?' ok':''),
+          onclick:()=>{ if(!window.Coach) return; Coach.setOutcome(id,v); draw(); }}, txt));
+      });
+    };
+    draw();
+    return wrap;
+  }
+
+  function render(){
     $$('.tab',tabs).forEach((t,i)=>t.classList.toggle('on',SETS[i]===cur));
     const T=TASKS[cur];
     out.innerHTML='';
@@ -131,8 +148,8 @@ function render(){
             el('label',{for:'c_'+id,class:'qq',style:'cursor:pointer;flex:1'+(done?';opacity:.55':'')}, el('span',{html:it.q}))),
           it.h?el('details',{}, el('summary',{},'Подсказка — открывать после 20 минут своей работы'), el('div',{class:'sm',html:it.h})):null,
           el('details',{}, el('summary',{},'Разбор — открывать только после того, как решение записано'), el('div',{class:'sm',html:it.a})));
-        cb.addEventListener('change',()=>{ Store.set('tasks.'+id,cb.checked); box.querySelector('label').style.opacity=cb.checked?'.55':''; });
-        body.append(box);
+cb.addEventListener('change',()=>{ Store.set('tasks.'+id,cb.checked); box.querySelector('label').style.opacity=cb.checked?'.55':''; });
+        body.append(box, outcomeWidget(id));
       });
       if(w.res)   body.append(el('p',{class:'sm',style:'margin-top:12px'}, el('b',{},'Параллельно на этой неделе: '), el('span',{html:w.res})));
       if(w.probe) body.append(el('p',{class:'sm'}, el('b',{},'Проба недели: '), el('span',{html:w.probe})));
