@@ -1,10 +1,13 @@
 #!/usr/bin/env node
-/* Утренний дайджест в Телеграм: что горит сегодня, на неделе и в ближайшие две.
+/* Утренний дайджест в Телеграм: что горит сегодня, на неделе и в ближайшие две,
+   плюс личные данные детей (напоминания, дедлайны регистраций, серия тренировок).
    Запускается GitHub Actions по расписанию (.github/workflows/digest.yml).
 
    Переменные окружения:
      TG_TOKEN  — токен бота от @BotFather
      TG_CHAT   — id чата (у групп отрицательный)
+     SUPABASE_URL — адрес проекта, например https://xxxx.supabase.co
+     SUPABASE_SERVICE_KEY — секретный ключ service_role (только в Secrets, не в код!)
      DRY_RUN=1 — не отправлять, только напечатать сообщение
      FAKE_DATE=2026-09-15 — прогнать на другую дату (для проверки)                */
 
@@ -75,6 +78,54 @@ function weekTasks(){
   return out.length ? {wk, out} : null;
 }
 
+/* ---------- личные данные детей из Supabase (reminders/registrations/progress) ---------- */
+async function personalBlock(){
+  const SU = process.env.SUPABASE_URL, SK = process.env.SUPABASE_SERVICE_KEY;
+  if(!SU || !SK) return null;
+  const base = SU.replace(/\/$/,'') + '/rest/v1/';
+  const H = { 'apikey': SK, 'Authorization': 'Bearer ' + SK, 'Content-Type': 'application/json' };
+  const get = async p => {
+    const r = await fetch(base + p, { headers: H });
+    if(!r.ok) throw new Error('supabase ' + r.status + ' ' + p.slice(0,60));
+    return r.json();
+  };
+  const timeFmt = isoStr => {
+    const d = new Date(isoStr);
+    const m = new Date(d.getTime() + (3*60 + d.getTimezoneOffset())*60000);
+    return String(m.getHours()).padStart(2,'0') + ':' + String(m.getMinutes()).padStart(2,'0');
+  };
+
+  const kids = await get('kid_profiles?select=id,name,cls&role=eq.kid&order=created_at.asc');
+  if(!kids || !kids.length) return null;
+
+  const nowIso = new Date().toISOString();
+  const horizon = new Date(Date.now() + 2*864e5).toISOString();
+  const parts = [];
+  let any = false;
+
+  for(const k of kids){
+    const notes = [];
+    try{
+      const rem = await get(`reminders?select=title,remind_at,kind&kid_id=eq.${k.id}&done_at=is.null&remind_at=gte.${encodeURIComponent(nowIso)}&remind_at=lte.${encodeURIComponent(horizon)}&order=remind_at.asc`);
+      (rem || []).forEach(r => {
+        const kind = r.kind==='registration' ? '📝 регистрация' : r.kind==='event' ? '🗓 событие' : r.kind==='training' ? '💪 тренировка' : '⏰ напоминание';
+        notes.push(`${kind} — ${esc(r.title)}, сегодня в ${timeFmt(r.remind_at)}`);
+      });
+      const reg = await get(`registrations?select=title,deadline&kid_id=eq.${k.id}&done_at=is.null&deadline=not.is.null&order=deadline.asc`);
+      (reg || []).forEach(r => {
+        const n = days(r.deadline);
+        if(n >= 0 && n <= 14 && !notes.some(x => x.includes(esc(r.title))))
+          notes.push(`📝 ${esc(r.title)} — запись до ${fmt(r.deadline)}${n===0?' (сегодня)':''}`);
+      });
+      const st = await get(`progress?select=value&kid_id=eq.${k.id}&path=eq.agent.streak`);
+      const v = st && st[0] && st[0].value;
+      if(v && v.days >= 2) notes.push(`🔥 тренируется ${v.days} ${v.days < 5 ? 'дня' : 'дней'} подряд`);
+    }catch(e){ console.warn('personal: ' + e.message); }
+    if(notes.length){ any = true; parts.push(`<b>${esc(k.name || 'Ребёнок')}</b>\n` + notes.slice(0, 8).join('\n')); }
+  }
+  return any ? '👨‍👩‍👧 <b>Личное</b>\n' + parts.join('\n\n') : null;
+}
+
 /* сборка сообщения */
 const parts = [];
 const head = isMonday ? '🗓 <b>Неделя впереди</b>' : '☀️ <b>Доброе утро</b>';
@@ -100,12 +151,14 @@ if(nothing){
   parts.push('\nБлижайшие две недели чистые.' +
     (next ? ` Следующая дата — ${fmt(next.d)}: ${esc(nm(next.t))}.` : ''));
 }
-parts.push(`\n<a href="${SITE}index.html">Портал</a> · <a href="${SITE}olympiads.html#calendar">весь календарь</a>`);
-
-const text = parts.join('\n');
+const footer = `\n<a href="${SITE}index.html">Портал</a> · <a href="${SITE}my.html">Мой прогресс</a> · <a href="${SITE}olympiads.html#calendar">весь календарь</a>`;
 
 /* отправка */
 (async () => {
+  let personal = null;
+  try{ personal = await personalBlock(); }catch(e){ console.warn('personalBlock: ' + e.message); }
+  const text = parts.join('\n') + (personal ? '\n\n' + personal : '\n') + footer;
+
   if(process.env.DRY_RUN === '1' || !process.env.TG_TOKEN){
     console.log('--- DRY RUN, сообщение не отправлено ---\n');
     console.log(text.replace(/<[^>]+>/g,''));

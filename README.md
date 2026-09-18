@@ -137,8 +137,11 @@ git push -u origin main
 | `assets/js/sync.js`, `data/sync-config.js` | Синхронизация прогресса между устройствами |
 
 **Чтобы включить Телеграм:** создать бота у @BotFather, узнать id чата, положить в
-Settings → Secrets and variables → Actions два секрета: `TG_TOKEN` и `TG_CHAT`.
-Пошагово — на странице `setup.html`.
+Settings → Secrets and variables → Actions секреты: `TG_TOKEN`, `TG_CHAT`, а для
+личных данных детей ещё `SUPABASE_URL` и `SUPABASE_SERVICE_KEY` (ключ service_role
+берётся из Project Settings → API; он живёт только в секретах и в код не попадает).
+Пошагово — на странице `setup.html`. Дайджест дополнительно показывает по каждому
+ребёнку: напоминания на сегодня, дедлайны регистраций и серию дней тренировок.
 
 **Чтобы включить синхронизацию:** завести бесплатный проект на supabase.com,
 создать таблицу и вписать три значения в `data/sync-config.js`.
