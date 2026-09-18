@@ -280,6 +280,7 @@
     await sb.auth.signOut();
     state.me = null; state.kids = []; state.ctx = null;
     renderAuth();
+    applyKidNav();
   }
 
   async function switchKid(kidId){
@@ -290,6 +291,39 @@
     try{ changed = await pullProgress(); }catch(e){}
     renderAuth();
     if(changed) setTimeout(()=>location.reload(), 350);
+  }
+
+  /* ================= режим ребёнка: своё меню и вход на свои страницы ================= */
+
+  const KID_NAV = [
+    ['my.html',       'Мой прогресс'],
+    ['tasks.html',    'Задания'],
+    ['tracker.html',  'Трекер'],
+    ['olympiads.html','Олимпиады'],
+    ['tests.html',    'Профориентация'],
+  ];
+  const PARENT_ONLY_PAGES = [
+    'index.html','plan.html','admission.html','schools.html','strategy.html',
+    'professions.html','missions.html','clubs.html','projects.html','resources.html',
+    'setup.html','ai.html',
+  ];
+
+  let fullNavHTML = null;   // исходное меню (восстанавливается для родителей)
+  function applyKidNav(){
+    const nav = document.querySelector('nav.main');
+    if(!nav) return;
+    if(fullNavHTML === null) fullNavHTML = nav.innerHTML;
+    const page = (location.pathname.split('/').pop() || 'index.html');
+    const isKid = !!(state.session && state.me && state.me.role==='kid');
+    if(isKid){
+      if(PARENT_ONLY_PAGES.includes(page)){ location.replace('my.html'); return; }
+      nav.innerHTML = '';
+      KID_NAV.forEach(([h,t])=>nav.append(el('a',{href:h,class:h===page?'on':''},t)));
+      document.body.classList.add('portalkid');
+    } else {
+      nav.innerHTML = fullNavHTML;
+      document.body.classList.remove('portalkid');
+    }
   }
 
   /* ================= UI: кнопка входа и меню ================= */
@@ -498,6 +532,7 @@
       }catch(e){ warn('getSession: ' + e.message); }
       if(state.session){
         await ensureParentProfile();
+        applyKidNav();
         let changed = false;
         try{ changed = await pullProgress(); }catch(e){}
         refreshAuthUI();
@@ -505,6 +540,7 @@
         if(state.ctx && state.ctx.role==='kid' && changed) setTimeout(()=>location.reload(), 350);
       } else {
         refreshAuthUI();
+        applyKidNav();
       }
     }, 10);
 
@@ -512,6 +548,7 @@
       state.session = session;
       if(event === 'SIGNED_IN' && session){
         ensureParentProfile().then(async () => {
+          applyKidNav();
           let changed = false;
           try{ changed = await pullProgress(); }catch(e){ warn('pull: ' + e.message); }
           refreshAuthUI();

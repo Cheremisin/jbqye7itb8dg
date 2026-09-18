@@ -200,3 +200,5 @@ details[open] summary{margin-bottom:10px}
 @media(max-width:720px){
   .portal-online .btn{float:none!important;margin-top:8px}
 }
+/* Упрощённый режим ребёнка: скрываем служебные блоки родителя */
+body.portalkid footer .xs{display:none}

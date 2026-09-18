@@ -44,6 +44,9 @@
               <input type="date" id="r-deadline" title="Зарегистрироваться до">
               <input type="date" id="r-date" title="Когда событие">
             </div>
+            <label class="sm" style="display:flex;gap:6px;align-items:center;margin:8px 0">
+              <input type="checkbox" id="r-remind" checked> Напомнить за день до дедлайна
+            </label>
             <input type="url" id="r-link" placeholder="Ссылка (необязательно)">
             <textarea id="r-note" rows="2" placeholder="Заметка (необязательно)"></textarea>
             <button class="btn" type="submit">Сохранить событие</button>
@@ -70,6 +73,12 @@
     <section class="card" style="margin-top:16px;border-left:3px solid var(--warn)">
       <h2 class="mt0">Мои напоминания</h2>
       <div id="reminders"><p class="sm muted">Загрузка…</p></div>
+      <p class="sm muted">Как это сделать: нажми «Сегодня 17:00» или «Завтра 17:00» (или выбери время сам), напиши, о чём напомнить, и нажми «Поставить напоминание». Если событие добавлено с дедлайном и включена галочка «Напомнить за день до дедлайна» — напоминание создастся само.</p>
+      <div style="display:flex;gap:6px;flex-wrap:wrap;margin:8px 0">
+        <button type="button" class="btn sec sm" data-q="0">Сегодня 17:00</button>
+        <button type="button" class="btn sec sm" data-q="1">Завтра 17:00</button>
+        <button type="button" class="btn sec sm" data-q="2">Послезавтра 17:00</button>
+      </div>
       <details style="margin-top:12px">
         <summary>Добавить напоминание</summary>
         <form id="remform" style="margin-top:10px">
@@ -211,7 +220,23 @@ document.addEventListener('DOMContentLoaded', () => {
   $('#today-month').onclick=()=>{model.month=new Date();model.month.setDate(1);drawCalendar();};
   $('#notify-btn').onclick=async()=>{const p=await Portal.requestNotifications();$('#notify-btn').textContent=p==='granted'?'Уведомления включены ✓':(p==='unsupported'?'Браузер не поддерживает':'Разрешение не выдано');};
 
-  $('#regform').onsubmit=async e=>{e.preventDefault();const n=$('#r-msg');try{await Portal.addRegistration({title:$('#r-title').value.trim(),place:$('#r-place').value.trim(),deadline:$('#r-deadline').value,date:$('#r-date').value,link:$('#r-link').value.trim(),note:$('#r-note').value.trim()});e.target.reset();msg(n,'Событие сохранено ✓',true);await loadData();draw();}catch(x){msg(n,x.message);}};
+  $$('[data-q]').forEach(b=>b.onclick=()=>{
+    const n=Number(b.dataset.q);
+    const d=new Date(); d.setDate(d.getDate()+n); d.setHours(17,0,0,0);
+    const p=x=>String(x).padStart(2,'0');
+    $('#m-time').value=`${d.getFullYear()}-${p(d.getMonth()+1)}-${p(d.getDate())}T${p(d.getHours())}:${p(d.getMinutes())}`;
+    $('#m-title').focus();
+  });
+
+  $('#regform').onsubmit=async e=>{e.preventDefault();const n=$('#r-msg');try{
+    const deadline=$('#r-deadline').value;
+    await Portal.addRegistration({title:$('#r-title').value.trim(),place:$('#r-place').value.trim(),deadline,date:$('#r-date').value,link:$('#r-link').value.trim(),note:$('#r-note').value.trim()});
+    if($('#r-remind').checked && deadline){
+      const dt=new Date(deadline+'T09:00:00'); dt.setDate(dt.getDate()-1);
+      await Portal.addReminder({title:'Зарегистрироваться: '+$('#r-title').value.trim(),remind_at:dt.toISOString(),kind:'registration'}).catch(()=>{});
+    }
+    e.target.reset();msg(n,'Событие сохранено ✓',true);await loadData();draw();
+  }catch(x){msg(n,x.message);}};
   $('#remform').onsubmit=async e=>{e.preventDefault();const n=$('#m-msg');try{const dt=$('#m-time').value;if(!dt)throw new Error('Выберите дату и время');await Portal.addReminder({title:$('#m-title').value.trim(),remind_at:new Date(dt).toISOString(),kind:$('#m-kind').value,link:$('#m-link').value.trim(),note:$('#m-note').value.trim()});e.target.reset();msg(n,'Напоминание сохранено ✓',true);await loadData();draw();}catch(x){msg(n,x.message);}};
 
   async function render(){
