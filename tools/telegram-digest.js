@@ -170,7 +170,8 @@ const footer = `\n<a href="${SITE}index.html">Портал</a> · <a href="${SIT
     return;
   }
   // не будить семью в тихий день: если ничего нет и это не понедельник — молчим
-  if(nothing && !isMonday){
+  // (кроме ручного запуска с FORCE_SEND=true — для проверки)
+  if(nothing && !isMonday && process.env.FORCE_SEND !== 'true'){
     console.log('Ничего срочного и не понедельник — сообщение не отправляем.');
     return;
   }
