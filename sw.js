@@ -1,8 +1,8 @@
-/* Service worker: офлайн-доступ и установка на телефон.
-   Стратегия: сеть в приоритете, кэш как запасной вариант.
-   Так содержание всегда свежее, но портал открывается и без интернета. */
+﻿/* Service worker: РѕС„Р»Р°Р№РЅ-РґРѕСЃС‚СѓРї Рё СѓСЃС‚Р°РЅРѕРІРєР° РЅР° С‚РµР»РµС„РѕРЅ.
+   РЎС‚СЂР°С‚РµРіРёСЏ: СЃРµС‚СЊ РІ РїСЂРёРѕСЂРёС‚РµС‚Рµ, РєСЌС€ РєР°Рє Р·Р°РїР°СЃРЅРѕР№ РІР°СЂРёР°РЅС‚.
+   РўР°Рє СЃРѕРґРµСЂР¶Р°РЅРёРµ РІСЃРµРіРґР° СЃРІРµР¶РµРµ, РЅРѕ РїРѕСЂС‚Р°Р» РѕС‚РєСЂС‹РІР°РµС‚СЃСЏ Рё Р±РµР· РёРЅС‚РµСЂРЅРµС‚Р°. */
 
-const VERSION = 'edu-v5';
+const VERSION = 'edu-v6';
 const CORE = [
   './', './index.html', './plan.html', './tasks.html', './tracker.html',
   './olympiads.html', './projects.html', './clubs.html', './admission.html',
@@ -21,7 +21,7 @@ const CORE = [
 self.addEventListener('install', e => {
   e.waitUntil((async () => {
     const c = await caches.open(VERSION);
-    // addAll падает целиком, если хоть один файл недоступен — кладём по одному
+    // addAll РїР°РґР°РµС‚ С†РµР»РёРєРѕРј, РµСЃР»Рё С…РѕС‚СЊ РѕРґРёРЅ С„Р°Р№Р» РЅРµРґРѕСЃС‚СѓРїРµРЅ вЂ” РєР»Р°РґС‘Рј РїРѕ РѕРґРЅРѕРјСѓ
     await Promise.all(CORE.map(u => c.add(u).catch(() => {})));
     self.skipWaiting();
   })());
@@ -44,7 +44,7 @@ self.addEventListener('fetch', e => {
   if (req.method !== 'GET') return;
   const url = new URL(req.url);
   if (url.origin !== self.location.origin) return;
-  // календарь всегда только из сети
+  // РєР°Р»РµРЅРґР°СЂСЊ РІСЃРµРіРґР° С‚РѕР»СЊРєРѕ РёР· СЃРµС‚Рё
   if (url.pathname.endsWith('.ics')) return;
 
   e.respondWith((async () => {

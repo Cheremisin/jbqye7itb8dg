@@ -194,7 +194,8 @@ function buildTest({key, items, types, mount, colorOf, resultRender}){
         el('div',{class:'vl'}, pct[t]+'%')));
     });
     rbox.append(resultRender(order, pct));
-    rbox.append(el('p',{class:'xs muted',style:'margin-top:14px'},'Ответы сохранены в этом браузере. Пройдите тест повторно через 6–12 месяцев и сравните — устойчивость профиля важнее его конкретного вида.'));
+    const whereSaved = (window.Portal && Portal.session) ? 'в вашем аккаунте' : 'в этом браузере';
+    rbox.append(el('p',{class:'xs muted',style:'margin-top:14px'},'Ответы сохранены '+whereSaved+'. Пройдите тест повторно через 6–12 месяцев и сравните — устойчивость профиля важнее его конкретного вида.'));
   }
 
   startBtn.addEventListener('click',()=>{ qbox.classList.toggle('hide'); startBtn.textContent = qbox.classList.contains('hide')?'Показать вопросы':'Скрыть вопросы'; });

@@ -19,7 +19,7 @@
 <body>
 <main class="wrap">
   <h1>Дашборд</h1>
-  <p class="lead">Один экран: что горит, что сделано, что дальше. Прогресс хранится в этом браузере — не забывайте делать резервную копию (ссылка внизу страницы).</p>
+  <p class="lead">Один экран: что горит, что сделано, что дальше. Если вы вошли в аккаунт, прогресс хранится в базе и доступен с любого устройства; без входа — только в этом браузере.</p>
 
   <div class="grid g4" id="kpis" style="margin-top:22px"></div>
 
@@ -83,14 +83,28 @@
   <h2>Задания на эту неделю</h2>
   <div class="grid g2" id="wk"></div>
 
-  <h2>Резервная копия</h2>
+  <h2>Где хранится прогресс</h2>
   <div class="card">
-    <p class="mt0 sm">Отметки о выполнении, заметки, дневник интересов и результаты тестов хранятся только в этом браузере. Если почистить историю или сменить устройство — данные пропадут. Раз в месяц скачивайте файл и кладите в папку проекта на Яндекс.Диске.</p>
-    <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
-      <button class="btn" onclick="Store.export()">Скачать копию (JSON)</button>
-      <label class="btn sec" style="cursor:pointer">Загрузить копию<input type="file" accept="application/json" id="imp" hidden></label>
-      <button class="btn sec" onclick="Store.reset()">Сбросить всё</button>
-      <span id="impmsg" class="sm"></span>
+    <div id="backup-cloud" hidden>
+      <p class="mt0 sm"><b>Прогресс хранится в аккаунте.</b> Отметки о выполнении, заметки, дневник интересов, результаты тестов и напоминания сохраняются в базе и доступны с любого устройства — резервная копия не обязательна.</p>
+      <details>
+        <summary>Дополнительно: скачать или сбросить локальную копию</summary>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:10px">
+          <button class="btn sec" onclick="Store.export()">Скачать копию (JSON)</button>
+          <label class="btn sec" style="cursor:pointer">Загрузить копию<input type="file" accept="application/json" id="imp2" hidden></label>
+          <button class="btn sec" onclick="Store.reset()">Сбросить всё</button>
+          <span id="impmsg2" class="sm"></span>
+        </div>
+      </details>
+    </div>
+    <div id="backup-local">
+      <p class="mt0 sm">Пока вход не выполнен, отметки, заметки, дневник интересов и результаты тестов хранятся <b>только в этом браузере</b> — при очистке истории или смене устройства они пропадут. Нажмите <b>«Вход»</b> в шапке (аккаунт создаётся один раз, аккаунты детей — из родительского) — и прогресс будет храниться в базе. Либо раз в месяц скачивайте файл и кладите в папку проекта на Яндекс.Диске.</p>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
+        <button class="btn" onclick="Store.export()">Скачать копию (JSON)</button>
+        <label class="btn sec" style="cursor:pointer">Загрузить копию<input type="file" accept="application/json" id="imp" hidden></label>
+        <button class="btn sec" onclick="Store.reset()">Сбросить всё</button>
+        <span id="impmsg" class="sm"></span>
+      </div>
     </div>
   </div>
 </main>
@@ -174,10 +188,27 @@ document.addEventListener('DOMContentLoaded',()=>{
       el('a',{class:'btn sm sec',href:'tasks.html#'+k},'Перейти')));
   });
 
-  $('#imp').addEventListener('change',e=>{
-    const f=e.target.files[0]; if(!f) return;
-    Store.import(f,(ok,err)=>{ $('#impmsg').innerHTML = ok?'<span style="color:var(--ok)">Загружено ✓</span>':'<span style="color:var(--bad)">Ошибка: '+esc(err)+'</span>'; if(ok) setTimeout(()=>location.reload(),700); });
-  });
+  // Где хранится прогресс: в аккаунте или в браузере
+  function paintBackup(){
+    const logged = !!(window.Portal && Portal.session);
+    const cloud = $('#backup-cloud'), local = $('#backup-local');
+    if(cloud) cloud.hidden = !logged;
+    if(local) local.hidden = logged;
+  }
+  paintBackup();
+  document.addEventListener('portal:login', paintBackup);
+  document.addEventListener('portal:logout', paintBackup);
+
+  function bindImport(inputId, msgId){
+    const inp = $('#'+inputId), box = $('#'+msgId);
+    if(!inp || !box) return;
+    inp.addEventListener('change',e=>{
+      const f=e.target.files[0]; if(!f) return;
+      Store.import(f,(ok,err)=>{ box.innerHTML = ok?'<span style="color:var(--ok)">Загружено ✓</span>':'<span style="color:var(--bad)">Ошибка: '+esc(err)+'</span>'; if(ok) setTimeout(()=>location.reload(),700); });
+    });
+  }
+  bindImport('imp','impmsg');
+  bindImport('imp2','impmsg2');
 });
 </script>
 </body>
