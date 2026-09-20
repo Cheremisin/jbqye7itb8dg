@@ -142,7 +142,10 @@ function applyKidScope(root){
   const scope = kidScope();
   (root || document).querySelectorAll('[data-who]').forEach(n => {
     const list = String(n.getAttribute('data-who')||'').split(/[\s,]+/).filter(Boolean);
-    n.hidden = !!scope && !list.includes(scope);
+    let show = true;
+    if(list.includes('parent')) show = !scope;            // только родитель или гость
+    else if(scope) show = list.includes(scope);            // ребёнку — только своё
+    n.hidden = !show;
   });
 }
 document.addEventListener('DOMContentLoaded', () => applyKidScope());

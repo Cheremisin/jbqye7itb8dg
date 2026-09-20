@@ -35,11 +35,11 @@
     <p class="mb0"><b>Три правила, без которых трекер вредит.</b> (1) Метрики видит и ведёт ребёнок, родитель только смотрит: внешний контроль конвертирует внутреннюю мотивацию во внешнюю, и она рушится, как только контроль снимается. (2) Наказаний за метрики не бывает — метрика это термометр, а не оценка. (3) Право на выход: заранее оговорённая возможность прекратить направление после завершённого цикла — то, что позволяет ребёнку честно пробовать, а не имитировать интерес.</p>
   </div>
 
-  <div class="toc"><a href="#metrics">Метрики недели ({{U}})</a><a href="#diary">Дневник интересов ({{Y}})</a><a href="#probes">Журнал проб</a><a href="#todo">Свои задачи</a><a href="#checklists">Чек-листы родителя</a></div>
+  <div class="toc"><a href="#metrics" data-who="u">Метрики недели ({{U}})</a><a href="#diary" data-who="y">Дневник интересов ({{Y}})</a><a href="#probes">Журнал проб</a><a href="#todo">Свои задачи</a><a href="#checklists" data-who="parent">Чек-листы родителя</a></div>
 
-  <h2 id="metrics">Метрики недели — {{U}}</h2>
-  <p class="sm">Заполняется раз в неделю, вечером воскресенья, за 3 минуты. <b>Не мерим:</b> школьные оценки (шумный показатель), «часы за столом», количество купленных курсов.</p>
-  <div class="card">
+  <h2 id="metrics" data-who="u">Метрики недели — {{U}}</h2>
+  <p class="sm" data-who="u">Заполняется раз в неделю, вечером воскресенья, за 3 минуты. <b>Не мерим:</b> школьные оценки (шумный показатель), «часы за столом», количество купленных курсов.</p>
+  <div class="card" data-who="u">
     <div class="form">
       <div><label class="fl">Неделя (дата воскресенья)</label><input type="date" id="m-date"></div>
       <div><label class="fl">Часы вдумчивой практики <span title="Не уроков, а самостоятельного решения задач по профилю. Цель 5–8 ч">ⓘ</span></label><input type="number" id="m-hours" min="0" max="60" step="0.5" placeholder="5"></div>
@@ -52,11 +52,11 @@
     </div>
     <div id="m-warn"></div>
   </div>
-  <div id="m-out"></div>
+  <div id="m-out" data-who="u"></div>
 
-  <h2 id="diary">Дневник интересов — {{Y}}</h2>
-  <p class="sm">Раз в неделю, 5 минут. <b>Три месяца таких записей информативнее любого профориентационного теста.</b> Заполняет родитель по наблюдениям, не ребёнок.</p>
-  <div class="card">
+  <h2 id="diary" data-who="y">Дневник интересов — {{Y}}</h2>
+  <p class="sm" data-who="y">Раз в неделю, 5 минут. <b>Три месяца таких записей информативнее любого профориентационного теста.</b> Заполняет родитель по наблюдениям, не ребёнок.</p>
+  <div class="card" data-who="y">
     <div style="display:grid;gap:10px">
       <div><label class="fl">Дата</label><input type="date" id="d-date" style="max-width:200px"></div>
       <div><label class="fl">1. Чем занимался ДОБРОВОЛЬНО дольше 30 минут подряд?</label><textarea id="d-q1" rows="2"></textarea></div>
@@ -67,7 +67,7 @@
       <button class="btn" id="d-add" style="justify-self:start">Сохранить запись</button>
     </div>
   </div>
-  <div id="d-out"></div>
+  <div id="d-out" data-who="y"></div>
 
   <h2 id="probes">Журнал проб</h2>
   <p class="sm">Для обоих детей. После каждой пробы (кружок, проект, соревнование, «день с профессионалом») отмечайте четыре сигнала. <b>Три «да» из четырёх на протяжении трёх и более месяцев = направление рабочее.</b></p>
@@ -101,8 +101,8 @@
   </div>
   <div id="td-out"></div>
 
-  <h2 id="checklists">Чек-листы родителя</h2>
-  <div class="grid g3">
+  <h2 id="checklists" data-who="parent">Чек-листы родителя</h2>
+  <div class="grid g3" data-who="parent">
     <div class="card"><h3 class="mt0">Еженедельно — 5 минут</h3><ul class="sm clean mb0">
       <li>Что ребёнок делал добровольно дольше 30 минут?</li>
       <li>Что бросил — и по какой причине?</li>
@@ -128,10 +128,40 @@
 <script src="assets/js/app.js"></script>
 <script src="data/sync-config.js"></script>
 <script src="assets/js/sync.js"></script>
+<script src="assets/js/vendor/supabase.js"></script>
+<script src="assets/js/portal.js"></script>
 <script>
 document.addEventListener('DOMContentLoaded',()=>{
   const today = new Date().toISOString().slice(0,10);
   ['m-date','d-date','p-date'].forEach(id=>$('#'+id).value=today);
+
+  /* ---------- персональные ключи: у каждого ребёнка свои пробы и задачи ---------- */
+  const scope = () => kidScope();
+  const keyP = () => { const s = scope(); return s ? 'probes.'+s : 'probes'; };
+  const keyT = () => { const s = scope(); return s ? 'todos.'+s  : 'todos'; };
+
+  // при первом входе ребёнка переносим из общих списков только его записи
+  function migrateForKid(){
+    const who = scope(); if(!who) return;
+    [['probes', keyP()], ['todos', keyT()]].forEach(([oldK,newK])=>{
+      if(Store.get(newK,null)) return;
+      const old = Store.get(oldK,null);
+      if(!Array.isArray(old)) return;
+      const mine = old.filter(x => (x.kid||'') === who);
+      if(mine.length) Store.set(newK, mine);
+    });
+  }
+
+  // прячем выбор ребёнка и ставим его самого (не задевая остальные поля формы)
+  function lockKidSelects(){
+    const who = scope();
+    [['p-kid'],['td-kid']].forEach(([id])=>{
+      const s = document.getElementById(id); if(!s) return;
+      const lab = s.parentElement ? s.parentElement.querySelector('label') : null;
+      if(who){ s.value = who; s.hidden = true; if(lab) lab.hidden = true; }
+      else   { s.hidden = false; if(lab) lab.hidden = false; }
+    });
+  }
 
   /* ---------- метрики ---------- */
   function metrics(){ return Store.get('metrics',[]); }
@@ -210,10 +240,11 @@ document.addEventListener('DOMContentLoaded',()=>{
   drawD();
 
   /* ---------- пробы ---------- */
-  function probes(){ return Store.get('probes',[]); }
+  function probes(){ return Store.get(keyP(),[]); }
   function drawP(){
     const out=$('#p-out'); out.innerHTML='';
-    const p=probes().slice().sort((a,b)=>a.d<b.d?1:-1);
+    const who = scope();
+    const p=probes().filter(x => !who || (x.kid||'') === who).slice().sort((a,b)=>a.d<b.d?1:-1);
     if(!p.length){ out.append(el('p',{class:'muted sm'},'Проб пока не записано.')); return; }
     const box=el('div',{class:'card'});
     p.forEach(x=>{
@@ -242,10 +273,11 @@ document.addEventListener('DOMContentLoaded',()=>{
   drawP();
 
   /* ---------- свои задачи ---------- */
-  function todos(){ return Store.get('todos',[]); }
+  function todos(){ return Store.get(keyT(),[]); }
   function drawT(){
     const out=$('#td-out'); out.innerHTML='';
-    const t=todos().slice().sort((a,b)=>(a.done?1:0)-(b.done?1:0) || (a.due||'9999')<(b.due||'9999')?-1:1);
+    const who = scope();
+    const t=todos().filter(x => !who || (x.kid||'') === who).slice().sort((a,b)=>(a.done?1:0)-(b.done?1:0) || (a.due||'9999')<(b.due||'9999')?-1:1);
     if(!t.length){ out.append(el('p',{class:'muted sm'},'Список пуст.')); return; }
     const box=el('div',{class:'card'});
     t.forEach(x=>{
@@ -268,6 +300,17 @@ document.addEventListener('DOMContentLoaded',()=>{
   });
   $('#td-text').addEventListener('keydown',e=>{ if(e.key==='Enter') $('#td-add').click(); });
   drawT();
+
+  /* ---------- при входе/выходе: развести данные по детям и перерисовать ---------- */
+  function paintAll(){
+    migrateForKid();
+    lockKidSelects();
+    applyKidScope();
+    drawM(); drawD(); drawP(); drawT();
+  }
+  paintAll();
+  document.addEventListener('portal:login', paintAll);
+  document.addEventListener('portal:logout', paintAll);
 });
 </script>
 </body>
