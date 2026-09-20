@@ -2,7 +2,7 @@
    РЎС‚СЂР°С‚РµРіРёСЏ: СЃРµС‚СЊ РІ РїСЂРёРѕСЂРёС‚РµС‚Рµ, РєСЌС€ РєР°Рє Р·Р°РїР°СЃРЅРѕР№ РІР°СЂРёР°РЅС‚.
    РўР°Рє СЃРѕРґРµСЂР¶Р°РЅРёРµ РІСЃРµРіРґР° СЃРІРµР¶РµРµ, РЅРѕ РїРѕСЂС‚Р°Р» РѕС‚РєСЂС‹РІР°РµС‚СЃСЏ Рё Р±РµР· РёРЅС‚РµСЂРЅРµС‚Р°. */
 
-const VERSION = 'edu-v7';
+const VERSION = 'edu-v8';
 const CORE = [
   './', './index.html', './plan.html', './tasks.html', './tracker.html',
   './olympiads.html', './projects.html', './clubs.html', './admission.html',
@@ -12,7 +12,7 @@ const CORE = [
   './assets/js/portal.js', './assets/js/coach.js', './assets/js/vendor/supabase.js',
   './assets/icon-192.png', './assets/icon-512.png',
   './manifest.webmanifest',
-  './data/config.js', './data/sync-config.js', './data/deadlines.js', './data/olympiads.js', './data/olymp2.js',
+  './data/config.js', './data/push-config.js', './data/sync-config.js', './data/deadlines.js', './data/olympiads.js', './data/olymp2.js',
   './data/resources.js', './data/plans.js', './data/prompts.js', './data/tests.js',
   './data/tasks.js', './data/professions.js', './data/missions.js',
   './data/projects.js', './data/schools.js', './data/clubs.js',
@@ -64,5 +64,44 @@ self.addEventListener('fetch', e => {
       }
       throw err;
     }
+  })());
+});
+
+/* ---------- Web Push: показать уведомление и открыть нужную страницу ----------
+   Edge Function send-reminders шлёт JSON {title, body, url}. Без этого
+   обработчика доставленный push не показывается вообще. */
+self.addEventListener('push', e => {
+  let d = {};
+  try { d = e.data ? e.data.json() : {}; }
+  catch (err) { d = { body: e.data ? e.data.text() : '' }; }
+
+  const title = d.title || 'Образование';
+  const opts = {
+    body: d.body || '',
+    icon: './assets/icon-192.png',
+    badge: './assets/icon-192.png',
+    tag: d.tag || ('edu-' + (d.body || title)),   // одинаковые не плодятся
+    renotify: false,
+    data: { url: d.url || './my.html' },
+    requireInteraction: false,
+  };
+  e.waitUntil(self.registration.showNotification(title, opts));
+});
+
+self.addEventListener('notificationclick', e => {
+  e.notification.close();
+  const target = (e.notification.data && e.notification.data.url) || './my.html';
+  e.waitUntil((async () => {
+    const url = new URL(target, self.location.href).href;
+    const wins = await self.clients.matchAll({ type: 'window', includeUncontrolled: true });
+    for (const w of wins) {
+      if (w.url === url && 'focus' in w) return w.focus();
+    }
+    for (const w of wins) {                        // уже открытый портал — просто переводим
+      if (w.url.startsWith(self.registration.scope) && 'navigate' in w) {
+        await w.navigate(url); return w.focus();
+      }
+    }
+    if (self.clients.openWindow) return self.clients.openWindow(url);
   })());
 });
