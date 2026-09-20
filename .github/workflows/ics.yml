@@ -1,0 +1,40 @@
+name: Пересобрать календарь
+
+# edu.ics собирается из data/deadlines.js автоматически, как только даты
+# меняются. Без этого подписка в телефонах постепенно расходится с порталом.
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'data/deadlines.js'
+      - 'data/config.js'
+      - 'tools/build-ics.js'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Собрать edu.ics
+        run: node tools/build-ics.js
+
+      - name: Закоммитить, если изменился
+        run: |
+          if git diff --quiet -- edu.ics; then
+            echo "Календарь не изменился."
+            exit 0
+          fi
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add edu.ics
+          git commit -m "Календарь пересобран автоматически"
+          git push
