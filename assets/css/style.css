@@ -25,10 +25,10 @@ a:hover{text-decoration:underline}
 /* ---------- header ---------- */
 header.top{position:sticky;top:0;z-index:50;background:rgba(14,17,22,.88);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
 [data-theme="light"] header.top{background:rgba(255,255,255,.9)}
-.topin{display:flex;align-items:center;gap:18px;height:58px}
+.topin{display:flex;align-items:center;gap:18px;min-height:58px;height:auto;flex-wrap:wrap;padding:7px 0}
 .brand{font-weight:700;font-size:16px;color:var(--tx);white-space:nowrap;display:flex;align-items:center;gap:8px}
 .brand span{color:var(--acc)}
-nav.main{display:flex;gap:2px;flex-wrap:nowrap;flex:1;overflow-x:auto;scrollbar-width:none}
+nav.main{display:flex;gap:2px;flex-wrap:wrap;flex:1;overflow:visible;row-gap:2px}
 nav.main::-webkit-scrollbar{display:none}
 nav.main a{padding:6px 10px;border-radius:8px;color:var(--tx2);font-size:13.5px;white-space:nowrap}
 nav.main a:hover{background:var(--bg3);color:var(--tx);text-decoration:none}
