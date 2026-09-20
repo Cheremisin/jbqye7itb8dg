@@ -40,13 +40,21 @@ Deno.serve(async (req) => {
   try{
     const now = new Date();
     const horizon = new Date(now.getTime() + 2 * 60 * 60 * 1000);
+    // нижняя граница: просроченное больше суток назад уже неактуально,
+    // а без неё старые напоминания уходили бы в телефон бесконечно
+    const floor = new Date(now.getTime() - 24 * 60 * 60 * 1000);
 
-    const reminders = await rest(`reminders?select=id,kid_id,title,kind&done_at=is.null&remind_at=lte.${encodeURIComponent(horizon.toISOString())}`);
+    const reminders = await rest(
+      `reminders?select=id,kid_id,title,kind&done_at=is.null&sent_at=is.null` +
+      `&remind_at=lte.${encodeURIComponent(horizon.toISOString())}` +
+      `&remind_at=gte.${encodeURIComponent(floor.toISOString())}` +
+      `&order=remind_at.asc&limit=200`);
 
     let sent = 0, skipped = 0;
     for(const r of reminders || []){
       const subs = await rest(`push_subscriptions?select=endpoint,keys&kid_id=eq.${r.kid_id}`);
-      if(!subs || !subs.length){ skipped++; continue; }
+      // некому отправлять — всё равно закрываем, иначе будет висеть вечно
+      if(!subs || !subs.length){ await markSent(r.id); skipped++; continue; }
       const payload = JSON.stringify({
         title: r.kind === 'registration' ? '📝 Регистрация' : r.kind === 'event' ? '🗓 Событие' : r.kind === 'training' ? '💪 Тренировка' : '⏰ Напоминание',
         body: r.title,
@@ -64,6 +72,9 @@ Deno.serve(async (req) => {
           skipped++;
         }
       }
+      // отправили (или попытались по всем подпискам) — закрываем напоминание,
+      // чтобы следующий запуск планировщика его уже не взял
+      await markSent(r.id);
     }
     return new Response(JSON.stringify({ ok: true, sent, skipped, reminders: (reminders||[]).length }), {
       headers: { ...cors, 'Content-Type': 'application/json' },
@@ -75,17 +86,29 @@ Deno.serve(async (req) => {
   }
 });
 
+/* пометить напоминание отправленным — ровно один push на напоминание */
+async function markSent(id){
+  try{
+    await rest(`reminders?id=eq.${id}`, { method: 'PATCH', body: { sent_at: new Date().toISOString() } });
+  }catch(e){ /* не смогли пометить — не роняем всю рассылку */ }
+}
+
 /* мелкий REST-клиент к PostgREST с правами service_role */
 async function rest(path, opts = {}){
+  const method = opts.method || 'GET';
+  const headers = {
+    apikey: SERVICE_KEY,
+    Authorization: 'Bearer ' + SERVICE_KEY,
+    'Content-Type': 'application/json',
+  };
+  // return=minimal только для записи: на GET это заголовок не для того
+  if(method !== 'GET') headers.Prefer = 'return=minimal';
   const res = await fetch(SUPABASE_URL + '/rest/v1/' + path, {
-    method: opts.method || 'GET',
-    headers: {
-      apikey: SERVICE_KEY,
-      Authorization: 'Bearer ' + SERVICE_KEY,
-      'Content-Type': 'application/json',
-    },
+    method,
+    headers,
     body: opts.body ? JSON.stringify(opts.body) : undefined,
   });
   if(!res.ok) throw new Error('rest ' + res.status + ' ' + path.slice(0, 60));
-  return opts.method === 'DELETE' ? null : res.json();
+  if(method !== 'GET') return null;
+  return res.json();
 }
