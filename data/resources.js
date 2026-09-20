@@ -1,5 +1,5 @@
 /* Каталог образовательных ресурсов. price: free | freemium | paid
-   who: u = {{U}} (9 класс), y = {{Y}} (5 класс) */
+   who: u = {{U}} (9 класс), y = {{Y}} (4 класс) */
 window.RESOURCES = [
   /* ================= МАТЕМАТИКА ================= */
   {n:'Сириус.Курсы', u:'https://edu.sirius.online/', s:'math', who:['u','y'], p:'free', star:true,

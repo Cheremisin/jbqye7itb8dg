@@ -64,8 +64,8 @@ const nm = s => typeof s === 'string' && s.indexOf('{{') >= 0
 const KIDS = {
   elder:   {name:nm('{{U}}'), short:(N.u.short||'С'), age:15, grade:9, cls:'u', color:'var(--u)',
              goal:'9 класс с 01.09.2026 → ОГЭ 2027 → ЕГЭ и поступление 2029'},
-  younger: {name:nm('{{Y}}'), short:(N.y.short||'М'), age:10, grade:5, cls:'y', color:'var(--y)',
-             goal:'5 класс с 01.09.2026 → поступление 2034. Задача — фундамент и широкие пробы'},
+  younger: {name:nm('{{Y}}'), short:(N.y.short||'М'), age:10, grade:4, cls:'y', color:'var(--y)',
+             goal:'4 класс с 01.09.2026 → поступление 2034. Задача — фундамент и широкие пробы'},
 };
 
 /* ---------------- storage ---------------- */

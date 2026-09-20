@@ -173,12 +173,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function drawRegistrations(){
     const box=$('#regs');box.innerHTML='';
+    if(model.errReg){ box.append(el('p',{class:'sm muted'},'Раздел событий пока недоступен — в Supabase не применена миграция db/001_auth.sql (таблица registrations).')); return; }
     if(!model.registrations.length) box.append(el('p',{class:'sm muted'},'Пока ничего не добавлено.'));
     model.registrations.forEach(r=>box.append(regRow(r)));
   }
 
   function drawReminders(){
     const box=$('#reminders');box.innerHTML='';
+    if(model.errRem){ box.append(el('p',{class:'sm muted'},'Раздел напоминаний пока недоступен — в Supabase не применена миграция db/002_calendar_reminders.sql (таблица reminders).')); return; }
     const rows=model.reminders.filter(r=>!r.done_at).slice().sort((a,b)=>a.remind_at.localeCompare(b.remind_at));
     if(!rows.length) box.append(el('p',{class:'sm muted'},'Активных напоминаний нет.'));
     rows.forEach(r=>{
@@ -244,8 +246,9 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   async function loadData(){
-    model.registrations=await Portal.listRegistrations();
-    model.reminders=await Portal.listReminders();
+    model.errReg = null; model.errRem = null;
+    model.registrations = await Portal.listRegistrations().catch(e=>{ model.errReg = e.message; return []; });
+    model.reminders     = await Portal.listReminders().catch(e=>{ model.errRem = e.message; return []; });
   }
 
   function drawCoach(){
