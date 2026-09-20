@@ -113,7 +113,10 @@ async function personalBlock(){
       const rem = await get(`reminders?select=title,remind_at,kind&kid_id=eq.${k.id}&done_at=is.null&remind_at=gte.${encodeURIComponent(nowIso)}&remind_at=lte.${encodeURIComponent(horizon)}&order=remind_at.asc`);
       (rem || []).forEach(r => {
         const kind = r.kind==='registration' ? '📝 регистрация' : r.kind==='event' ? '🗓 событие' : r.kind==='training' ? '💪 тренировка' : '⏰ напоминание';
-        notes.push(`${kind} — ${esc(r.title)}, сегодня в ${timeFmt(r.remind_at)}`);
+        // горизонт выборки — двое суток, поэтому «сегодня» писать нельзя
+        const dd = days(String(r.remind_at).slice(0, 10));
+        const when = dd <= 0 ? 'сегодня' : dd === 1 ? 'завтра' : fmt(String(r.remind_at).slice(0, 10));
+        notes.push(`${kind} — ${esc(r.title)}, ${when} в ${timeFmt(r.remind_at)}`);
       });
       const reg = await get(`registrations?select=title,deadline&kid_id=eq.${k.id}&done_at=is.null&deadline=not.is.null&order=deadline.asc`);
       (reg || []).forEach(r => {
