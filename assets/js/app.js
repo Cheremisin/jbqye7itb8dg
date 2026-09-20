@@ -127,6 +127,27 @@ const el = (t,a={},...kids)=>{
   return n;
 };
 const esc = s => String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+
+/* ---------------- кто смотрит страницу ----------------
+   '' — родитель или гость (видно всё), 'u' — старший, 'y' — младший.
+   Элементы с атрибутом data-who="u" / data-who="y" / data-who="u y"
+   показываются только своей аудитории. */
+function kidScope(){
+  try{
+    return (window.Portal && Portal.session && Portal.me && Portal.me.role==='kid')
+      ? (Portal.me.cls || '') : '';
+  }catch(e){ return ''; }
+}
+function applyKidScope(root){
+  const scope = kidScope();
+  (root || document).querySelectorAll('[data-who]').forEach(n => {
+    const list = String(n.getAttribute('data-who')||'').split(/[\s,]+/).filter(Boolean);
+    n.hidden = !!scope && !list.includes(scope);
+  });
+}
+document.addEventListener('DOMContentLoaded', () => applyKidScope());
+document.addEventListener('portal:login',  () => applyKidScope());
+document.addEventListener('portal:logout', () => applyKidScope());
 const TODAY = new Date();
 const dparse = s => { const [y,m,d]=s.split('-').map(Number); return new Date(y,m-1,d); };
 const dfmt = s => { const d=dparse(s); return d.toLocaleDateString('ru-RU',{day:'numeric',month:'short'}); };

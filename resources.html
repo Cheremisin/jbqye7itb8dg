@@ -28,7 +28,7 @@
 
   <h2>Как отслеживать прогресс</h2>
   <div class="grid g2">
-    <div class="card">
+    <div class="card" data-who="u">
       <h3 class="mt0">Что мерить у {{Ug}}</h3>
       <ol class="sm mb0">
         <li><b>Часы вдумчивой практики в неделю</b> по профильному предмету — не уроков, а самостоятельного решения задач. Цель 5–8 ч</li>
@@ -40,7 +40,7 @@
         <li>Самооценка интереса к направлению, 1–10, раз в месяц — отслеживать <b>тренд</b>, не значение</li>
       </ol>
     </div>
-    <div class="card">
+    <div class="card" data-who="y">
       <h3 class="mt0">Что мерить у {{Yg}}</h3>
       <ol class="sm mb0">
         <li>Число <b>завершённых</b> проб за полугодие — цель 3–4 разнородных</li>
@@ -68,30 +68,40 @@
 document.addEventListener('DOMContentLoaded',()=>{
   const SUBJ = {math:'Математика',physics:'Физика',cs:'Информатика',bio:'Биология и химия',lang:'Языки',general:'Общее',offline:'Кружки и очное',prof:'Профориентация'};
   const PRICE = {free:['бесплатно','ok'],freemium:['частично бесплатно','warn'],paid:['платно','']};
-  filterList({
-    items: RESOURCES.slice().sort((a,b)=>(b.star?1:0)-(a.star?1:0)),
-    container: $('#cat'),
-    searchFields:['n','d'],
-    searchPlaceholder:'Поиск по названию и описанию…',
-    facets:[
-      {key:'who',label:'Кому',type:'chips',options:[['u','{{U}}'],['y','{{Y}}']],test:(it,v)=>it.who.includes(v)},
-      {key:'s',label:'Раздел',type:'select',options:Object.entries(SUBJ),test:(it,v)=>it.s===v},
-      {key:'p',label:'Цена',type:'select',options:[['free','Бесплатно'],['freemium','Частично бесплатно'],['paid','Платно']],test:(it,v)=>it.p===v},
-    ],
-    render:(res,list)=>{
-      let cur=null;
-      res.forEach(r=>{
-        if(r.s!==cur){ cur=r.s; list.append(el('h3',{},SUBJ[cur])); }
-        const [pl,pc]=PRICE[r.p];
-        list.append(el('div',{class:'card',style:'margin-bottom:10px'+(r.star?';border-left:3px solid var(--acc)':'')},
-          el('div',{style:'display:flex;justify-content:space-between;gap:10px;align-items:flex-start;flex-wrap:wrap'},
-            el('h3',{class:'mt0',style:'margin-bottom:4px;font-size:17px'}, (r.star?'★ ':''), el('a',{href:r.u,target:'_blank',rel:'noopener'},r.n)),
-            el('span',{class:'b '+pc}, pl)),
-          el('div',{class:'bl'}, ...r.who.map(w=>el('span',{class:'b '+w}, KIDS[w==='u'?'elder':'younger'].name))),
-          el('p',{class:'sm mb0'}, r.d)));
-      });
-    }
-  });
+  const cat = $('#cat');
+
+  function paint(){
+    const who = kidScope();
+    cat.innerHTML = '';
+    filterList({
+      items: RESOURCES.filter(r => !who || (r.who||[]).includes(who)).slice().sort((a,b)=>(b.star?1:0)-(a.star?1:0)),
+      container: cat,
+      searchFields:['n','d'],
+      searchPlaceholder:'Поиск по названию и описанию…',
+      facets:[
+        {key:'who',label:'Кому',type:'chips',options:[['u','{{U}}'],['y','{{Y}}']],test:(it,v)=>it.who.includes(v)},
+        {key:'s',label:'Раздел',type:'select',options:Object.entries(SUBJ),test:(it,v)=>it.s===v},
+        {key:'p',label:'Цена',type:'select',options:[['free','Бесплатно'],['freemium','Частично бесплатно'],['paid','Платно']],test:(it,v)=>it.p===v},
+      ],
+      render:(res,list)=>{
+        let cur=null;
+        res.forEach(r=>{
+          if(r.s!==cur){ cur=r.s; list.append(el('h3',{},SUBJ[cur])); }
+          const [pl,pc]=PRICE[r.p];
+          list.append(el('div',{class:'card',style:'margin-bottom:10px'+(r.star?';border-left:3px solid var(--acc)':'')},
+            el('div',{style:'display:flex;justify-content:space-between;gap:10px;align-items:flex-start;flex-wrap:wrap'},
+              el('h3',{class:'mt0',style:'margin-bottom:4px;font-size:17px'}, (r.star?'★ ':''), el('a',{href:r.u,target:'_blank',rel:'noopener'},r.n)),
+              el('span',{class:'b '+pc}, pl)),
+            el('div',{class:'bl'}, ...r.who.filter(w => !who || w === who).map(w=>el('span',{class:'b '+w}, KIDS[w==='u'?'elder':'younger'].name))),
+            el('p',{class:'sm mb0'}, r.d)));
+        });
+      }
+    });
+  }
+
+  paint();
+  document.addEventListener('portal:login', () => { applyKidScope(); paint(); });
+  document.addEventListener('portal:logout', () => { applyKidScope(); paint(); });
 });
 </script>
 </body>

@@ -93,52 +93,76 @@ document.addEventListener('DOMContentLoaded',()=>{
     el('div',{style:'font-weight:600;margin-bottom:3px'}, (i+1)+'. '+n),
     el('div',{class:'sm',html:d}))));
 
-  const OKR = [...new Set(SCHOOLS.map(s=>s.okr))];
-  filterList({
-    items: SCHOOLS,
-    container: $('#schools'),
-    searchFields: ['n','place','prof','how','ok','no'],
-    searchPlaceholder: 'Поиск по школам…',
-    facets: [
-      {key:'okr', type:'chips', label:'Округ', multi:true, options: OKR.map(o=>[o,o]), test:(it,v)=>it.okr===v},
-      {key:'who', label:'Кому', options:[['u','{{U}}'],['y','{{Y}}']], test:(it,v)=>it.who.includes(v)},
-    ],
-    render(list, box){
-      list.slice().sort((a,b)=>a.pri-b.pri).forEach(s=>{
-        const body = el('div',{class:'body'},
-          el('div',{class:'row'}, el('div',{class:'lb'},'Профили'), el('div',{class:'sm',html:s.prof})),
-          el('div',{class:'row'}, el('div',{class:'lb'},'Как поступить'), el('div',{class:'sm',html:s.how})),
-          s.rank && s.rank!=='—' ? el('div',{class:'row'}, el('div',{class:'lb'},'В рейтингах'), el('div',{class:'sm',html:s.rank})) : null,
-          el('div',{class:'row'}, el('div',{class:'lb'},'Дорога'), el('div',{class:'sm',html:s.road})),
-          el('div',{class:'grid g2',style:'margin-top:14px'},
-            el('div',{class:'card',style:'padding:13px;border-left:3px solid var(--ok)'},
-              el('div',{class:'lb'},'Что хорошо'), el('div',{class:'sm',html:s.ok})),
-            el('div',{class:'card',style:'padding:13px;border-left:3px solid var(--bad)'},
-              el('div',{class:'lb'},'Что не так'), el('div',{class:'sm',html:s.no}))),
-          s.u ? el('p',{class:'xs muted',style:'margin:12px 0 0'}, el('a',{href:s.u,target:'_blank',rel:'noopener'},'Сайт школы и приём')) : null);
-        box.append(el('details',{class:'sc',id:s.pri===0?'gym':null},
-          el('summary',{},
-            el('span',{class:'nm'}, s.n),
-            el('span',{class:'b'}, s.okr),
-            el('span',{class:'b '+(s.type.indexOf('бюджет')>=0?'ok':'warn')}, s.type),
-            ...s.who.map(w=>el('span',{class:'b '+w}, KIDS[w==='u'?'elder':'younger'].name)),
-            s.pri===1?el('span',{class:'b acc'},'главный кандидат'):null),
-          body));
-      });
-    }
-  });
+  // календарь отбора — про 10 класс, нужен старшему
+  function applySections(){
+    const who = kidScope();
+    const h = document.getElementById('window');
+    if(h){ const hide = (who === 'y'); let n = h;
+      while(n){ n.hidden = hide; n = n.nextElementSibling; if(!n || n.tagName === 'H2') break; } }
+    document.querySelectorAll('.toc a').forEach(a=>{
+      if((a.getAttribute('href')||'') === '#window') a.hidden = (who === 'y');
+    });
+    applyKidScope();
+  }
+
+  function paintSchools(){
+    const who = kidScope();
+    const box = $('#schools'); box.innerHTML = '';
+    const OKR = [...new Set(SCHOOLS.map(s=>s.okr))];
+    filterList({
+      items: SCHOOLS.filter(s => !who || (s.who||[]).includes(who)),
+      container: box,
+      searchFields: ['n','place','prof','how','ok','no'],
+      searchPlaceholder: 'Поиск по школам…',
+      facets: [
+        {key:'okr', type:'chips', label:'Округ', multi:true, options: OKR.map(o=>[o,o]), test:(it,v)=>it.okr===v},
+        {key:'who', label:'Кому', options:[['u','{{U}}'],['y','{{Y}}']], test:(it,v)=>it.who.includes(v)},
+      ],
+      render(list, box){
+        list.slice().sort((a,b)=>a.pri-b.pri).forEach(s=>{
+          const body = el('div',{class:'body'},
+            el('div',{class:'row'}, el('div',{class:'lb'},'Профили'), el('div',{class:'sm',html:s.prof})),
+            el('div',{class:'row'}, el('div',{class:'lb'},'Как поступить'), el('div',{class:'sm',html:s.how})),
+            s.rank && s.rank!=='—' ? el('div',{class:'row'}, el('div',{class:'lb'},'В рейтингах'), el('div',{class:'sm',html:s.rank})) : null,
+            el('div',{class:'row'}, el('div',{class:'lb'},'Дорога'), el('div',{class:'sm',html:s.road})),
+            el('div',{class:'grid g2',style:'margin-top:14px'},
+              el('div',{class:'card',style:'padding:13px;border-left:3px solid var(--ok)'},
+                el('div',{class:'lb'},'Что хорошо'), el('div',{class:'sm',html:s.ok})),
+              el('div',{class:'card',style:'padding:13px;border-left:3px solid var(--bad)'},
+                el('div',{class:'lb'},'Что не так'), el('div',{class:'sm',html:s.no}))),
+            s.u ? el('p',{class:'xs muted',style:'margin:12px 0 0'}, el('a',{href:s.u,target:'_blank',rel:'noopener'},'Сайт школы и приём')) : null);
+          box.append(el('details',{class:'sc',id:s.pri===0?'gym':null},
+            el('summary',{},
+              el('span',{class:'nm'}, s.n),
+              el('span',{class:'b'}, s.okr),
+              el('span',{class:'b '+(s.type.indexOf('бюджет')>=0?'ok':'warn')}, s.type),
+              ...s.who.filter(w => !who || w === who).map(w=>el('span',{class:'b '+w}, KIDS[w==='u'?'elder':'younger'].name)),
+              s.pri===1?el('span',{class:'b acc'},'главный кандидат'):null),
+            body));
+        });
+      }
+    });
+  }
+
+  function paintConcl(){
+    const who = kidScope();
+    const cb = $('#concl'); cb.innerHTML = '';
+    SCH_CONCL.filter(([k]) => !who || k === who).forEach(([k,n,intro,items])=>{
+      cb.append(el('div',{class:'card '+k,style:'margin-bottom:14px'},
+        el('h3',{class:'mt0',style:'color:var(--'+k+')'}, n),
+        el('p',{class:'sm',html:intro}),
+        el('ul',{class:'sm',style:'padding-left:18px;margin-bottom:0'}, items.map(t=>el('li',{html:t,style:'margin-bottom:7px'})))));
+    });
+  }
 
   const wb = $('#win');
   SCH_WINDOW.forEach(([w,d])=>wb.append(el('div',{class:'win'},
     el('div',{class:'w'},w), el('div',{class:'sm',html:d}))));
 
-  const cb = $('#concl');
-  SCH_CONCL.forEach(([k,n,intro,items])=>{
-    cb.append(el('div',{class:'card '+k,style:'margin-bottom:14px'},
-      el('h3',{class:'mt0',style:'color:var(--'+k+')'}, n),
-      el('p',{class:'sm',html:intro}),
-      el('ul',{class:'sm',style:'padding-left:18px;margin-bottom:0'}, items.map(t=>el('li',{html:t,style:'margin-bottom:7px'})))));
-  });
+  function paint(){ applySections(); paintSchools(); paintConcl(); }
+  paint();
+  document.addEventListener('portal:login', paint);
+  document.addEventListener('portal:logout', paint);
 });
 </script>
 </body>

@@ -100,62 +100,80 @@ document.addEventListener('DOMContentLoaded',()=>{
   fill($('#ryes'), ROBO_PICK.yes);
   fill($('#rno'),  ROBO_PICK.no);
 
-  // каталог кружков
-  filterList({
-    items: CLUBS,
-    container: $('#clubs'),
-    searchFields: ['n','d','why','place','age'],
-    searchPlaceholder: 'Поиск по кружкам…',
-    facets: [
-      {key:'dir', type:'chips', label:'Направление', multi:true,
-       options: Object.entries(CLUB_DIRS).map(([k,v])=>[k,v[0]]), test:(it,v)=>it.dir===v},
-      {key:'who', label:'Кому', options:[['y','{{Y}}'],['u','{{U}}']], test:(it,v)=>it.who.includes(v)},
-      {key:'price', label:'Цена', options: Object.entries(CLUB_PRICE).map(([k,v])=>[k,v[0]]), test:(it,v)=>it.price===v},
-    ],
-    render(list, box){
-      list.slice().sort((a,b)=>(b.star?1:0)-(a.star?1:0)).forEach(c=>{
-        const D = CLUB_DIRS[c.dir], P = CLUB_PRICE[c.price];
-        const body = el('div',{class:'body'},
-          el('div',{class:'row'}, el('div',{class:'lb'},'Что это'), el('div',{class:'sm',html:c.d})),
-          c.place ? el('div',{class:'row'}, el('div',{class:'lb'},'Где'), el('div',{class:'sm',html:c.place})) : null,
-          el('div',{class:'row'}, el('div',{class:'lb'},'Как записаться'), el('div',{class:'sm',html:c.how})),
-          c.priceT ? el('div',{class:'row'}, el('div',{class:'lb'},'Стоимость'), el('div',{class:'sm'},c.priceT)) : null,
-          el('div',{style:'margin-top:12px;padding:11px 13px;background:var(--bg3);border-radius:8px'},
-            el('div',{class:'sm',html:c.why})),
-          el('div',{class:'xs muted',style:'margin-top:10px'},'Достоверность: '+c.conf,
-            c.u ? el('span',{},' · ', el('a',{href:c.u,target:'_blank',rel:'noopener'},'сайт')) : null));
-        box.append(el('details',{class:'cl',style:'border-left:3px solid '+D[1]},
-          el('summary',{},
-            el('span',{class:'nm'}, (c.star?'★ ':'')+c.n),
-            c.hot?el('span',{class:'b bad'},'срочно'):null,
-            el('span',{class:'b',style:'color:'+D[1]+';border-color:'+D[1]}, D[0]),
-            el('span',{class:'b '+P[1]}, P[0]),
-            el('span',{class:'b'}, c.age),
-            el('span',{class:'b'}, c.fmt),
-            ...c.who.map(w=>el('span',{class:'b '+w}, KIDS[w==='u'?'elder':'younger'].name))),
-          body));
-      });
-    }
-  });
+  // блок про робототехнику — для младшего
+  function applySections(){
+    const who = kidScope();
+    const h = document.getElementById('robo');
+    if(h){ const hide = (who === 'u'); let n = h;
+      while(n){ n.hidden = hide; n = n.nextElementSibling; if(!n || n.tagName === 'H2') break; } }
+    document.querySelectorAll('.toc a').forEach(a=>{
+      if((a.getAttribute('href')||'') === '#robo') a.hidden = (who === 'u');
+    });
+    applyKidScope();
+  }
 
-  // лагеря
-  const cb = $('#camps');
-  CAMPS.slice().sort((a,b)=>(b.star?1:0)-(a.star?1:0)).forEach(c=>{
-    const P = CLUB_PRICE[c.price];
-    cb.append(el('div',{class:'card',style:'margin-bottom:12px'+(c.star?';border-left:3px solid var(--acc)':'')},
-      el('div',{style:'display:flex;gap:9px;align-items:baseline;flex-wrap:wrap'},
-        el('h3',{class:'mt0',style:'margin-bottom:4px;font-size:16px;flex:1;min-width:200px'}, (c.star?'★ ':'')+c.n),
-        el('span',{class:'b '+P[1]}, P[0]),
-        el('span',{class:'b'}, c.age),
-        ...c.who.map(w=>el('span',{class:'b '+w}, KIDS[w==='u'?'elder':'younger'].name))),
-      el('div',{class:'sm',style:'margin:6px 0 9px',html:c.d}),
-      el('div',{class:'grid g3'},
-        el('div',{}, el('div',{class:'xs muted'},'Когда'), el('div',{class:'sm'},c.when)),
-        el('div',{}, el('div',{class:'xs muted'},'Дедлайн заявки'), el('div',{class:'sm',style:'color:var(--warn)'},c.dl)),
-        el('div',{}, el('div',{class:'xs muted'},'Отбор'), el('div',{class:'sm'},c.sel))),
-      el('div',{class:'sm muted',style:'margin-top:8px'}, c.priceT,
-        c.u ? el('span',{},' · ', el('a',{href:c.u,target:'_blank',rel:'noopener'},'сайт')) : null)));
-  });
+  function paintClubs(){
+    const who = kidScope();
+    const box = $('#clubs'); box.innerHTML = '';
+    filterList({
+      items: CLUBS.filter(c => !who || (c.who||[]).includes(who)),
+      container: box,
+      searchFields: ['n','d','why','place','age'],
+      searchPlaceholder: 'Поиск по кружкам…',
+      facets: [
+        {key:'dir', type:'chips', label:'Направление', multi:true,
+         options: Object.entries(CLUB_DIRS).map(([k,v])=>[k,v[0]]), test:(it,v)=>it.dir===v},
+        {key:'who', label:'Кому', options:[['y','{{Y}}'],['u','{{U}}']], test:(it,v)=>it.who.includes(v)},
+        {key:'price', label:'Цена', options: Object.entries(CLUB_PRICE).map(([k,v])=>[k,v[0]]), test:(it,v)=>it.price===v},
+      ],
+      render(list, box){
+        list.slice().sort((a,b)=>(b.star?1:0)-(a.star?1:0)).forEach(c=>{
+          const D = CLUB_DIRS[c.dir], P = CLUB_PRICE[c.price];
+          const body = el('div',{class:'body'},
+            el('div',{class:'row'}, el('div',{class:'lb'},'Что это'), el('div',{class:'sm',html:c.d})),
+            c.place ? el('div',{class:'row'}, el('div',{class:'lb'},'Где'), el('div',{class:'sm',html:c.place})) : null,
+            el('div',{class:'row'}, el('div',{class:'lb'},'Как записаться'), el('div',{class:'sm',html:c.how})),
+            c.priceT ? el('div',{class:'row'}, el('div',{class:'lb'},'Стоимость'), el('div',{class:'sm'},c.priceT)) : null,
+            el('div',{style:'margin-top:12px;padding:11px 13px;background:var(--bg3);border-radius:8px'},
+              el('div',{class:'sm',html:c.why})),
+            el('div',{class:'xs muted',style:'margin-top:10px'},'Достоверность: '+c.conf,
+              c.u ? el('span',{},' · ', el('a',{href:c.u,target:'_blank',rel:'noopener'},'сайт')) : null));
+          box.append(el('details',{class:'cl',style:'border-left:3px solid '+D[1]},
+            el('summary',{},
+              el('span',{class:'nm'}, (c.star?'★ ':'')+c.n),
+              c.hot?el('span',{class:'b bad'},'срочно'):null,
+              el('span',{class:'b',style:'color:'+D[1]+';border-color:'+D[1]}, D[0]),
+              el('span',{class:'b '+P[1]}, P[0]),
+              el('span',{class:'b'}, c.age),
+              el('span',{class:'b'}, c.fmt),
+              ...c.who.filter(w => !who || w === who).map(w=>el('span',{class:'b '+w}, KIDS[w==='u'?'elder':'younger'].name))),
+            body));
+        });
+      }
+    });
+  }
+
+  function paintCamps(){
+    const who = kidScope();
+    const cb = $('#camps'); cb.innerHTML = '';
+    CAMPS.filter(c => !who || (c.who||[]).includes(who))
+      .slice().sort((a,b)=>(b.star?1:0)-(a.star?1:0)).forEach(c=>{
+      const P = CLUB_PRICE[c.price];
+      cb.append(el('div',{class:'card',style:'margin-bottom:12px'+(c.star?';border-left:3px solid var(--acc)':'')},
+        el('div',{style:'display:flex;gap:9px;align-items:baseline;flex-wrap:wrap'},
+          el('h3',{class:'mt0',style:'margin-bottom:4px;font-size:16px;flex:1;min-width:200px'}, (c.star?'★ ':'')+c.n),
+          el('span',{class:'b '+P[1]}, P[0]),
+          el('span',{class:'b'}, c.age),
+          ...c.who.filter(w => !who || w === who).map(w=>el('span',{class:'b '+w}, KIDS[w==='u'?'elder':'younger'].name))),
+        el('div',{class:'sm',style:'margin:6px 0 9px',html:c.d}),
+        el('div',{class:'grid g3'},
+          el('div',{}, el('div',{class:'xs muted'},'Когда'), el('div',{class:'sm'},c.when)),
+          el('div',{}, el('div',{class:'xs muted'},'Дедлайн заявки'), el('div',{class:'sm',style:'color:var(--warn)'},c.dl)),
+          el('div',{}, el('div',{class:'xs muted'},'Отбор'), el('div',{class:'sm'},c.sel))),
+        el('div',{class:'sm muted',style:'margin-top:8px'}, c.priceT,
+          c.u ? el('span',{},' · ', el('a',{href:c.u,target:'_blank',rel:'noopener'},'сайт')) : null)));
+    });
+  }
 
   const fb = $('#fall');
   CAMPS_FALL.forEach(([w,t,who,d])=>fb.append(el('div',{class:'fall'},
@@ -168,6 +186,11 @@ document.addEventListener('DOMContentLoaded',()=>{
   CLUBS_TRUTH.forEach(([n,d],i)=>tb.append(el('div',{class:'tr'},
     el('div',{style:'font-weight:600;margin-bottom:3px'}, (i+1)+'. '+n),
     el('div',{class:'sm',html:d}))));
+
+  function paint(){ applySections(); paintClubs(); paintCamps(); }
+  paint();
+  document.addEventListener('portal:login', paint);
+  document.addEventListener('portal:logout', paint);
 });
 </script>
 </body>

@@ -142,46 +142,87 @@
 <script src="assets/js/portal.js"></script>
 <script>
 document.addEventListener('DOMContentLoaded',()=>{
+  // разделы про льготы и поступление — для старшего; младшему они не нужны
+  const ELDER_SECTIONS = ['how','easy','skills','changes','ind'];
+
   const subjMap = [
     ['математика','Математика'],['физика','Физика'],['информатика','Информатика / программирование'],
     ['биология','Биология'],['химия','Химия'],['проект','Проекты и инженерия'],['язык','Языки и гуманитарное'],
   ];
-  filterList({
-    items: OLYMPIADS.sort((a,b)=>a.prio-b.prio),
-    container: $('#cat'),
-    searchFields:['name','org','subj','note'],
-    searchPlaceholder:'Поиск по названию, вузу, предмету…',
-    facets:[
-      {key:'who', label:'Кому', type:'chips', options:[['u','{{U}}'],['y','{{Y}}']],
-       test:(it,v)=>it.who.includes(v)},
-      {key:'subj', label:'Предмет', type:'select',
-       options:subjMap.map(([v,l])=>[v,l]),
-       test:(it,v)=>JSON.stringify(it.subj).toLowerCase().includes(v)||
-                    (v==='проект'&&/проект|инженер|техник|ИИ|беспилот|спутник|робот/i.test(JSON.stringify(it.subj)))||
-                    (v==='язык'&&/язык|лингвист|литератур|истор|обществ/i.test(JSON.stringify(it.subj)))},
-      {key:'lvl', label:'Уровень', type:'select',
-       options:[['ВсОШ','ВсОШ'],['I','I уровень'],['II','II уровень'],['III','III уровень']],
-       test:(it,v)=> v==='ВсОШ' ? it.level==='ВсОШ' : it.level.includes(v)},
-    ],
-    render:(res,list)=>{
-      res.forEach(o=>{
-        const card = el('div',{class:'card',style:'margin-bottom:12px'+(o.prio===1?';border-left:3px solid var(--acc)':'')},
-          el('div',{style:'display:flex;justify-content:space-between;gap:12px;align-items:flex-start;flex-wrap:wrap'},
-            el('h3',{class:'mt0',style:'margin-bottom:2px'}, el('a',{href:o.url,target:'_blank',rel:'noopener'},o.name)),
-            el('span',{class:'b '+(o.level==='ВсОШ'?'acc':o.level.startsWith('I ')||o.level==='I'?'ok':'')}, o.level==='—'?'вне перечня':o.level+(o.level==='ВсОШ'?'':' уровень'))),
-          el('div',{class:'sm muted'}, o.org+' · '+o.classes+' класс'),
-          el('div',{class:'bl'},
-            o.prio===1?el('span',{class:'b acc'},'приоритет 1'):null,
-            ...o.who.map(w=>el('span',{class:'b '+w}, KIDS[w==='u'?'elder':'younger'].name)),
-            ...o.subj.slice(0,6).map(s=>el('span',{class:'b'},s))),
-          el('p',{class:'sm',style:'margin:8px 0 4px'}, el('b',{},'Этапы: '), o.stages),
-          el('p',{class:'sm mb0'}, o.note));
-        list.append(card);
-      });
-    }
-  });
 
-  // --- где проще ---
+  function applySections(){
+    const who = kidScope();
+    const hide = (who === 'y');
+    ELDER_SECTIONS.forEach(id=>{
+      const h = document.getElementById(id); if(!h) return;
+      let n = h;
+      while(n){ n.hidden = hide; n = n.nextElementSibling; if(!n || n.tagName === 'H2') break; }
+    });
+    document.querySelectorAll('.toc a').forEach(a=>{
+      const id = (a.getAttribute('href')||'').replace('#','');
+      if(ELDER_SECTIONS.includes(id)) a.hidden = hide;
+    });
+    applyKidScope();
+  }
+
+  function paintCatalog(){
+    const who = kidScope();
+    const cat = $('#cat'); cat.innerHTML = '';
+    filterList({
+      items: OLYMPIADS.filter(o => !who || (o.who||[]).includes(who)).sort((a,b)=>a.prio-b.prio),
+      container: cat,
+      searchFields:['name','org','subj','note'],
+      searchPlaceholder:'Поиск по названию, вузу, предмету…',
+      facets:[
+        {key:'who', label:'Кому', type:'chips', options:[['u','{{U}}'],['y','{{Y}}']],
+         test:(it,v)=>it.who.includes(v)},
+        {key:'subj', label:'Предмет', type:'select',
+         options:subjMap.map(([v,l])=>[v,l]),
+         test:(it,v)=>JSON.stringify(it.subj).toLowerCase().includes(v)||
+                      (v==='проект'&&/проект|инженер|техник|ИИ|беспилот|спутник|робот/i.test(JSON.stringify(it.subj)))||
+                      (v==='язык'&&/язык|лингвист|литератур|истор|обществ/i.test(JSON.stringify(it.subj)))},
+        {key:'lvl', label:'Уровень', type:'select',
+         options:[['ВсОШ','ВсОШ'],['I','I уровень'],['II','II уровень'],['III','III уровень']],
+         test:(it,v)=> v==='ВсОШ' ? it.level==='ВсОШ' : it.level.includes(v)},
+      ],
+      render:(res,list)=>{
+        res.forEach(o=>{
+          const card = el('div',{class:'card',style:'margin-bottom:12px'+(o.prio===1?';border-left:3px solid var(--acc)':'')},
+            el('div',{style:'display:flex;justify-content:space-between;gap:12px;align-items:flex-start;flex-wrap:wrap'},
+              el('h3',{class:'mt0',style:'margin-bottom:2px'}, el('a',{href:o.url,target:'_blank',rel:'noopener'},o.name)),
+              el('span',{class:'b '+(o.level==='ВсОШ'?'acc':o.level.startsWith('I ')||o.level==='I'?'ok':'')}, o.level==='—'?'вне перечня':o.level+(o.level==='ВсОШ'?'':' уровень'))),
+            el('div',{class:'sm muted'}, o.org+' · '+o.classes+' класс'),
+            el('div',{class:'bl'},
+              o.prio===1?el('span',{class:'b acc'},'приоритет 1'):null,
+              ...o.who.filter(w => !who || w === who).map(w=>el('span',{class:'b '+w}, KIDS[w==='u'?'elder':'younger'].name)),
+              ...o.subj.slice(0,6).map(s=>el('span',{class:'b'},s))),
+            el('p',{class:'sm',style:'margin:8px 0 4px'}, el('b',{},'Этапы: '), o.stages),
+            el('p',{class:'sm mb0'}, o.note));
+          list.append(card);
+        });
+      }
+    });
+  }
+
+  function paintCalendar(){
+    const who = kidScope();
+    const cal = $('#cal'); cal.innerHTML = '';
+    DEADLINES.filter(d => !who || (d.who||[]).includes(who))
+      .slice().sort((a,b)=>a.d<b.d?-1:1).forEach(d=>{
+      const n=daysTo(d.d);
+      cal.append(el('div',{class:'dl',style:n<0?'opacity:.45':''},
+        el('div',{class:'d',style:'min-width:110px'}, dfmtFull(d.d).replace(' г.','')+(d.approx?'*':'')),
+        el('div',{class:'c'},
+          el('div',{class:'t'}, d.url?el('a',{href:d.url,target:'_blank',rel:'noopener'},d.t):d.t),
+          el('div',{class:'bl'},
+            n>=0?el('span',{class:'b '+(n<=14?'bad':n<=45?'warn':'')}, n===0?'сегодня':'через '+plural(n,'день','дня','дней')):el('span',{class:'b'},'прошло'),
+            d.tag?el('span',{class:'b'},d.tag):null,
+            ...d.who.filter(w => !who || w === who).map(w=>el('span',{class:'b '+w}, KIDS[w==='u'?'elder':'younger'].name))),
+          el('div',{class:'s'}, d.s))));
+    });
+  }
+
+  // --- статичные блоки (одинаковы для всех, кто их видит) ---
   $('#verdict').innerHTML  = EASY_VERDICT;
   $('#intlintro').innerHTML = INTL_INTRO;
   $('#intlnote').innerHTML  = INTL_NOTE;
@@ -233,20 +274,15 @@ document.addEventListener('DOMContentLoaded',()=>{
       it.give && it.give!=='—' ? el('div',{class:'sm muted',style:'margin-top:4px'}, el('b',{},'Даёт: '), it.give) : null));
   });
 
-  // calendar
-  const cal=$('#cal');
-  DEADLINES.slice().sort((a,b)=>a.d<b.d?-1:1).forEach(d=>{
-    const n=daysTo(d.d);
-    cal.append(el('div',{class:'dl',style:n<0?'opacity:.45':''},
-      el('div',{class:'d',style:'min-width:110px'}, dfmtFull(d.d).replace(' г.','')+(d.approx?'*':'')),
-      el('div',{class:'c'},
-        el('div',{class:'t'}, d.url?el('a',{href:d.url,target:'_blank',rel:'noopener'},d.t):d.t),
-        el('div',{class:'bl'},
-          n>=0?el('span',{class:'b '+(n<=14?'bad':n<=45?'warn':'')}, n===0?'сегодня':'через '+plural(n,'день','дня','дней')):el('span',{class:'b'},'прошло'),
-          d.tag?el('span',{class:'b'},d.tag):null,
-          ...d.who.map(w=>el('span',{class:'b '+w}, KIDS[w==='u'?'elder':'younger'].name))),
-        el('div',{class:'s'}, d.s))));
-  });
+  function paint(){
+    applySections();
+    paintCatalog();
+    paintCalendar();
+  }
+
+  paint();
+  document.addEventListener('portal:login', paint);
+  document.addEventListener('portal:logout', paint);
 });
 </script>
 </body>

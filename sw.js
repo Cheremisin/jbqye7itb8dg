@@ -2,7 +2,7 @@
    Стратегия: сеть в приоритете, кэш как запасной вариант.
    Так содержание всегда свежее, но портал открывается и без интернета. */
 
-const VERSION = 'edu-v4';
+const VERSION = 'edu-v5';
 const CORE = [
   './', './index.html', './plan.html', './tasks.html', './tracker.html',
   './olympiads.html', './projects.html', './clubs.html', './admission.html',
